@@ -1,13 +1,15 @@
 import React ,{useState,useEffect}from "react";
-import {StyleSheet,Text,View,Alert} from 'react-native';
+import {StyleSheet,Text,View,Alert,Image} from 'react-native';
 import {Button,TextInput,ActivityIndicator,MD2Colors} from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from "../../utilis/Firebase-Config";
+import {auth} from '../../utilis/Firebase-Config';
+import {signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+
 
 
 
 const login = () =>{
+
     const [email,setEmail] = useState ("");
     const [password,setPassword] = useState("");
     const [errMessage,setErrMessage] = useState(null);
@@ -18,37 +20,37 @@ const login = () =>{
             Alert.alert(errMessage);
     },[errMessage])
 
+
     const register = async() =>{
-        setErrMessage(null);
-        try {
-            const user = await createUserWithEmailAndPassword(auth,email,password);
-        } catch (error) {
-            setErrMessage(error.message)
-        }
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth,email,password)
+    .then((userReg)=>{
+        const user =userReg.user;
+    }
+    )
+    .catch((err)=>{
+        setErrMessage(err.message)
+    })
     }
     const signIn = async() =>{
-        setErrMessage(null);
-        try {
-            const user = await signInWithEmailAndPassword(email,password);
-            AsyncStorage.setItem('Account',JSON.stringify({
-            useEmail:user.user.email,
-            use_uid:user.user.uid,
-            use_token:user.user.stsTokenManger.accessToken
-            })) 
-        } 
-        catch (error) {
-        setErrMessage(error.message);
-        }
+        await signInWithEmailAndPassword(auth,email,password)
+        .then((userSignIn) => {
+         const user = userSignIn.user;   
+        }).catch((err) => {
+            setErrMessage(err.message)
+        });
+        
     }
         return(
             <View style={styles.main}>
                 <View style={styles.gamehubView}>
                     <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
+                    <Image source={{uri:"https://raw.githubusercontent.com/GameHub88/.github/main/profile/logo.png"}} style={styles.logoPic} />
                 </View>
                 {
                     loginView?(
                     <View style={styles.main2}>
-                        <Text style={{fontSize:32,margin:10}}>Sign In</Text>
+                        <Text style={styles.subTitle}>Sign In</Text>
                     <TextInput 
                         keyboardType='email-address'
                         autoCapitalize="none"
@@ -76,7 +78,7 @@ const login = () =>{
                                     style={styles.Btn}
                                     >Sigh In</Button>
                                 <Button
-                                    onPress={register}
+                                    onPress={() => setLoginView(!loginView)}
                                     mode='contained-tonal'
                                     icon=''
                                     buttonColor="#FFFFFF"
@@ -87,7 +89,7 @@ const login = () =>{
                     </View>
                     ):(
                         <View style={styles.main2}>
-                        <Text style={{fontSize:32,margin:10}}>Register</Text>
+                        <Text style={styles.subTitle}>Register</Text>
                     <TextInput 
                         keyboardType='email-address'
                         autoCapitalize="none"
@@ -108,7 +110,7 @@ const login = () =>{
                         <View style={styles.main3}>
                             <View style={styles.btnView}>    
                                 <Button
-                                    onPress={signIn}
+                                    onPress={() => setLoginView(!loginView)}
                                     mode='contained-tonal'
                                     icon='account'
                                     buttonColor="#ffffff"
@@ -135,7 +137,7 @@ const styles =  StyleSheet.create({
         flex:1,
         width:'100%',
         height:'100%',
-        backgroundColor:'#FABC3C',
+        backgroundColor:'#ffffff',
         alignItems:'center',
         justifyContent:'center',
         
@@ -144,12 +146,12 @@ const styles =  StyleSheet.create({
         borderColor:'#000000',
         borderBottomStartRadius:24,
         borderTopRightRadius:24,
-        marginTop:130,
+        marginTop:10,
         marginBottom:200,
         flex:1,
         width:'90%',
         height:'90%',
-        backgroundColor:'#FFB238',
+        backgroundColor:'#BFD7EA',
         alignItems:'center',
         justifyContent:'center',
         borderWidth:1
@@ -166,6 +168,7 @@ const styles =  StyleSheet.create({
     },
     gameHubTxt:{
         fontSize:32,
+        fontWeight:'bold'
     },
     gamehubView:{
         marginTop:100,
@@ -177,8 +180,15 @@ const styles =  StyleSheet.create({
         borderWidth:0.5,
         borderColor:'#000000'
     },
-    btnView:{
-        
+    logoPic:{
+        width:100,
+        height:100
+    },
+    subTitle:{
+
+        fontSize:32,
+        margin:10,
+        fontWeight:'bold'
     }
 
 })

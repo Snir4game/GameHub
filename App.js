@@ -1,16 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import {database,auth} from './src/utilis/Firebase-Config';
 import { collection, addDoc } from 'firebase/firestore';
 import Login from './src/screens/Login/login';
+import React,{useState,useEffect} from 'react';
+import GameListView from './src/screens/Games/GameList'
+import {onAuthStateChanged} from 'firebase/auth'
+import {auth} from './src/utilis/Firebase-Config'
 
 
 export default function App() {
 
-  return (
-<Login>
+  const [appView,setAppView]=useState(false);
+  const [user, setUser] = useState(null);
 
-</Login>
+  useEffect(() => {
+    const subscribe = onAuthStateChanged(auth, (user) => {
+      if(user){
+        setUser(user)
+      } else {
+        setUser(null)
+      }
+    });
+    return subscribe;
+  },[])
+
+
+  return (
+    <View style={styles.container}>
+    {
+      user ? <GameListView/> : <Login/>
+    }
+    </View>
   );
 }
 
