@@ -1,8 +1,8 @@
 import { Text,Platform,View } from "react-native";
-import{GameList,AccountInfo,AddGame,GameNews} from '../screens';
+import{GameList,AccountInfo,AddGame,GameNews,FavoriteGame} from '../screens';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons,FontAwesome,Octicons,MaterialCommunityIcons   } from '@expo/vector-icons';
+import { Ionicons,FontAwesome,Octicons,MaterialCommunityIcons,MaterialIcons    } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 const screenOptions ={
@@ -52,6 +52,15 @@ return(
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
                         <Octicons name="diff-added" size={24} color={focused ? "#AD343E" : "#000000"} />
+                    </View>
+                    )
+                }
+            }}/>
+            <Tab.Screen name="Favorite Game" component={FavoriteGame} options={{
+                tabBarIcon:({focused}) => {
+                    return(
+                    <View style={{alignItems:'center',justifyContent:'center' }}>
+                        <MaterialIcons name="favorite-outline" size={24} color={focused ? "#AD343E" : "#000000"} />
                     </View>
                     )
                 }

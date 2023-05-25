@@ -1,15 +1,18 @@
-import React ,{useState,useEffect}from "react";
+import React ,{useState,useEffect,useRef}from "react";
 import {StyleSheet,Text,View,Alert,Image} from 'react-native';
 import {Button,TextInput,ActivityIndicator,MD2Colors} from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {auth} from '../../utilis/Firebase-Config';
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+//import lottie
+import LottieView from 'lottie-react-native';
 
 
 
 
 const login = () =>{
 
+    
     const [email,setEmail] = useState ("");
     const [password,setPassword] = useState("");
     const [errMessage,setErrMessage] = useState(null);
@@ -20,17 +23,18 @@ const login = () =>{
             Alert.alert(errMessage);
     },[errMessage])
 
+    const animation =useRef(null);
+    useEffect(()=>{
+      animation.current?.play();
+    },[])
 
     const register = async() =>{
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth,email,password)
-    .then((userReg)=>{
-        const user =userReg.user;
-    }
-    )
-    .catch((err)=>{
-        setErrMessage(err.message)
-    })
+        setErrMessage(null);
+        try {
+            const user = await createUserWithEmailAndPassword(auth,email,password);
+        } catch (error) {
+            setErrMessage(error.message)
+        }
     }
     const signIn = async() =>{
         await signInWithEmailAndPassword(auth,email,password)
@@ -45,7 +49,10 @@ const login = () =>{
             <View style={styles.main}>
                 <View style={styles.gamehubView}>
                     <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
-                    <Image source={{uri:"https://raw.githubusercontent.com/GameHub88/.github/main/profile/logo.png"}} style={styles.logoPic} />
+                    <LottieView
+                    ref={animation}
+                    style={{width:200,height:200}}
+                    source={require('../../../Pics/121990-game.json')}/>
                 </View>
                 {
                     loginView?(
@@ -154,7 +161,10 @@ const styles =  StyleSheet.create({
         backgroundColor:'#BFD7EA',
         alignItems:'center',
         justifyContent:'center',
-        borderWidth:1
+        borderWidth:3,
+        borderLeftWidth:2,
+        borderRightWidth:2,
+        
     },
     main3:{
         margin:10,
@@ -179,10 +189,6 @@ const styles =  StyleSheet.create({
         marginTop:3,
         borderWidth:0.5,
         borderColor:'#000000'
-    },
-    logoPic:{
-        width:100,
-        height:100
     },
     subTitle:{
 
