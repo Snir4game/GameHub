@@ -1,14 +1,10 @@
-import React ,{useState,useEffect} from "react";
-import {StyleSheet,Text,View,Alert,Image} from 'react-native';
-import {Button,TextInput,ActivityIndicator,MD2Colors} from 'react-native-paper'; 
+import { View, Text } from 'react-native'
+import React from 'react'
 
-const GameListView = () => {
-
-
-    return(
-        <View>
-            <Text>Snir</Text>
-        </View>
-    )    
+export default function GameList() {
+  return (
+    <View>
+      <Text>GameList</Text>
+    </View>
+  )
 }
-export default GameListView;
