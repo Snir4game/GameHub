@@ -14,26 +14,27 @@ const screenOptions ={
         right:0,
         left:0,
         elevation:0,
-        height:70,
+        height:80,
         background:'#fff'
     }
 }
-export default function App(){
-return(
-    <NavigationContainer>
+
+
+export const AppTab = () => {
+    return(
         <Tab.Navigator screenOptions={screenOptions} >
             <Tab.Screen name="Game Search" component={GameList} options={{
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',
                     justifyContent: 'center' ,
-                    backgroundColor: '#F2AF29',
-                    width: Platform.OS == "ios" ? 40 : 50,
+                    backgroundColor: '#59A5D8',
+                    width: Platform.OS == "ios" ? 45 : 50,
                     height: Platform.OS == 'ios' ? 40 : 50,
                     top: Platform.OS == 'ios' ? -10 : -20,
                     borderRadius: Platform.OS == 'ios' ? 25 : 30,
                     }}>
-                        <Ionicons name="game-controller-outline" size={24} color={focused ? "#AD343E" : "#000000"} />
+                        <Ionicons name={focused ? "game-controller" : "game-controller-outline"} size={24} color={focused ? "#000000" : "#000000"} />
                     </View>
                     )
                 }
@@ -42,7 +43,7 @@ return(
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
-                        <FontAwesome name="newspaper-o" size={24} color={focused ? "#AD343E" : "#000000"} />
+                        <Ionicons name={focused ?"newspaper":"newspaper-outline"} size={24} color={focused ? "#386FA4" : "#000000"} />
                     </View>
                     )
                 }
@@ -51,7 +52,7 @@ return(
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
-                        <Octicons name="diff-added" size={24} color={focused ? "#AD343E" : "#000000"} />
+                        <Octicons name="diff-added" size={24} color={focused ? "#386FA4" : "#000000"} />
                     </View>
                     )
                 }
@@ -60,7 +61,7 @@ return(
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
-                        <MaterialIcons name="favorite-outline" size={24} color={focused ? "#AD343E" : "#000000"} />
+                        <MaterialIcons name={focused ? "favorite" : "favorite-outline"} size={24} color={focused ? "#386FA4" : "#000000"} />
                     </View>
                     )
                 }
@@ -69,12 +70,14 @@ return(
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
-                        <MaterialCommunityIcons name="account-details-outline" size={24} color={focused ? "#AD343E" : "#000000"} />
+                        <MaterialCommunityIcons name={focused ?"account-details":"account-details-outline"} size={24} color={focused ? "#386FA4" : "#000000"} />
                     </View>
                     )
                 }
             }}
             />
         </Tab.Navigator>
-    </NavigationContainer>
-)}
+    )
+}
+
+

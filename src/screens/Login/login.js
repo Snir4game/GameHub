@@ -25,7 +25,7 @@ const login = () =>{
 
     const animation =useRef(null);
     useEffect(()=>{
-      animation.current?.play();
+      animation.current?.play()
     },[])
 
     const register = async() =>{
@@ -37,12 +37,11 @@ const login = () =>{
         }
     }
     const signIn = async() =>{
-        await signInWithEmailAndPassword(auth,email,password)
-        .then((userSignIn) => {
-         const user = userSignIn.user;   
-        }).catch((err) => {
-            setErrMessage(err.message)
-        });
+        try {
+            const user = await signInWithEmailAndPassword(auth,email,password)
+        } catch (error) {
+            setErrMessage(error.errMessage);
+        }
         
     }
         return(
@@ -153,17 +152,16 @@ const styles =  StyleSheet.create({
         borderColor:'#000000',
         borderBottomStartRadius:24,
         borderTopRightRadius:24,
-        marginTop:10,
         marginBottom:200,
         flex:1,
         width:'90%',
         height:'90%',
-        backgroundColor:'#BFD7EA',
+        backgroundColor:'#386FA4',
         alignItems:'center',
         justifyContent:'center',
-        borderWidth:3,
-        borderLeftWidth:2,
-        borderRightWidth:2,
+        borderWidth:2,
+        borderLeftWidth:3,
+        borderRightWidth:3,
         
     },
     main3:{

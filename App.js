@@ -5,13 +5,17 @@ import React,{useState,useEffect} from 'react';
 import GameListView from './src/screens/Games/GameList'
 import {onAuthStateChanged} from 'firebase/auth'
 import {auth} from './src/utilis/Firebase-Config'
-import Tabs from './src/screens/navigetor';
+import {AppTab} from './src/screens/navigetor';
 import { NavigationContainer } from '@react-navigation/native';
 export default function App() {
 
   const [appView,setAppView]=useState(false);
   const [user, setUser] = useState(null);
+
+
   const [UserAdmin,setUserAdmin] =useState(false);
+
+
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if(user){
@@ -25,7 +29,11 @@ export default function App() {
 
 
   return (
-        <Login/>
+    <NavigationContainer>
+       {
+        user ? (<AppTab />) : (<Login/>)
+       }
+    </NavigationContainer>
   );
 }
 
