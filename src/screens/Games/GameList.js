@@ -13,7 +13,7 @@ const GameList = ()=> {
                 placeholder="Search "
                 onChangeText={onChangeSearch}
                 value={searchQuery}
-                style={{borderTopLeftRadius:0,borderTopRightRadius:0}}
+                style={{borderTopLeftRadius:0,borderTopRightRadius:0,backgroundColor:'#ffffff'}}
               />
     </View>
   )

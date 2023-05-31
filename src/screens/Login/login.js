@@ -18,6 +18,9 @@ const login = () =>{
     const [errMessage,setErrMessage] = useState(null);
     const [loginView,setLoginView] = useState(true);
 
+
+    const[isLoading, setIsLoading] = useState(false);
+
     useEffect(()=>{
         if(errMessage!=null)
             Alert.alert(errMessage);
@@ -37,10 +40,13 @@ const login = () =>{
         }
     }
     const signIn = async() =>{
+        setIsLoading(true)
         try {
             const user = await signInWithEmailAndPassword(auth,email,password)
+            setIsLoading(false)
         } catch (error) {
             setErrMessage(error.errMessage);
+            setIsLoading(false)
         }
         
     }
@@ -51,7 +57,10 @@ const login = () =>{
                     <LottieView
                     ref={animation}
                     style={{width:200,height:200}}
-                    source={require('../../../Pics/121990-game.json')}/>
+                    source={require('../../../Pics/121990-game.json')}
+                    loop={false}
+                    duration={3000}
+                    />
                 </View>
                 {
                     loginView?(
@@ -76,13 +85,17 @@ const login = () =>{
                     />
                         <View style={styles.main3}>
                             <View style={styles.btnView}>    
-                                <Button
+                                {
+                                    isLoading? (<ActivityIndicator size='large' color={MD2Colors.blueA100} />) : (
+                                        <Button
                                     onPress={signIn}
                                     mode='contained-tonal'
                                     icon='account'
                                     buttonColor="#ffffff"
                                     style={styles.Btn}
                                     >Sigh In</Button>
+                                    )
+                                }
                                 <Button
                                     onPress={() => setLoginView(!loginView)}
                                     mode='contained-tonal'
