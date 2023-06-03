@@ -6,7 +6,8 @@ import {auth} from '../../utilis/Firebase-Config';
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 //import lottie
 import LottieView from 'lottie-react-native';
-
+//mix colors
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 
@@ -28,7 +29,7 @@ const login = () =>{
 
     const animation =useRef(null);
     useEffect(()=>{
-      animation.current?.play()
+        animation.current?.play(1)
     },[])
 
     const register = async() =>{
@@ -51,6 +52,7 @@ const login = () =>{
         
     }
         return(
+            <LinearGradient style={{width:'100%',height:'100%'}} colors={['#000000',"#ffffff",'#000000']}>
             <View style={styles.main}>
                 <View style={styles.gamehubView}>
                     <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
@@ -64,7 +66,7 @@ const login = () =>{
                 </View>
                 {
                     loginView?(
-                    <View style={styles.main2}>
+                        <View style={styles.main2}>
                         <Text style={styles.subTitle}>Sign In</Text>
                     <TextInput 
                         keyboardType='email-address'
@@ -149,6 +151,8 @@ const login = () =>{
                 }
                     
             </View>
+            </LinearGradient>
+
         )
 }
 const styles =  StyleSheet.create({
@@ -156,7 +160,6 @@ const styles =  StyleSheet.create({
         flex:1,
         width:'100%',
         height:'100%',
-        backgroundColor:'#ffffff',
         alignItems:'center',
         justifyContent:'center',
         
@@ -169,7 +172,6 @@ const styles =  StyleSheet.create({
         flex:1,
         width:'90%',
         height:'90%',
-        backgroundColor:'#386FA4',
         alignItems:'center',
         justifyContent:'center',
         borderWidth:2,

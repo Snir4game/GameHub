@@ -1,5 +1,6 @@
 import { Text,Platform,View } from "react-native";
 import{GameList,AccountInfo,AddGame,GameNews,FavoriteGame} from '../screens';
+import { Badge } from 'react-native-paper';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons,FontAwesome,Octicons,MaterialCommunityIcons,MaterialIcons    } from '@expo/vector-icons';

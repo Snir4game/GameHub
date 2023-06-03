@@ -11,11 +11,8 @@ export default function App() {
 
   const [appView,setAppView]=useState(false);
   const [user, setUser] = useState(null);
-
-
   const [UserAdmin,setUserAdmin] =useState(false);
-
-
+  
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if(user){

@@ -1,27 +1,66 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View,Alert,TextInput,FlatList } from 'react-native'
 import React,{useEffect,useState} from 'react'
-import { Alert,Title,TextInput,Text } from 'react-native-paper';
+import {Title,Text } from 'react-native-paper';
 import {  database,collection,
   addDoc,
   updateDoc,
   doc,
   getDocs,
   deleteDoc,} from '../../utilis/Firebase-Config';
+  import GameList from './GameList';
 
 const AddGame = () => {
 
   const [game,setGame] = useState('');
+  const [gameList,setGameList] = useState([]);
+  // const [gameImage,setGameImage] = useEffect('');
+//Create new Game
   const saveGame = async() => {
     try {
-      
+      const gameListRef = await addDoc(collection(database,"GameSearch"),{
+        GameName:game
+      });
+      Alert.alert('Saved');
+      setGame("");
     } catch (error) {
-      
+      Alert.alert(error.message);
     }
+    getGameList();
   }
+
+  //Read Game
+const getGameList = async() =>{
+  try {
+    const query = await getDocs(collection(database,'GameSearch'));
+    setGameList(
+      query.docs.map((x) =>({
+        ...x.data(),
+        id: x.id
+      }))
+    )
+  } catch (error) {
+    Alert.alert(error.message);
+  }
+}
+
+  //Update Game
+
+
+  //Delete Game
+
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
-      <View style={styles.list}></View>
+      <View style={styles.list}>
+        {
+          gameList.length > 0 && <FlatList 
+          data={gameList}
+          keyExtractor={item =>item.id}
+          renderItem={({item}) => <GameList />}
+          
+          />
+        }
+      </View>
       <View style={styles.input}>
 
         <TextInput style={styles.inputText}
