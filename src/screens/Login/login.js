@@ -16,11 +16,17 @@ const login = () =>{
     
     const [email,setEmail] = useState ("");
     const [password,setPassword] = useState("");
+    const [passwordVisible, setPasswordVisible] = useState(false);
     const [errMessage,setErrMessage] = useState(null);
     const [loginView,setLoginView] = useState(true);
-
-
     const[isLoading, setIsLoading] = useState(false);
+
+
+const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
+
 
     useEffect(()=>{
         if(errMessage!=null)
@@ -52,7 +58,7 @@ const login = () =>{
         
     }
         return(
-            <LinearGradient style={{width:'100%',height:'100%'}} colors={['#000000',"#ffffff",'#000000']}>
+            <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff",'#a2aebb','#a2aebb','#071013','#000000']}>
             <View style={styles.main}>
                 <View style={styles.gamehubView}>
                     <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
@@ -67,7 +73,7 @@ const login = () =>{
                 {
                     loginView?(
                         <View style={styles.main2}>
-                        <Text style={styles.subTitle}>Sign In</Text>
+                            <Text style={styles.subTitle}>Sign In</Text>
                     <TextInput 
                         keyboardType='email-address'
                         autoCapitalize="none"
@@ -83,7 +89,15 @@ const login = () =>{
                         style={styles.txtInput}
                         value={password}
                         onChangeText={(text) => setPassword(text)}
-                        right = {<TextInput.Icon icon="eye"/>}
+                        right = {<TextInput.Icon icon={passwordVisible ? 'eye' : 'eye-off'}
+                            onPress={togglePasswordVisibility}
+                            onTouchEnd={() => {
+                            if (passwordVisible) {
+                                setPasswordVisible();
+                                }
+                            }
+                        }
+                        />}
                     />
                         <View style={styles.main3}>
                             <View style={styles.btnView}>    
@@ -95,7 +109,7 @@ const login = () =>{
                                     icon='account'
                                     buttonColor="#ffffff"
                                     style={styles.Btn}
-                                    >Sigh In</Button>
+                                    >Sign In</Button>
                                     )
                                 }
                                 <Button
@@ -126,7 +140,15 @@ const login = () =>{
                         style={styles.txtInput}
                         value={password}
                         onChangeText={(text) => setPassword(text)}
-                        right = {<TextInput.Icon icon="eye"/>}
+                        right = {<TextInput.Icon icon={passwordVisible ? 'eye' : 'eye-off'}
+                        onPress={togglePasswordVisibility}
+                        onTouchEnd={() => {
+                            if (passwordVisible) {
+                                setPasswordVisible();
+                                }
+                            }
+                        }
+                        />}
                     />
                         <View style={styles.main3}>
                             <View style={styles.btnView}>    
@@ -136,7 +158,7 @@ const login = () =>{
                                     icon='account'
                                     buttonColor="#ffffff"
                                     style={styles.Btn}
-                                    >Sigh In</Button>
+                                    >Sign In</Button>
                                 <Button
                                     onPress={register}
                                     mode='contained-tonal'
@@ -168,15 +190,13 @@ const styles =  StyleSheet.create({
         borderColor:'#000000',
         borderBottomStartRadius:24,
         borderTopRightRadius:24,
-        marginBottom:200,
         flex:1,
         width:'90%',
-        height:'90%',
-        alignItems:'center',
-        justifyContent:'center',
+        height:'100%',
+        alignItems:'flex-start',
+        justifyContent:'flex-start',
         borderWidth:2,
-        borderLeftWidth:3,
-        borderRightWidth:3,
+
         
     },
     main3:{
@@ -199,15 +219,17 @@ const styles =  StyleSheet.create({
         alignItems:'center'
     },
     Btn:{
-        marginTop:3,
+        margin:3,
         borderWidth:0.5,
-        borderColor:'#000000'
+        borderColor:'#000000',
     },
     subTitle:{
-
         fontSize:32,
         margin:10,
         fontWeight:'bold'
+    },
+    btnView:{
+        flexDirection:'row'
     }
 
 })
