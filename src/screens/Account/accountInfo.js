@@ -5,6 +5,7 @@ import { auth,signOut } from '../../utilis/Firebase-Config';
 import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
+import FirstName from '../Login/login';
 
 const Account =(props) =>{
   
@@ -60,7 +61,7 @@ const selectNewAvatar = async() =>{
       </TouchableOpacity>
       </View> 
     <View style={styles.avatar}>
-    <Text>User Name: {auth.currentUser.email}</Text>
+    <Text>User Name:</Text>
   <Button style={styles.logOutBtn} onPress={LogOutBtn}>Sigh Out</Button>
     </View>
   </View>

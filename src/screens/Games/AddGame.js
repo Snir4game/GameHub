@@ -52,17 +52,31 @@ useEffect(()=> {
 
   //Delete Game
 
+  const DeleteGame = async()=>{
+try {
+  await deleteDoc(doc(database,"GameSearch",props.GameSearch.id))
+} catch (error) {
+  Alert.alert(error.message)
+}
+  }
+
+
+
+
+
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
       <View style={styles.list}>
         {
-          gameList.length > 0 && <FlatList 
+          gameList.length > 0 ?( <FlatList 
           data={gameList}
           keyExtractor={item =>item.id}
-          renderItem={({item}) => <GameView />}
+          renderItem={({item}) => <GameView GameName={item}/>}
           
-          />
+          />):(
+            <Text>No Data</Text>
+          )
         }
       </View>
       <View style={styles.input}>

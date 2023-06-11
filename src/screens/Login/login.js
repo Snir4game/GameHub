@@ -70,7 +70,7 @@ const togglePasswordVisibility = () => {
             const user = await signInWithEmailAndPassword(auth,email,password)
             setIsLoading(true)
         } catch (error) {
-            setErrMessage(error.errMessage);
+            setErrMessage(error.message);
             setIsLoading(false)
         }
         
