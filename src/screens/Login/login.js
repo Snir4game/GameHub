@@ -1,5 +1,5 @@
 import React ,{useState,useEffect,useRef}from "react";
-import {StyleSheet,Text,View,Alert,Image} from 'react-native';
+import {StyleSheet,Text,View,Alert} from 'react-native';
 import {Button,TextInput,ActivityIndicator,MD2Colors} from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {auth} from '../../utilis/Firebase-Config';
@@ -8,23 +8,31 @@ import {signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'fireb
 import LottieView from 'lottie-react-native';
 //mix colors
 import { LinearGradient } from 'expo-linear-gradient';
-
+//Data for account
+import {  database,collection,addDoc,} from '../../utilis/Firebase-Config';
+//fonts
+import * as Font from 'expo-font';
+    
+import AppLoading from 'expo-app-loading';
 
 
 const login = () =>{
 
-    
+    const [fName,setFname] = useState("");
+    const [lName,setLname] = useState("")
     const [email,setEmail] = useState ("");
     const [password,setPassword] = useState("");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errMessage,setErrMessage] = useState(null);
     const [loginView,setLoginView] = useState(true);
-    const[isLoading, setIsLoading] = useState(false);
-
+    const [isLoading, setIsLoading] = useState(false);
+    const [FontLoaded,setFontLoaded] = useState(false);
+    const [isLoadingReg, setIsLoadingReg] = useState(false);
+    
 
 const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
-  };
+    };
 
 
 
@@ -40,23 +48,50 @@ const togglePasswordVisibility = () => {
 
     const register = async() =>{
         setErrMessage(null);
+        setIsLoadingReg(true);
         try {
             const user = await createUserWithEmailAndPassword(auth,email,password);
+            const UserInfo = await addDoc(collection(database,"UserInfo"),{
+                FirstName:fName,
+                LastName:lName,
+                Email:email
+            })
+            setIsLoadingReg(true);
         } catch (error) {
             setErrMessage(error.message)
+            setIsLoadingReg(false);
+
         }
     }
     const signIn = async() =>{
+        setErrMessage(null);
         setIsLoading(true)
         try {
             const user = await signInWithEmailAndPassword(auth,email,password)
-            setIsLoading(false)
+            setIsLoading(true)
         } catch (error) {
             setErrMessage(error.errMessage);
             setIsLoading(false)
         }
         
     }
+    const fetchFont = () =>{
+        return Font.loadAsync({
+            'Orbitron-Regular': require('../../../assets/Fonts/Orbitron-Regular.ttf'),
+            'Orbitron-Medium': require('../../../assets/Fonts/Orbitron-Medium.ttf'),
+        })
+    }
+    if(!FontLoaded){
+        return(
+            <AppLoading
+            startAsync={fetchFont}
+            onFinish={() => { setFontLoaded(true); }}
+            onError={(err) =>console.log(err)}
+            />
+        )
+    }
+
+
         return(
             <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff",'#a2aebb','#a2aebb','#071013','#000000']}>
             <View style={styles.main}>
@@ -125,30 +160,47 @@ const togglePasswordVisibility = () => {
                     ):(
                         <View style={styles.main2}>
                         <Text style={styles.subTitle}>Register</Text>
-                    <TextInput 
-                        keyboardType='email-address'
-                        autoCapitalize="none"
-                        style={styles.txtInput}
-                        value={email}
-                        onChangeText={(text) => setEmail(text)}
-                        placeholder="Email"
-                        />
-                    <TextInput 
-                        label="Password"
-                        keyboardType='default'
-                        secureTextEntry={true}
-                        style={styles.txtInput}
-                        value={password}
-                        onChangeText={(text) => setPassword(text)}
-                        right = {<TextInput.Icon icon={passwordVisible ? 'eye' : 'eye-off'}
-                        onPress={togglePasswordVisibility}
-                        onTouchEnd={() => {
-                            if (passwordVisible) {
-                                setPasswordVisible();
+                            <TextInput 
+                            keyboardType='default'
+                            autoCapitalize="none"
+                            style={styles.txtInput}
+                            value={fName}
+                            onChangeText={(text) => setFname(text)}
+                            placeholder="First Name"
+                            />
+                            <TextInput 
+                            keyboardType='default'
+                            autoCapitalize="none"
+                            style={styles.txtInput}
+                            value={lName}
+                            onChangeText={(text) => setLname(text)}
+                            placeholder="Last Name"
+                            />
+                            <TextInput 
+                            keyboardType='email-address'
+                            autoCapitalize="none"
+                            style={styles.txtInput}
+                            value={email}
+                            onChangeText={(text) => setEmail(text)}
+                            placeholder="Email"
+                            />
+                            <TextInput 
+                            label="Password"
+                            keyboardType='default'
+                            secureTextEntry={true}
+                            style={styles.txtInput}
+                            value={password}
+                            onChangeText={(text) => setPassword(text)}
+                            right = {<TextInput.Icon icon={passwordVisible ? 'eye' : 'eye-off'}
+                            onPress={togglePasswordVisibility}
+                            onTouchEnd={() => {
+                                if (passwordVisible) {
+                                    setPasswordVisible();
+                                    }
                                 }
                             }
+                            />
                         }
-                        />}
                     />
                         <View style={styles.main3}>
                             <View style={styles.btnView}>    
@@ -159,13 +211,16 @@ const togglePasswordVisibility = () => {
                                     buttonColor="#ffffff"
                                     style={styles.Btn}
                                     >Sign In</Button>
-                                <Button
+                                    {
+                                        isLoadingReg? (<ActivityIndicator size='large' color={MD2Colors.blueA100} />):
+                                (<Button
                                     onPress={register}
                                     mode='contained-tonal'
                                     icon=''
                                     buttonColor="#FFFFFF"
                                     style={styles.Btn}
-                                >Register</Button>
+                                >Register</Button>)
+                                }
                             </View>
                         </View>
                     </View> 
@@ -211,7 +266,8 @@ const styles =  StyleSheet.create({
     },
     gameHubTxt:{
         fontSize:32,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        fontFamily:'Orbitron-Medium'
     },
     gamehubView:{
         marginTop:100,
@@ -224,9 +280,10 @@ const styles =  StyleSheet.create({
         borderColor:'#000000',
     },
     subTitle:{
-        fontSize:32,
+        fontSize:40,
         margin:10,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        fontFamily:'Orbitron-Regular'
     },
     btnView:{
         flexDirection:'row'

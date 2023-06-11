@@ -1,15 +1,15 @@
-import { View, Text,StyleSheet } from 'react-native';
-import { Avatar, Button } from 'react-native-paper';
+import { View, Text,StyleSheet, TouchableOpacity } from 'react-native';
+import { Avatar, Button,IconButton} from 'react-native-paper';
 import React, { useState,useEffect } from 'react'
 import { auth,signOut } from '../../utilis/Firebase-Config';
 import { getAuth } from 'firebase/auth';
-
-
+import { LinearGradient } from 'expo-linear-gradient';
+import * as ImagePicker from 'expo-image-picker';
 
 const Account =(props) =>{
   
-  const[errMessage,setErrMessage]=useState(null);
-  
+  const [errMessage,setErrMessage]=useState(null);
+  const [avatar,setAvatar] = useState(null);
   
   const LogOutBtn = async() => {
   try {
@@ -24,17 +24,47 @@ useEffect(()=>{
       Alert.alert(errMessage);
 },[errMessage])
 
-  return(
-<View style={styles.container}>
-  <View name='avater' style={styles.Base}>
-    <View style={styles.avatar}>
-    <Avatar.Image size={100} source={require('../../../Pics/istockphoto-1290933921-612x612.jpg')}/> 
-    <Text>{auth.currentUser.email}</Text>
-  <Button style={styles.logOutBtn} onPress={LogOutBtn}>Sigh Out</Button>
 
+const selectNewAvatar = async() =>{
+
+  const result = await ImagePicker.launchImageLibraryAsync({
+    mediaTypes:ImagePicker.MediaTypeOptions.Images,
+    allowsEditing:true,
+  });
+  if(!result.canceled){
+    setAvatar(result.assets[0].uri);
+  }
+}
+
+
+
+  return(
+    <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff","#B0B0B0",'#DEDEDE','#C7C7C7','#C7C7C7']}>
+<View style={styles.container}>
+  
+      <View style={{height:100,width:100,justifyContent:'center',alignItems:'center',paddingBottom:50}}>
+    <Avatar.Image size={100} source={{uri:avatar}} />
+    <TouchableOpacity>
+    <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+        <IconButton icon='camera' size={25} style={{
+          opacity:1,
+          alignItems:'center',
+          justifyContent:'center',
+          borderWidth:1,
+          borderColor:'#ffffff',
+          borderRadius:15
+        }}
+        onPress={selectNewAvatar}
+        />
+        </View>
+      </TouchableOpacity>
+      </View> 
+    <View style={styles.avatar}>
+    <Text>User Name: {auth.currentUser.email}</Text>
+  <Button style={styles.logOutBtn} onPress={LogOutBtn}>Sigh Out</Button>
     </View>
   </View>
-</View>
+</LinearGradient>
   )
 }
 const styles = StyleSheet.create({
@@ -42,25 +72,21 @@ const styles = StyleSheet.create({
     flex:1,
     width:'100%',
     height:'100%',
-    justifyContent:'center',
     alignItems:'center',
+    justifyContent:'center',
+  },
 
-  },
-  Base:{
-    flex:1,
-    borderRadius:2,
-    width:'90%',
-    height:'90%',
-    justifyContent:'flex-start'
-  },
   avatar:{
-    width:'100%',
+    width:'90%',
     height:'80%',
+    borderColor:'#000000',
+    borderRadius:2,
+    borderWidth:2,
+    flexDirection:'column'
   },
   logOutBtn:{
     width:100,
     height:40,
-    backgroundColor:'#000000'
   }
 })
 export default Account;
