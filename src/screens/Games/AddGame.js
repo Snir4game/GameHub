@@ -7,7 +7,7 @@ import {  database,collection,
   doc,
   getDocs,
   deleteDoc,} from '../../utilis/Firebase-Config';
-  import GameList from './GameList';
+import GameView from './GameView';
 
 const AddGame = () => {
 
@@ -23,7 +23,7 @@ const AddGame = () => {
       Alert.alert('Saved');
       setGame("");
     } catch (error) {
-      Alert.alert(error.message);
+      Alert.alert("saveGame ==>"+error.message);
     }
     getGameList();
   }
@@ -32,17 +32,21 @@ const AddGame = () => {
 const getGameList = async() =>{
   try {
     const query = await getDocs(collection(database,'GameSearch'));
+    
     setGameList(
-      query.docs.map((x) =>({
-        ...x.data(),
-        id: x.id
+      query.docs.map((doc) =>({
+        ...doc.data(),
+        id: doc.id
       }))
     )
   } catch (error) {
-    Alert.alert(error.message);
+    Alert.alert("ListGame ==>"+error);
   }
 }
 
+useEffect(()=> {
+  getGameList();
+},[]);
   //Update Game
 
 
@@ -56,7 +60,7 @@ const getGameList = async() =>{
           gameList.length > 0 && <FlatList 
           data={gameList}
           keyExtractor={item =>item.id}
-          renderItem={({item}) => <GameList />}
+          renderItem={({item}) => <GameView />}
           
           />
         }
