@@ -1,6 +1,6 @@
-import { StyleSheet, View,Alert,TextInput,FlatList } from 'react-native'
+import { StyleSheet, View,Alert,TextInput,FlatList,Image } from 'react-native'
 import React,{useEffect,useState} from 'react'
-import {Title,Text } from 'react-native-paper';
+import {Title,Text, Button,ActivityIndicator,MD2Colors,IconButton } from 'react-native-paper';
 import {  database,collection,
   addDoc,
   updateDoc,
@@ -8,20 +8,44 @@ import {  database,collection,
   getDocs,
   deleteDoc,} from '../../utilis/Firebase-Config';
 import GameView from './GameView';
+import * as ImagePicker from 'expo-image-picker';
 
 const AddGame = () => {
 
   const [game,setGame] = useState('');
+  const [releaseDate,setReleaseDate] = useState('');
+  const [Genre,setGenre] = useState('');
+  const [Console,setConsole] = useState('');
+  const [Developer,setDeveloper] = useState('');
+  const [Player,setPlayer] = useState('');
+  const [Summary,setSummary] = useState('');
+  const [gameImage,setGameImage] = useState('');
   const [gameList,setGameList] = useState([]);
+  const [isSaved,setIsSaved] = useState(false);
   // const [gameImage,setGameImage] = useEffect('');
 //Create new Game
   const saveGame = async() => {
     try {
       const gameListRef = await addDoc(collection(database,"GameSearch"),{
-        GameName:game
+        GameName:game,
+        GameRelease:releaseDate,
+        Genre:Genre,
+        Developer:Developer,
+        Console:Console,
+        Players:Player,
+        Summary:Summary
       });
+      await setIsSaved(true);
       Alert.alert('Saved');
+      await setIsSaved(false);
       setGame("");
+      setReleaseDate("");
+      setGenre("");
+      setConsole("");
+      setDeveloper("");
+      setPlayer("");
+      setSummary("");
+
     } catch (error) {
       Alert.alert("saveGame ==>"+error.message);
     }
@@ -37,6 +61,7 @@ const getGameList = async() =>{
       query.docs.map((doc) =>({
         ...doc.data(),
         id: doc.id
+        
       }))
     )
   } catch (error) {
@@ -46,6 +71,7 @@ const getGameList = async() =>{
 
 useEffect(()=> {
   getGameList();
+
 },[]);
   //Update Game
 
@@ -61,50 +87,121 @@ try {
   }
 
 
+  const selectNewAvatar = async() =>{
 
-
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes:ImagePicker.MediaTypeOptions.Images,
+    });
+    if(!result.canceled){
+      setGameImage(result.assets[0].uri);
+    }
+  }
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}></View>
+            <View style={styles.input}>
+
+<TextInput style={styles.inputText}
+    placeholder='Enter your Game'
+    keyboardType='default'
+    onChangeText={(text) => setGame(text)}
+    value={game}
+/>
+<TextInput style={styles.inputText}
+    placeholder='Release Date'
+    keyboardType='default'
+    onChangeText={(text) => setReleaseDate(text)}
+    value={releaseDate}
+/>
+<TextInput style={styles.inputText}
+    placeholder='Genre'
+    keyboardType='default'
+    onChangeText={(text) => setGenre(text)}
+    value={Genre}
+/>
+<TextInput style={styles.inputText}
+    placeholder='Console'
+    keyboardType='default'
+    onChangeText={(text) => setConsole(text)}
+    value={Console}
+/>
+<TextInput style={styles.inputText}
+    placeholder='Developer'
+    keyboardType='default'
+    onChangeText={(text) => setDeveloper(text)}
+    value={Developer}
+/>
+<TextInput style={styles.inputText}
+    placeholder='Number of Players'
+    keyboardType='number-pad'
+    onChangeText={(text) => setPlayer(text)}
+    value={Player}
+/>
+<TextInput style={styles.inputText}
+    placeholder='Summary'
+    keyboardType='default'
+    onChangeText={(text) => setSummary(text)}
+    value={Summary}
+/>
+<Image  style={{width:66,height:66}}/>
+<IconButton icon='camera' size={25} style={{
+          opacity:1,
+          alignItems:'center',
+          justifyContent:'center',
+          borderWidth:1,
+          borderColor:'#ffffff',
+          borderRadius:10
+        }}
+        onPress={selectNewAvatar}
+        />
+
+{
+  isSaved?(<ActivityIndicator size='large' color={MD2Colors.blueA100} />):(
+    <Button 
+    style={styles.SaveBtn}
+    onPress={saveGame}
+    icon='content-save-edit'
+    >Save Game</Button>
+  )
+}
+
+</View>
+
+
       <View style={styles.list}>
         {
           gameList.length > 0 ?( <FlatList 
           data={gameList}
           keyExtractor={item =>item.id}
-          renderItem={({item}) => <GameView GameName={item}/>}
+          renderItem={({item}) => <GameView GameName={item} releaseDate={item}/>}
           
           />):(
             <Text>No Data</Text>
           )
         }
       </View>
-      <View style={styles.input}>
-
-        <TextInput style={styles.inputText}
-            placeholder='Enter your Game'
-            keyboardType='default'
-            onChangeText={(text) => setGame(text)}
-            onSubmitEditing={saveGame}
-            value={game}
-        />
-      </View>
-      
     </View>
   )
 }
 
-export default AddGame
+export default AddGame;
 
 const styles = StyleSheet.create({
   container:{
     flex:1,
     backgroundColor:'#386FA4',
-    paddingBottom:70
+    paddingBottom:70,
 
   },
-  header:{width:'100%', height:'15%',backgroundColor:'#2A2D34'},
-  list:{width:'100%', height:'70%'},
-  input:{width:'100%', height:'15%',backgroundColor:'#ebebeb',padding:10},
-  inputText:{width:"100%",height:60,backgroundColor:'#ffffff',fontSize:22,paddingHorizontal:1}
+
+  list:{width:'100%', height:'20%',
+},
+  input:{width:'100%', height:'100%',backgroundColor:'#ebebeb',padding:10,flexDirection:'column',
+  justifyContent:'center',
+  alignItems:'center'},
+  inputText:{width:"100%",height:55,backgroundColor:'#ffffff',fontSize:22,paddingHorizontal:1,margin:1},
+  SaveBtn:{
+    height:40,width:120,backgroundColor:'#ccaa11'
+  }
+
 })

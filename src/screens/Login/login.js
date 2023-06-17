@@ -1,5 +1,5 @@
 import React ,{useState,useEffect,useRef}from "react";
-import {StyleSheet,Text,View,Alert} from 'react-native';
+import {StyleSheet,Text,View,Alert, ScrollView} from 'react-native';
 import {Button,TextInput,ActivityIndicator,MD2Colors} from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {auth} from '../../utilis/Firebase-Config';
@@ -14,14 +14,15 @@ import {  database,collection,addDoc,} from '../../utilis/Firebase-Config';
 import * as Font from 'expo-font';
     
 import AppLoading from 'expo-app-loading';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 const login = () =>{
 
     const [fName,setFname] = useState("");
     const [lName,setLname] = useState("")
-    const [email,setEmail] = useState ("");
-    const [password,setPassword] = useState("");
+    const [email,setEmail] = useState ("Admin@gamehub.com");
+    const [password,setPassword] = useState("asd123asd");
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [errMessage,setErrMessage] = useState(null);
     const [loginView,setLoginView] = useState(true);
@@ -57,6 +58,7 @@ const togglePasswordVisibility = () => {
                 Email:email
             })
             setIsLoadingReg(true);
+            
         } catch (error) {
             setErrMessage(error.message)
             setIsLoadingReg(false);
@@ -67,8 +69,10 @@ const togglePasswordVisibility = () => {
         setErrMessage(null);
         setIsLoading(true)
         try {
-            const user = await signInWithEmailAndPassword(auth,email,password)
-            setIsLoading(true)
+            const user = await signInWithEmailAndPassword(auth,email,password);
+            AsyncStorage.setItem('User','New Age');
+            setIsLoading(true);
+            
         } catch (error) {
             setErrMessage(error.message);
             setIsLoading(false)
@@ -94,6 +98,8 @@ const togglePasswordVisibility = () => {
 
         return(
             <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff",'#a2aebb','#a2aebb','#071013','#000000']}>
+            <SafeAreaView style={{flex:1}}>
+
             <View style={styles.main}>
                 <View style={styles.gamehubView}>
                     <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
@@ -140,16 +146,17 @@ const togglePasswordVisibility = () => {
                                     isLoading? (<ActivityIndicator size='large' color={MD2Colors.blueA100} />) : (
                                         <Button
                                     onPress={signIn}
-                                    mode='contained-tonal'
+                                    mode='outlined'
                                     icon='account'
                                     buttonColor="#ffffff"
+
                                     style={styles.Btn}
                                     >Sign In</Button>
                                     )
                                 }
                                 <Button
                                     onPress={() => setLoginView(!loginView)}
-                                    mode='contained-tonal'
+                                    mode='outlined'
                                     icon=''
                                     buttonColor="#FFFFFF"
                                     style={styles.Btn}
@@ -206,7 +213,7 @@ const togglePasswordVisibility = () => {
                             <View style={styles.btnView}>    
                                 <Button
                                     onPress={() => setLoginView(!loginView)}
-                                    mode='contained-tonal'
+                                    mode='outlined'
                                     icon='account'
                                     buttonColor="#ffffff"
                                     style={styles.Btn}
@@ -215,7 +222,7 @@ const togglePasswordVisibility = () => {
                                         isLoadingReg? (<ActivityIndicator size='large' color={MD2Colors.blueA100} />):
                                 (<Button
                                     onPress={register}
-                                    mode='contained-tonal'
+                                    mode='outlined'
                                     icon=''
                                     buttonColor="#FFFFFF"
                                     style={styles.Btn}
@@ -228,6 +235,7 @@ const togglePasswordVisibility = () => {
                 }
                     
             </View>
+            </SafeAreaView>
             </LinearGradient>
 
         )

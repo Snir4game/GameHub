@@ -1,14 +1,20 @@
 import { View, Text,StyleSheet } from 'react-native';
-import React from 'react';
 import {  database,
     updateDoc,
     doc,
     deleteDoc,} from '../../utilis/Firebase-Config';
+import React,{useState,useEffect} from 'react';
+import { Searchbar } from 'react-native-paper';
 
-const GameView =(props)=> {
+    
+    const GameView =(props)=> {
+      
   return (
     <View style={styles.Row}>
+      <View style={styles.ColGameInfo}>
       <Text style={styles.GameInfo}>{props.GameName.GameName}</Text>
+      <Text style={styles.littletxt}>Release Date: {props.releaseDate.GameRelease} </Text>
+      </View>
     </View>
   )
 }
@@ -31,6 +37,14 @@ const styles=StyleSheet.create({
     GameInfo:{
         fontSize:22,
 
+    },
+    littletxt:{
+      fontSize:14,
+    },
+    ColGameInfo:{
+      flexDirection:'column',
+      height:'100%',
+      width:'100%'
     }
 })
 export default GameView;

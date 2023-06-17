@@ -1,21 +1,24 @@
-import { View, Text,StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text,StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Avatar, Button,IconButton} from 'react-native-paper';
 import React, { useState,useEffect } from 'react'
-import { auth,signOut } from '../../utilis/Firebase-Config';
+import {signOut,database } from '../../utilis/Firebase-Config';
 import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import FirstName from '../Login/login';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Account =(props) =>{
   
   const [errMessage,setErrMessage]=useState(null);
   const [avatar,setAvatar] = useState(null);
-  
+  const userData=AsyncStorage.getItem('User');
   const LogOutBtn = async() => {
   try {
     const user= getAuth();
     user.signOut(user);
+    AsyncStorage.removeItem("User");
   } catch (error) {
     setErrMessage(error.message);
   }
@@ -40,13 +43,15 @@ const selectNewAvatar = async() =>{
 
 
   return(
-    <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff","#B0B0B0",'#DEDEDE','#C7C7C7','#C7C7C7']}>
+<LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff","#B0B0B0",'#DEDEDE','#C7C7C7','#C7C7C7']}>
+  <ScrollView style={styles.container}
+  contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
+  showsVerticalScrollIndicator={false}
+  >
 <View style={styles.container}>
-  
-      <View style={{height:100,width:100,justifyContent:'center',alignItems:'center',paddingBottom:50}}>
-    <Avatar.Image size={100} source={{uri:avatar}} />
     <TouchableOpacity>
-    <View style={{flex:1,justifyContent:"center",alignItems:'center'}}>
+    <View style={{flex:1,justifyContent:"center",alignItems:'center',paddingTop:40}}>
+    <Avatar.Image size={100} source={require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
         <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',
@@ -61,20 +66,19 @@ const selectNewAvatar = async() =>{
       </TouchableOpacity>
       </View> 
     <View style={styles.avatar}>
-    <Text>User Name:</Text>
-  <Button style={styles.logOutBtn} onPress={LogOutBtn}>Sigh Out</Button>
+    <Text>Name: </Text>
+  <Button style={styles.logOutBtn} onPress={LogOutBtn}>Sign Out</Button>
     </View>
-  </View>
+  </ScrollView>
 </LinearGradient>
   )
 }
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    width:'100%',
-    height:'100%',
-    alignItems:'center',
-    justifyContent:'center',
+    padding:20
+    // alignItems:'center',
+    // justifyContent:'center',
   },
 
   avatar:{
