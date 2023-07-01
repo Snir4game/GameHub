@@ -1,7 +1,7 @@
 import { View, Text,StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Avatar, Button,IconButton} from 'react-native-paper';
 import React, { useState,useEffect } from 'react'
-import {signOut,database } from '../../utilis/Firebase-Config';
+import {signOut,database, auth } from '../../utilis/Firebase-Config';
 import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
@@ -46,54 +46,60 @@ const selectNewAvatar = async() =>{
 
   return(
 <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff","#B0B0B0",'#DEDEDE','#C7C7C7','#C7C7C7']}>
-  <ScrollView style={styles.container}
+  <View style={styles.container}
   contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
   showsVerticalScrollIndicator={false}
   >
 <View style={styles.container}>
-    <TouchableOpacity>
-    <View style={{flex:1,justifyContent:"center",alignItems:'center',paddingTop:40}}>
+    <View style={{flex:1 ,alignItems:'center'}}>
     <Avatar.Image size={100} source={require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
+    <TouchableOpacity>
         <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',
           justifyContent:'center',
           borderWidth:1,
           borderColor:'#ffffff',
-          borderRadius:15
+          borderRadius:15,
+          top:-20,
+          left:30
         }}
         onPress={selectNewAvatar}
         />
-        </View>
       </TouchableOpacity>
-      </View> 
-    <View style={styles.avatar}>
-    <Text>Name: </Text>
-  <Button style={styles.logOutBtn} onPress={LogOutBtn}>Sign Out</Button>
+      <View style={styles.TextInfo}>
+    <Text style={{fontSize:17}}>User Name: {auth.currentUser.email} </Text>
+  <Button style={styles.logOutBtn} textColor='#000000' onPress={LogOutBtn}>Sign Out</Button>
     </View>
-  </ScrollView>
+        </View> 
+      </View>
+    </View>
 </LinearGradient>
   )
 }
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    padding:20
+    padding:20,
+    flexDirection:'column',
     // alignItems:'center',
     // justifyContent:'center',
   },
 
-  avatar:{
-    width:'90%',
-    height:'80%',
+  TextInfo:{
+    width:'100%',
+    height:'50%',
     borderColor:'#000000',
     borderRadius:2,
     borderWidth:2,
-    flexDirection:'column'
+    flexDirection:'column',
   },
   logOutBtn:{
     width:100,
     height:40,
+    backgroundColor:'#ffffff',
+    borderColor:'#000000',
+    borderWidth:1
   }
 })
 export default Account;

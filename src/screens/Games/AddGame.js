@@ -1,4 +1,4 @@
-import { StyleSheet, View,Alert,TextInput,FlatList,Image } from 'react-native'
+import { StyleSheet, View,Alert,TextInput,FlatList,Image, ScrollView } from 'react-native'
 import React,{useEffect,useState} from 'react'
 import {Title,Text, Button,ActivityIndicator,MD2Colors,IconButton } from 'react-native-paper';
 import {  database,collection,
@@ -20,6 +20,7 @@ const AddGame = () => {
   const [Player,setPlayer] = useState('');
   const [Summary,setSummary] = useState('');
   const [gameImage,setGameImage] = useState('');
+  const [price,setPrice] = useState('');
   const [favoriteGame,setFavoriteGame]= useState(false);
   const [isSaved,setIsSaved] = useState(false);
   // const [gameImage,setGameImage] = useEffect('');
@@ -35,7 +36,8 @@ const AddGame = () => {
         Players:Player,
         Summary:Summary,
         GameImage:gameImage,
-        favoriteGame:false
+        favoriteGame:favoriteGame,
+        price:price
       });
       await setIsSaved(true);
       Alert.alert('Saved');
@@ -48,6 +50,7 @@ const AddGame = () => {
       setPlayer("");
       setSummary("");
       setGameImage("");
+      setPrice("");
     } catch (error) {
       Alert.alert("saveGame ==>"+error.message);
     }
@@ -57,16 +60,6 @@ const AddGame = () => {
 
   //Update Game
 
-
-  //Delete Game
-
-  const DeleteGame = async()=>{
-try {
-  await deleteDoc(doc(database,"GameSearch",props.GameSearch.id))
-} catch (error) {
-  Alert.alert(error.message)
-}
-  }
 
 
   const selectGameImage = async() =>{
@@ -81,11 +74,12 @@ try {
   }
 
   return (
+    <ScrollView >
     <View style={styles.container}>
             <View style={styles.input}>
 
 <TextInput style={styles.inputText}
-    placeholder='Enter your Game'
+    placeholder='Game Name'
     keyboardType='default'
     onChangeText={(text) => setGame(text)}
     value={game}
@@ -95,6 +89,12 @@ try {
     keyboardType='default'
     onChangeText={(text) => setReleaseDate(text)}
     value={releaseDate}
+/>
+<TextInput style={styles.inputText}
+    placeholder='Price'
+    keyboardType='default'
+    onChangeText={(text) => setPrice(text)}
+    value={price}
 />
 <TextInput style={styles.inputText}
     placeholder='Genre'
@@ -144,12 +144,14 @@ try {
     style={styles.SaveBtn}
     onPress={saveGame}
     icon='content-save-edit'
+    textColor='#000000'
     >Save Game</Button>
   )
 }
 
-</View>
+      </View>
     </View>
+  </ScrollView>
   )
 }
 
@@ -158,7 +160,7 @@ export default AddGame;
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'#386FA4',
+    backgroundColor:'#ebebeb',
     paddingBottom:70,
 
   },
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
   alignItems:'center'},
   inputText:{width:"100%",height:55,backgroundColor:'#ffffff',fontSize:22,paddingHorizontal:1,margin:1},
   SaveBtn:{
-    height:40,width:120,backgroundColor:'#ccaa11'
+    height:40,width:120,backgroundColor:'#88ff88'
   }
 
 })

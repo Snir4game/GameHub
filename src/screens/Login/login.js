@@ -97,7 +97,7 @@ const togglePasswordVisibility = () => {
 
 
         return(
-            <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff",'#a2aebb','#a2aebb','#071013','#000000']}>
+            <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff",'#a2aebb','#a2aebb','#000000','#000000']}>
             <SafeAreaView style={{flex:1}}>
 
             <View style={styles.main}>
@@ -108,7 +108,7 @@ const togglePasswordVisibility = () => {
                     style={{width:200,height:200}}
                     source={require('../../../Pics/121990-game.json')}
                     loop={false}
-                    duration={3000}
+                    duration={5000}
                     />
                 </View>
                 {
@@ -145,16 +145,18 @@ const togglePasswordVisibility = () => {
                                 {
                                     isLoading? (<ActivityIndicator size='large' color={MD2Colors.blueA100} />) : (
                                         <Button
-                                    onPress={signIn}
-                                    mode='outlined'
-                                    icon='account'
-                                    buttonColor="#ffffff"
+                                        textColor="#000000"
+                                        onPress={signIn}
+                                        mode='outlined'
+                                        icon='account'
+                                        buttonColor="#ffffff"
 
-                                    style={styles.Btn}
-                                    >Sign In</Button>
-                                    )
+                                        style={styles.Btn}
+                                        >Sign In</Button>
+                                        )
                                 }
                                 <Button
+                                    textColor="#000000"
                                     onPress={() => setLoginView(!loginView)}
                                     mode='outlined'
                                     icon=''
@@ -212,6 +214,7 @@ const togglePasswordVisibility = () => {
                         <View style={styles.main3}>
                             <View style={styles.btnView}>    
                                 <Button
+                                    textColor="#000000"
                                     onPress={() => setLoginView(!loginView)}
                                     mode='outlined'
                                     icon='account'
@@ -221,6 +224,7 @@ const togglePasswordVisibility = () => {
                                     {
                                         isLoadingReg? (<ActivityIndicator size='large' color={MD2Colors.blueA100} />):
                                 (<Button
+                                    textColor="#000000"
                                     onPress={register}
                                     mode='outlined'
                                     icon=''
@@ -247,6 +251,7 @@ const styles =  StyleSheet.create({
         height:'100%',
         alignItems:'center',
         justifyContent:'center',
+        flexDirection:'column'
         
     },
     main2:{
@@ -255,7 +260,7 @@ const styles =  StyleSheet.create({
         borderTopRightRadius:24,
         flex:1,
         width:'90%',
-        height:'100%',
+        height:'60%',
         alignItems:'flex-start',
         justifyContent:'flex-start',
         borderWidth:2,

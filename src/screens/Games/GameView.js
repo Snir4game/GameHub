@@ -1,15 +1,30 @@
-import { View, Text,StyleSheet,Image,TouchableOpacity } from 'react-native';
+import { View, Text,StyleSheet,Image,TouchableOpacity,Alert } from 'react-native';
 import {  database,
     updateDoc,
     doc,
     deleteDoc,} from '../../utilis/Firebase-Config';
 import React,{useState,useEffect} from 'react';
 import { Button, IconButton} from 'react-native-paper';
-
+import { Ionicons } from '@expo/vector-icons';
     
     const GameView =(props)=> {
       
       const [favoriteGame,setFavoriteGame]= useState(false);
+
+
+
+
+  //Delete Game
+
+  const DeleteGame = async()=>{
+    try {
+      await deleteDoc(doc(database,"GameSearch",props.GameSearch.id));
+      props.ReloadData();
+    } catch (error) {
+      Alert.alert(error.message)
+    }
+      }
+    
 // favorite game function 
       const AddToFavorite = async()=>{
         if(favoriteGame==false){
@@ -28,10 +43,11 @@ import { Button, IconButton} from 'react-native-paper';
       {/* <Image style={styles.gameImage}>{props.GameImage.GameImage}</Image> */}
       </TouchableOpacity>
       <Text style={styles.littletxt}>Release Date: {props.releaseDate.GameRelease} </Text>
+      <Text style={styles.littletxt}>Price: {props.price.price}</Text>
       <Text style={styles.littletxt}>Genre: {props.Genre.Genre}</Text>
       <Text style={styles.littletxt}>Developer: {props.Developer.Developer}</Text>
-      <Text style={styles.littletxt}></Text>
-      <IconButton style={styles.FavBtn} icon={"heart"} onPress={AddToFavorite} iconColor={favoriteGame?"#FF50D8":"#000000"}/>
+      <IconButton style={styles.FavBtn} icon={"heart"} onPress={AddToFavorite} iconColor={favoriteGame?"#E0115F":"#000000"}/>
+      <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>
       </View>
     </View>
   )
@@ -68,12 +84,18 @@ const styles=StyleSheet.create({
     FavBtn:{
       width:40,
       height:40,
-      top:-5,
+      top:-10,
       right:-330,
     },
     gameImage:{
       height:150,
       width:100
+    },
+    deleteBtn:{
+      width:40,
+      height:40,
+      top:-170,
+      right:-330,
     }
 })
 export default GameView;

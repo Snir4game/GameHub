@@ -16,7 +16,7 @@ const screenOptions ={
         left:0,
         elevation:0,
         height:80,
-        background:'#fff'
+        background:'#000000'
     }
 }
 
@@ -24,18 +24,18 @@ const screenOptions ={
 export const AppTab = () => {
     return(
         <Tab.Navigator screenOptions={screenOptions} >
-            <Tab.Screen name="Game Search" component={GameList} options={{
+            <Tab.Screen  name="Game Search" component={GameList} options={{
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',
                     justifyContent: 'center' ,
-                    backgroundColor: '#59A5D8',
+                    backgroundColor: '#0f52ba',
                     width: Platform.OS == "ios" ? 45 : 50,
                     height: Platform.OS == 'ios' ? 40 : 50,
                     top: Platform.OS == 'ios' ? -10 : -20,
                     borderRadius: Platform.OS == 'ios' ? 25 : 30,
                     }}>
-                        <Ionicons name={focused ? "game-controller" : "game-controller-outline"} size={24} color={focused ? "#000000" : "#000000"} />
+                        <Ionicons name={focused ? "game-controller" : "game-controller-outline"} size={25} color={focused ? "#000000" : "#000000"} />
                     </View>
                     )
                 }
@@ -44,7 +44,7 @@ export const AppTab = () => {
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
-                        <Ionicons name={focused ?"newspaper":"newspaper-outline"} size={24} color={focused ? "#386FA4" : "#000000"} />
+                        <Ionicons name={focused ?"newspaper":"newspaper-outline"} size={25} color={focused ? "#000000" : "#000000"} />
                     </View>
                     )
                 }
@@ -53,16 +53,16 @@ export const AppTab = () => {
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
-                        <Octicons name="diff-added" size={24} color={focused ? "#386FA4" : "#000000"} />
+                        <Octicons name="diff-added" size={25} color={focused ? "#000000" : "#000000"} />
                     </View>
                     )
                 }
             }}/>
-            <Tab.Screen name="Favorite Game" component={FavoriteGame} options={{
+            <Tab.Screen  name="Favorite Game" component={FavoriteGame} options={{
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
-                        <MaterialIcons name={focused ? "favorite" : "favorite-outline"} size={24} color={focused ? "#386FA4" : "#000000"} />
+                        <MaterialIcons name={focused ? "favorite" : "favorite-outline"} size={25} color={focused ? "#E0115F" : "#000000"} />
                     </View>
                     )
                 }
@@ -71,7 +71,7 @@ export const AppTab = () => {
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>
-                        <MaterialCommunityIcons name={focused ?"account-details":"account-details-outline"} size={24} color={focused ? "#386FA4" : "#000000"} />
+                        <MaterialCommunityIcons name={focused ?"account-details":"account-details-outline"} size={25} color={focused ? "#4FC978" : "#000000"} />
                     </View>
                     )
                 }

@@ -38,7 +38,7 @@ const GameList = (props)=> {
   return (
     <View>
           <Searchbar
-                placeholder="Search "
+                placeholder="Search"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
                 style={{borderTopLeftRadius:0,borderTopRightRadius:0,backgroundColor:'#ffffff'}}
@@ -54,7 +54,9 @@ const GameList = (props)=> {
           Players={item}
           Console={item}
           GameImage={item}
-          Genre={item}/>}
+          Genre={item}
+          price={item}
+          />}
           
           />):(
             <Text>No Data</Text>
@@ -67,9 +69,6 @@ const GameList = (props)=> {
 }
 const styles = StyleSheet.create({
   list:{width:'100%', height:'90%',
-},
-ScrollView:{ 
-  
 }
 })
 
