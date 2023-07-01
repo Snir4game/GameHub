@@ -20,7 +20,7 @@ const AddGame = () => {
   const [Player,setPlayer] = useState('');
   const [Summary,setSummary] = useState('');
   const [gameImage,setGameImage] = useState('');
-  const [gameList,setGameList] = useState([]);
+  const [favoriteGame,setFavoriteGame]= useState(false);
   const [isSaved,setIsSaved] = useState(false);
   // const [gameImage,setGameImage] = useEffect('');
 //Create new Game
@@ -33,7 +33,9 @@ const AddGame = () => {
         Developer:Developer,
         Console:Console,
         Players:Player,
-        Summary:Summary
+        Summary:Summary,
+        GameImage:gameImage,
+        favoriteGame:false
       });
       await setIsSaved(true);
       Alert.alert('Saved');
@@ -45,34 +47,14 @@ const AddGame = () => {
       setDeveloper("");
       setPlayer("");
       setSummary("");
-
+      setGameImage("");
     } catch (error) {
       Alert.alert("saveGame ==>"+error.message);
     }
     getGameList();
   }
 
-  //Read Game
-const getGameList = async() =>{
-  try {
-    const query = await getDocs(collection(database,'GameSearch'));
-    
-    setGameList(
-      query.docs.map((doc) =>({
-        ...doc.data(),
-        id: doc.id
-        
-      }))
-    )
-  } catch (error) {
-    Alert.alert("ListGame ==>"+error);
-  }
-}
 
-useEffect(()=> {
-  getGameList();
-
-},[]);
   //Update Game
 
 
@@ -87,10 +69,11 @@ try {
   }
 
 
-  const selectNewAvatar = async() =>{
+  const selectGameImage = async() =>{
 
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes:ImagePicker.MediaTypeOptions.Images,
+      
     });
     if(!result.canceled){
       setGameImage(result.assets[0].uri);
@@ -143,7 +126,7 @@ try {
     onChangeText={(text) => setSummary(text)}
     value={Summary}
 />
-<Image  style={{width:66,height:66}}/>
+<Image  style={{width:66,height:66,borderRadius:1,borderColor:'#000000'}}/>
 <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',
@@ -152,7 +135,7 @@ try {
           borderColor:'#ffffff',
           borderRadius:10
         }}
-        onPress={selectNewAvatar}
+        onPress={selectGameImage}
         />
 
 {
@@ -166,20 +149,6 @@ try {
 }
 
 </View>
-
-
-      <View style={styles.list}>
-        {
-          gameList.length > 0 ?( <FlatList 
-          data={gameList}
-          keyExtractor={item =>item.id}
-          renderItem={({item}) => <GameView GameName={item} releaseDate={item}/>}
-          
-          />):(
-            <Text>No Data</Text>
-          )
-        }
-      </View>
     </View>
   )
 }

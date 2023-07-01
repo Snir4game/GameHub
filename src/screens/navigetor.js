@@ -4,7 +4,7 @@ import { Badge } from 'react-native-paper';
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons,FontAwesome,Octicons,MaterialCommunityIcons,MaterialIcons    } from '@expo/vector-icons';
-
+// Botton Navigator Tabs 
 const Tab = createBottomTabNavigator();
 const screenOptions ={
     tabBarStyle:{

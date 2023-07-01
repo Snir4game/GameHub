@@ -6,7 +6,6 @@ import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import FirstName from '../Login/login';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Account =(props) =>{
@@ -14,6 +13,9 @@ const Account =(props) =>{
   const [errMessage,setErrMessage]=useState(null);
   const [avatar,setAvatar] = useState(null);
   const userData=AsyncStorage.getItem('User');
+
+
+  //Log Out Button 
   const LogOutBtn = async() => {
   try {
     const user= getAuth();
@@ -28,7 +30,7 @@ useEffect(()=>{
       Alert.alert(errMessage);
 },[errMessage])
 
-
+//Avatar Selecte
 const selectNewAvatar = async() =>{
 
   const result = await ImagePicker.launchImageLibraryAsync({
