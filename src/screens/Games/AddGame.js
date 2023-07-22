@@ -1,12 +1,15 @@
 import { StyleSheet, View,Alert,TextInput,FlatList,Image, ScrollView } from 'react-native'
 import React,{useEffect,useState} from 'react'
 import {Title,Text, Button,ActivityIndicator,MD2Colors,IconButton } from 'react-native-paper';
-import {  database,collection,
+import {  
+  database,
+  collection,
   addDoc,
   updateDoc,
   doc,
   getDocs,
-  deleteDoc,} from '../../utilis/Firebase-Config';
+  deleteDoc,
+  getStorage} from '../../utilis/Firebase-Config';
 import GameView from './GameView';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -52,15 +55,9 @@ const AddGame = () => {
       setGameImage("");
       setPrice("");
     } catch (error) {
-      Alert.alert("saveGame ==>"+error.message);
+      Alert.alert("The Game was not Saved"+error.message);
     }
-    getGameList();
   }
-
-
-  //Update Game
-
-
 
   const selectGameImage = async() =>{
 

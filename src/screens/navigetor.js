@@ -30,8 +30,8 @@ const GameStackNavigator = createNativeStackNavigator();
 export const GameStack = () => {
     return(
         <GameStackNavigator.Navigator>
-            <GameStackNavigator.Screen name="GameList" component={GameList} />
-            <GameStackNavigator.Screen name="GameInfo" component={GameInfo} />
+            <GameStackNavigator.Screen name="Game List" component={GameList} />
+            <GameStackNavigator.Screen name="Game Info" component={GameInfo} />
         </GameStackNavigator.Navigator>
     )
 }

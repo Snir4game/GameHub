@@ -1,10 +1,10 @@
-import { View, Text,StyleSheet,FlatList,Alert, ScrollView } from 'react-native'
+import { View, Text,StyleSheet,FlatList,Alert,RefreshControl,SafeAreaView,
+  ScrollView } from 'react-native'
 import React,{useState,useEffect} from 'react'
 import { Searchbar } from 'react-native-paper';
 import {  database,
-  updateDoc,
   doc,getDocs,collection,
-  deleteDoc,} from '../../utilis/Firebase-Config';
+} from '../../utilis/Firebase-Config';
   import GameView from './GameView';
 
 const GameList = (props)=> {
@@ -12,6 +12,16 @@ const GameList = (props)=> {
   const [searchQuery, setSearchQuery] = useState('');
   const onChangeSearch = query => setSearchQuery(query);
   const [gameList,setGameList] = useState([]);
+
+  // Refresh List
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
   
   //Read all Data from FireBase 
   const getGameList = async() =>{
@@ -51,7 +61,7 @@ const GameList = (props)=> {
           renderItem={({item}) => 
           
           <GameView 
-            onPress={() => {props.navigation.navigate('GameInfo', {game: item})}}
+            onPress={() => {props.navigation.navigate('Game Info', {game: item})}}
             GameName={item}
             reload={getGameList}
           />}

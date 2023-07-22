@@ -1,11 +1,9 @@
 import { View, Text,StyleSheet,Image,TouchableOpacity,Alert } from 'react-native';
 import {  database,
-    updateDoc,
     doc,
     deleteDoc,} from '../../utilis/Firebase-Config';
 import React,{useState,useEffect} from 'react';
-import { Button, IconButton} from 'react-native-paper';
-import { Ionicons } from '@expo/vector-icons';
+import { IconButton} from 'react-native-paper';
     
     const GameView =(props)=> {
       
@@ -57,7 +55,7 @@ const styles=StyleSheet.create({
         flexDirection:'row',
         padding:10,
         width:'100%',
-        height:150,
+        height:160,
         backgroundColor:"#fff",
         marginBottom:12,
         borderRadius:12,
@@ -68,7 +66,7 @@ const styles=StyleSheet.create({
         elevation:5
     },
     GameInfo:{
-        fontSize:40,
+        fontSize:30,
         fontWeight:500
 
     },
@@ -83,7 +81,6 @@ const styles=StyleSheet.create({
     FavBtn:{
       width:40,
       height:40,
-      top:-10,
       right:-330,
     },
     gameImage:{
@@ -93,7 +90,7 @@ const styles=StyleSheet.create({
     deleteBtn:{
       width:40,
       height:40,
-      top:-170,
+      top:-160,
       right:-330,
     }
 })

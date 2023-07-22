@@ -1,36 +1,50 @@
-import {StyleSheet, View } from 'react-native'
+import {ScrollView, StyleSheet, View } from 'react-native'
 import * as React from 'react';
 import { Avatar, Button, Card,Text } from 'react-native-paper';
-// game information page
+// game informetion page
 const GameInfo =(props) =>{
-
-
   const game = props.route.params.game;
 
+
+
+  // Update Game Informetion 
+  const UpdateGame = async() =>({
+
+  })
+
     return (
-        <Card>
+        <Card style={styles.GameinfoPage}>
+          <ScrollView>
+    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
     <Text style={styles.GameTextSize}>{game.GameName}</Text>
     <Card.Content>
-    <Text style={styles.subText}>Price: {game.price}</Text>
-    <Text style={styles.subText}>Console: {game.Console}</Text>
-    <Text style={styles.subText}>Release date : {game.GameRelease}</Text>
-    <Text style={styles.subText}>Game Developer: {game.Developer}</Text>
-    <Text style={styles.subText}>Genre: {game.Genre}</Text>
-    <Text style={styles.subText}>Players :{game.Players}</Text>
-    <Text style={styles.subText}>Summary: {game.Summary}</Text>
+    <Text style={styles.subText}>Price:<Text style={styles.txt}>{game.price}</Text></Text>
+    <Text style={styles.subText}>Console:<Text style={styles.txt}>{game.Console}</Text></Text>
+    <Text style={styles.subText}>Release date : <Text style={styles.txt}>{game.GameRelease}</Text></Text>
+    <Text style={styles.subText}>Developer: <Text style={styles.txt}>{game.Developer}</Text></Text>
+    <Text style={styles.subText}>Genre: <Text style={styles.txt}>{game.Genre}</Text></Text>
+    <Text style={styles.subText}>Players <Text style={styles.txt}>{game.Players}</Text>:</Text>
+    <Text style={styles.subText}>Summary: <Text style={styles.txt}>{game.Summary}</Text></Text>
     </Card.Content>
     <Button>Edit</Button>
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+    </ScrollView>
     </Card>
     )
   }
 
 const styles = StyleSheet.create({
   GameTextSize:{
-    fontSize:40
+    fontSize:40,
   },
   subText:{
+    fontSize:23,fontWeight:"600"
+  },
+  txt:{
     fontSize:20
+  },
+  GameinfoPage:{
+    width:'100%',
+    height:'90%'
   }
 })
 
