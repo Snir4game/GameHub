@@ -18,8 +18,8 @@ import { Ionicons } from '@expo/vector-icons';
 
   const DeleteGame = async()=>{
     try {
-      await deleteDoc(doc(database,"GameSearch",props.GameSearch.id));
-      props.ReloadData();
+      await deleteDoc(doc(database,"GameSearch",props.GameName.id));
+      props.reload();
     } catch (error) {
       Alert.alert(error.message)
     }
@@ -38,14 +38,13 @@ import { Ionicons } from '@expo/vector-icons';
   return (
     <View style={styles.Row}>
       <View style={styles.ColGameInfo}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.onPress}>
       <Text style={styles.GameInfo}>{props.GameName.GameName}</Text>
       {/* <Image style={styles.gameImage}>{props.GameImage.GameImage}</Image> */}
       </TouchableOpacity>
-      <Text style={styles.littletxt}>Release Date: {props.releaseDate.GameRelease} </Text>
-      <Text style={styles.littletxt}>Price: {props.price.price}</Text>
-      <Text style={styles.littletxt}>Genre: {props.Genre.Genre}</Text>
-      <Text style={styles.littletxt}>Developer: {props.Developer.Developer}</Text>
+      <Text style={styles.littletxt}>Release Date: {props.GameName.GameRelease} </Text>
+      <Text style={styles.littletxt}>Price: {props.GameName.price}</Text>
+      <Text style={styles.littletxt}>Genre: {props.GameName.Genre}</Text>
       <IconButton style={styles.FavBtn} icon={"heart"} onPress={AddToFavorite} iconColor={favoriteGame?"#E0115F":"#000000"}/>
       <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>
       </View>

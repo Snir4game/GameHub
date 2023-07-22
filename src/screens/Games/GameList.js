@@ -48,14 +48,12 @@ const GameList = (props)=> {
           gameList.length > 0 ?( <FlatList 
           data={gameList}
           keyExtractor={item =>item.id}
-          renderItem={({item}) => <GameView GameName={item}
-          releaseDate={item}
-          Developer={item}
-          Players={item}
-          Console={item}
-          GameImage={item}
-          Genre={item}
-          price={item}
+          renderItem={({item}) => 
+          
+          <GameView 
+            onPress={() => {props.navigation.navigate('GameInfo', {game: item})}}
+            GameName={item}
+            reload={getGameList}
           />}
           
           />):(

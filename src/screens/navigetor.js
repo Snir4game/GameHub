@@ -1,9 +1,13 @@
 import { Text,Platform,View } from "react-native";
-import{GameList,AccountInfo,AddGame,GameNews,FavoriteGame} from '../screens';
-import { Badge } from 'react-native-paper';
-import { NavigationContainer } from "@react-navigation/native";
+import{GameList,AccountInfo,AddGame,GameNews,FavoriteGame,GameInfo} from '../screens';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons,FontAwesome,Octicons,MaterialCommunityIcons,MaterialIcons    } from '@expo/vector-icons';
+
+
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+
+
 // Botton Navigator Tabs 
 const Tab = createBottomTabNavigator();
 const screenOptions ={
@@ -21,10 +25,23 @@ const screenOptions ={
 }
 
 
+
+const GameStackNavigator = createNativeStackNavigator();
+export const GameStack = () => {
+    return(
+        <GameStackNavigator.Navigator>
+            <GameStackNavigator.Screen name="GameList" component={GameList} />
+            <GameStackNavigator.Screen name="GameInfo" component={GameInfo} />
+        </GameStackNavigator.Navigator>
+    )
+}
+
+
+
 export const AppTab = () => {
     return(
         <Tab.Navigator screenOptions={screenOptions} >
-            <Tab.Screen  name="Game Search" component={GameList} options={{
+            <Tab.Screen  name="Game Search" component={GameStack} options={{
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',
