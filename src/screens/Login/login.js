@@ -16,12 +16,12 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-//
+//admin@gamehub.com
 const login = () =>{
 
     const [fName,setFname] = useState("");
     const [lName,setLname] = useState("")
-    const [email,setEmail] = useState ("admin@gamehub.com");
+    const [email,setEmail] = useState ("sniramsalem1995@gmail.com");
     const [password,setPassword] = useState("asd123asd");
     const [passwordVisible, setPasswordVisible] = useState(true);
     const [errMessage,setErrMessage] = useState();
@@ -29,8 +29,10 @@ const login = () =>{
     const [isLoading, setIsLoading] = useState(false);
     const [FontLoaded,setFontLoaded] = useState(false);
     const [isLoadingReg, setIsLoadingReg] = useState(false);
+
+
 // Reset Password with Email
-    const ChangePassword =(Email) =>{
+    const ChangePassword =() =>{
     try {
             sendPasswordResetEmail(auth,email);
             Alert.alert("We have Send you a mail to Reset the Password");
@@ -136,7 +138,7 @@ const login = () =>{
                     <TextInput 
                         label="Password"
                         keyboardType='default'
-                        secureTextEntry={true}
+                        secureTextEntry={passwordVisible}
                         style={styles.txtInput}
                         value={password}
                         onChangeText={(text) => setPassword(text)}
