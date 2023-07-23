@@ -87,6 +87,8 @@ const login = () =>{
         } catch (error) {
             setErrMessage("Opps something is Worng Check again your Email or Password");
             setIsLoading(false)
+            setEmail("");
+            setPassword("");
         }
         
     }
