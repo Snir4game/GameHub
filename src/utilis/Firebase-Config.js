@@ -29,7 +29,7 @@ const app = initializeApp(firebaseConfig);
 export const database = getFirestore(app);
 //auth
 export const auth = getAuth(app);
-// export const SignOut = signOut(app);
+// Google SignIn
 export const Provider = new GoogleAuthProvider(app); 
 // Storage
 export const Storage =getStorage();

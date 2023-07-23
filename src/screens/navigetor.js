@@ -57,7 +57,7 @@ export const AppTab = () => {
                     )
                 }
             }}/>
-            <Tab.Screen name="Game News" component={GameNews} options={{
+            <Tab.Screen name="App News" component={GameNews} options={{
                 tabBarIcon:({focused}) => {
                     return(
                     <View style={{alignItems:'center',justifyContent:'center' }}>

@@ -3,7 +3,7 @@ import {StyleSheet,Text,View,Alert, ScrollView} from 'react-native';
 import {Button,TextInput,ActivityIndicator,MD2Colors} from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {auth} from '../../utilis/Firebase-Config';
-import {signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import {signInWithEmailAndPassword, createUserWithEmailAndPassword,sendPasswordResetEmail } from 'firebase/auth';
 //import lottie
 import LottieView from 'lottie-react-native';
 //mix colors
@@ -16,20 +16,29 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
+//admin@gamehub.com
 const login = () =>{
 
     const [fName,setFname] = useState("");
     const [lName,setLname] = useState("")
-    const [email,setEmail] = useState ("Admin@gamehub.com");
+    const [email,setEmail] = useState ("sniramsalem1995@gmail.com");
     const [password,setPassword] = useState("asd123asd");
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const [errMessage,setErrMessage] = useState(null);
+    const [errMessage,setErrMessage] = useState();
     const [loginView,setLoginView] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [FontLoaded,setFontLoaded] = useState(false);
     const [isLoadingReg, setIsLoadingReg] = useState(false);
     
+// Reset Password with Email
+    const ChangePassword =(Email) =>{
+    try {
+            sendPasswordResetEmail(auth,email);
+            Alert.alert("We have Send you a mail to Reset the Password");
+    } catch (error) {
+        Alert.alert("Somethings Wrong with your email");
+    }
+    }
 
 const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -47,6 +56,7 @@ const togglePasswordVisibility = () => {
         animation.current?.play(1)
     },[])
 
+    //Register
     const register = async() =>{
         setErrMessage(null);
         setIsLoadingReg(true);
@@ -65,6 +75,8 @@ const togglePasswordVisibility = () => {
 
         }
     }
+
+    //SignIn mathod
     const signIn = async() =>{
         setErrMessage(null);
         setIsLoading(true)
@@ -74,11 +86,13 @@ const togglePasswordVisibility = () => {
             setIsLoading(true);
             
         } catch (error) {
-            setErrMessage(error.message);
+            setErrMessage("Opps something is Worng Check again your Email or Password");
             setIsLoading(false)
         }
         
     }
+
+    //Custom Fonts
     const fetchFont = () =>{
         return Font.loadAsync({
             'Orbitron-Regular': require('../../../assets/Fonts/Orbitron-Regular.ttf'),
@@ -164,6 +178,13 @@ const togglePasswordVisibility = () => {
                                     style={styles.Btn}
                                 >Register</Button>
                             </View>
+                            <Button
+                            textColor="#000000"
+                            onPress={ChangePassword}
+                            mode='outlined'
+                            buttonColor="#FFFFFF"
+                            style={styles.Btn}
+                            >Reset Password</Button>
                         </View>
                     </View>
                     ):(
