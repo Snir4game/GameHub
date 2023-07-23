@@ -1,6 +1,6 @@
 import { View, Text,StyleSheet,FlatList,Alert,RefreshControl,SafeAreaView,
   ScrollView } from 'react-native'
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useCallback} from 'react'
 import { Searchbar } from 'react-native-paper';
 import {  database,
   doc,getDocs,collection,
@@ -14,12 +14,13 @@ const GameList = (props)=> {
   const [gameList,setGameList] = useState([]);
 
   // Refresh List
-  const [refreshing, setRefreshing] = React.useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = React.useCallback(() => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
+      getGameList();
     }, 2000);
   }, []);
   

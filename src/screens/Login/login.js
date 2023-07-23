@@ -1,6 +1,6 @@
 import React ,{useState,useEffect,useRef}from "react";
 import {StyleSheet,Text,View,Alert, ScrollView} from 'react-native';
-import {Button,TextInput,ActivityIndicator,MD2Colors} from 'react-native-paper';
+import {Button,TextInput,ActivityIndicator,MD2Colors, shadow} from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {auth} from '../../utilis/Firebase-Config';
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword,sendPasswordResetEmail } from 'firebase/auth';
@@ -16,33 +16,29 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { SafeAreaView } from "react-native-safe-area-context";
 
-//admin@gamehub.com
+//
 const login = () =>{
 
     const [fName,setFname] = useState("");
     const [lName,setLname] = useState("")
-    const [email,setEmail] = useState ("sniramsalem1995@gmail.com");
+    const [email,setEmail] = useState ("admin@gamehub.com");
     const [password,setPassword] = useState("asd123asd");
-    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [passwordVisible, setPasswordVisible] = useState(true);
     const [errMessage,setErrMessage] = useState();
     const [loginView,setLoginView] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
     const [FontLoaded,setFontLoaded] = useState(false);
     const [isLoadingReg, setIsLoadingReg] = useState(false);
-    
 // Reset Password with Email
     const ChangePassword =(Email) =>{
     try {
             sendPasswordResetEmail(auth,email);
             Alert.alert("We have Send you a mail to Reset the Password");
+            setPassword("")
     } catch (error) {
         Alert.alert("Somethings Wrong with your email");
     }
     }
-
-const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-    };
 
 
 
@@ -50,7 +46,7 @@ const togglePasswordVisibility = () => {
         if(errMessage!=null)
             Alert.alert(errMessage);
     },[errMessage])
-
+//Animetion gif
     const animation =useRef(null);
     useEffect(()=>{
         animation.current?.play(1)
@@ -83,6 +79,7 @@ const togglePasswordVisibility = () => {
         try {
             const user = await signInWithEmailAndPassword(auth,email,password);
             AsyncStorage.setItem('User','New Age');
+            Alert.alert("Welcome to GameHub");
             setIsLoading(true);
             
         } catch (error) {
@@ -111,15 +108,14 @@ const togglePasswordVisibility = () => {
 
 
         return(
-            <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff",'#a2aebb','#a2aebb','#000000','#000000']}>
+            <LinearGradient style={{width:'100%',height:'100%'}} colors={["#000000","#ffffff",'#a2aebb','#a2aebb','#000000','#000000']}>
             <SafeAreaView style={{flex:1}}>
-
             <View style={styles.main}>
                 <View style={styles.gamehubView}>
                     <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
                     <LottieView
                     ref={animation}
-                    style={{width:200,height:200}}
+                    style={{width:200,height:200,bottom:35}}
                     source={require('../../../Pics/121990-game.json')}
                     loop={false}
                     duration={5000}
@@ -145,13 +141,6 @@ const togglePasswordVisibility = () => {
                         value={password}
                         onChangeText={(text) => setPassword(text)}
                         right = {<TextInput.Icon icon={passwordVisible ? 'eye' : 'eye-off'}
-                            onPress={togglePasswordVisibility}
-                            onTouchEnd={() => {
-                            if (passwordVisible) {
-                                setPasswordVisible();
-                                }
-                            }
-                        }
                         />}
                     />
                         <View style={styles.main3}>
@@ -222,13 +211,6 @@ const togglePasswordVisibility = () => {
                             value={password}
                             onChangeText={(text) => setPassword(text)}
                             right = {<TextInput.Icon icon={passwordVisible ? 'eye' : 'eye-off'}
-                            onPress={togglePasswordVisibility}
-                            onTouchEnd={() => {
-                                if (passwordVisible) {
-                                    setPasswordVisible();
-                                    }
-                                }
-                            }
                             />
                         }
                     />
@@ -285,6 +267,7 @@ const styles =  StyleSheet.create({
         alignItems:'flex-start',
         justifyContent:'flex-start',
         borderWidth:2,
+        bottom:135,
 
         
     },
@@ -296,17 +279,18 @@ const styles =  StyleSheet.create({
         width:'80%',
         height:40,
         margin:12,
-        borderWidth:1
+        borderWidth:1,
     },
     gameHubTxt:{
         fontSize:32,
         fontWeight:'bold',
-        fontFamily:'Orbitron-Medium'
+        fontFamily:'Orbitron-Medium',
+        bottom:50
     },
     gamehubView:{
         marginTop:100,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
     },
     Btn:{
         margin:3,
