@@ -1,21 +1,15 @@
 import {ScrollView, StyleSheet, View } from 'react-native'
 import * as React from 'react';
-import { Avatar, Button, Card,Text } from 'react-native-paper';
+import {Button, Card,Text } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 // game informetion page
 const GameInfo =(props) =>{
   const game = props.route.params.game;
 
-
-
-  // Update Game Informetion 
-  const UpdateGame = async() =>({
-
-  })
-
     return (
-        <Card style={styles.GameinfoPage}>
+      <Card style={styles.GameinfoPage}>
           <ScrollView>
-    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+    <Card.Cover source={{uri:game.GameImage}} />
     <Text style={styles.GameTextSize}>{game.GameName}</Text>
     <Card.Content>
     <Text style={styles.subText}>Price:<Text style={styles.txt}>{game.price}</Text></Text>
@@ -26,7 +20,6 @@ const GameInfo =(props) =>{
     <Text style={styles.subText}>Players <Text style={styles.txt}>{game.Players}</Text>:</Text>
     <Text style={styles.subText}>Summary: <Text style={styles.txt}>{game.Summary}</Text></Text>
     </Card.Content>
-    <Button>Edit</Button>
     </ScrollView>
     </Card>
     )
@@ -44,7 +37,8 @@ const styles = StyleSheet.create({
   },
   GameinfoPage:{
     width:'100%',
-    height:'90%'
+    height:'90%',
+    backgroundColor:'#ffffff'
   }
 })
 

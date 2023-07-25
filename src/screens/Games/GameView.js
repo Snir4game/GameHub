@@ -42,9 +42,6 @@ import { IconButton} from 'react-native-paper';
         }
       }
 
-      useEffect(() =>{
-        AddToFavorite();
-      },[])
 
 
   return (
@@ -52,12 +49,11 @@ import { IconButton} from 'react-native-paper';
       <View style={styles.ColGameInfo}>
         <TouchableOpacity onPress={props.onPress}>
       <Text style={styles.GameInfo}>{props.GameName.GameName}</Text>
-      {/* <Image style={styles.gameImage}>{props.GameImage.GameImage}</Image> */}
       </TouchableOpacity>
       <Text style={styles.littletxt}>Release Date: {props.GameName.GameRelease} </Text>
       <Text style={styles.littletxt}>Price: {props.GameName.price}</Text>
       <Text style={styles.littletxt}>Genre: {props.GameName.Genre}</Text>
-      <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite()}} iconColor={favoriteGame?"#E0115F":"#000000"}/>
+      <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite(!favoriteGame)}} iconColor={favoriteGame?"#E0115F":"#000000"}/>
       <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>
       </View>
     </View>
