@@ -9,7 +9,6 @@ import {AppTab} from './src/screens/navigetor';
 import { NavigationContainer } from '@react-navigation/native';
 export default function App() {
 
-  const [appView,setAppView]=useState(false);
   const [user, setUser] = useState(null);
   const [UserAdmin,setUserAdmin] =useState(false);
   

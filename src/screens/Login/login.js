@@ -177,7 +177,7 @@ const login = () =>{
                             mode='outlined'
                             buttonColor="#FFFFFF"
                             style={styles.Btn}
-                            >Reset Password</Button>
+                            >Forget Password?</Button>
                         </View>
                     </View>
                     ):(
@@ -271,7 +271,7 @@ const styles =  StyleSheet.create({
         alignItems:'flex-start',
         justifyContent:'flex-start',
         borderWidth:2,
-        bottom:135,
+        bottom:120,
 
         
     },
@@ -289,7 +289,7 @@ const styles =  StyleSheet.create({
         fontSize:32,
         fontWeight:'bold',
         fontFamily:'Orbitron-Medium',
-        bottom:50
+        bottom:40
     },
     gamehubView:{
         marginTop:100,

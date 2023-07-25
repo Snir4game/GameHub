@@ -4,7 +4,7 @@ import React from 'react'
 export default function GameNews() {
   return (
     <View>
-      <Text>gameNews</Text>
+      <Text>App News</Text>
     </View>
   )
 }

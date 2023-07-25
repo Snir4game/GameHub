@@ -1,7 +1,7 @@
 import { View, Text,StyleSheet,Image,TouchableOpacity,Alert } from 'react-native';
 import {  database,
     doc,
-    deleteDoc,} from '../../utilis/Firebase-Config';
+    deleteDoc,updateDoc} from '../../utilis/Firebase-Config';
 import React,{useState,useEffect} from 'react';
 import { IconButton} from 'react-native-paper';
     
@@ -17,6 +17,7 @@ import { IconButton} from 'react-native-paper';
   const DeleteGame = async()=>{
     try {
       await deleteDoc(doc(database,"GameSearch",props.GameName.id));
+      Alert.alert("Game has Deleted")
       props.reload();
     } catch (error) {
       Alert.alert(error.message)
@@ -25,14 +26,27 @@ import { IconButton} from 'react-native-paper';
     
 // favorite game function 
       const AddToFavorite = async()=>{
+        
+        const UpdateRef =doc(database,"GameSearch",props.GameName.id);
         if(favoriteGame==false){
-          props.favoriteGame=true;
+          await updateDoc(UpdateRef,{
+            favoriteGame:true
+          });
           setFavoriteGame(true);
         }
-          else{
-            setFavoriteGame(false);
-          }
+        else{
+          await updateDoc(UpdateRef,{
+            favoriteGame:false
+          });
+          setFavoriteGame(false);
+        }
       }
+
+      useEffect(() =>{
+        AddToFavorite();
+      },[])
+
+
   return (
     <View style={styles.Row}>
       <View style={styles.ColGameInfo}>
@@ -43,7 +57,7 @@ import { IconButton} from 'react-native-paper';
       <Text style={styles.littletxt}>Release Date: {props.GameName.GameRelease} </Text>
       <Text style={styles.littletxt}>Price: {props.GameName.price}</Text>
       <Text style={styles.littletxt}>Genre: {props.GameName.Genre}</Text>
-      <IconButton style={styles.FavBtn} icon={"heart"} onPress={AddToFavorite} iconColor={favoriteGame?"#E0115F":"#000000"}/>
+      <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite()}} iconColor={favoriteGame?"#E0115F":"#000000"}/>
       <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>
       </View>
     </View>
