@@ -10,8 +10,9 @@ import {  database,
 const GameList = (props)=> {
 
   const [searchQuery, setSearchQuery] = useState('');
-  const onChangeSearch = query => setSearchQuery(query);
   const [gameList,setGameList] = useState([]);
+
+  const onChangeSearch = query => setSearchQuery(getGameList(query));
 
   // Refresh List
   const [refreshing, setRefreshing] = useState(false);
@@ -25,7 +26,7 @@ const GameList = (props)=> {
   }, []);
   
   //Read all Data from FireBase 
-  const getGameList = async() =>{
+  const getGameList = async(query) =>{
     try {
       const query = await getDocs(collection(database,'GameSearch'));
       
