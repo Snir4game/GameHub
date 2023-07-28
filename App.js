@@ -7,6 +7,7 @@ import {onAuthStateChanged} from 'firebase/auth'
 import {auth} from './src/utilis/Firebase-Config'
 import {AppTab} from './src/screens/navigetor';
 import { NavigationContainer } from '@react-navigation/native';
+
 export default function App() {
 
   const [user, setUser] = useState(null);
