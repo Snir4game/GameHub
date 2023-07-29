@@ -13,6 +13,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
+  sendEmailVerification,
 } from "firebase/auth";
 //import lottie
 import LottieView from "lottie-react-native";
@@ -32,8 +33,9 @@ const login = () => {
   const [fName, setFname] = useState("");
   const [lName, setLname] = useState("");
   const [email, setEmail] = useState("sniramsalem1995@gmail.com");
-  const [password, setPassword] = useState("asd123asd");
-  const [passwordVisible, setPasswordVisible] = useState(true);
+  const [avatar,setAvater] = useState("../../../Pics/istockphoto-1290933921-612x612.jpg")
+  const [password, setPassword] = useState("Asd123asd");
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [errMessage, setErrMessage] = useState();
   const [loginView, setLoginView] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,12 +47,11 @@ const login = () => {
     try {
       sendPasswordResetEmail(auth, email);
       Alert.alert("We have Send you a mail to Reset the Password");
-      setPassword("");
     } catch (error) {
       Alert.alert("Somethings Wrong with your email");
     }
   };
-
+  // password Visibility 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -58,6 +59,7 @@ const login = () => {
   useEffect(() => {
     if (errMessage != null) Alert.alert(errMessage);
   }, [errMessage]);
+  
   //Animetion gif
   const animation = useRef(null);
   useEffect(() => {
@@ -75,7 +77,9 @@ const login = () => {
         FirstName: fName,
         LastName: lName,
         Email: email,
+        Picture:avatar,
       });
+      const verification = sendEmailVerification(auth,email,actionCodeSetting)
       setIsLoadingReg(true);
     } catch (error) {
       setErrMessage(error.message);
@@ -89,9 +93,8 @@ const login = () => {
     setIsLoading(true);
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
-      AsyncStorage.setItem("User", "New Age");
       Alert.alert("Welcome to GameHub");
+      AsyncStorage.getItem("User");
       setIsLoading(true);
     } catch (error) {
       setErrMessage(

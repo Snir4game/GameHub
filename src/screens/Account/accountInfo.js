@@ -1,44 +1,47 @@
-import { View, Text,StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text,StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Avatar, Button,IconButton} from 'react-native-paper';
 import React, { useState,useEffect } from 'react'
-import {signOut,database, auth } from '../../utilis/Firebase-Config';
+import {database, auth,doc,updateDoc } from '../../utilis/Firebase-Config';
 import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
-import FirstName from '../Login/login';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Account =(props) =>{
   
   const [errMessage,setErrMessage]=useState(null);
   const [avatar,setAvatar] = useState(null);
-  const userData=AsyncStorage.getItem('User');
-
 
   //Log Out Button 
   const LogOutBtn = async() => {
-  try {
-    const user= getAuth();
-    user.signOut(user);
-    AsyncStorage.removeItem("User");
-  } catch (error) {
-    setErrMessage(error.message);
+    try {
+      const user= getAuth();
+      user.signOut(user);
+      AsyncStorage.removeItem("User");
+    } catch (error) {
+      setErrMessage(error.message);
+    }
   }
-}
-useEffect(()=>{
-  if(errMessage!=null)
-      Alert.alert(errMessage);
-},[errMessage])
-
-//Avatar Selecte
-const selectNewAvatar = async() =>{
-
+  useEffect(()=>{
+    if(errMessage!=null)
+    Alert.alert(errMessage);
+  },[errMessage])
+  
+  //Avatar Selecte
+  const selectNewAvatar = async() =>{
+  const updatePicById = doc(database,"UserInfo",props.Picture.id);
   const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes:ImagePicker.MediaTypeOptions.Images,
     allowsEditing:true,
   });
   if(!result.canceled){
-    setAvatar(result.assets[0].uri);
+    try {
+      await updateDoc(updatePicById,{Picture:result.assets[0].uri})
+      setAvatar(result.assets[0].uri);
+    } catch (error) {
+      Alert.alert("Avatar has not update");
+    }
   }
 }
 

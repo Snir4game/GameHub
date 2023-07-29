@@ -17,7 +17,9 @@ import {
 } from "@expo/vector-icons";
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import { auth } from "../utilis/Firebase-Config";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
 // Botton Navigator Tabs
 const Tab = createBottomTabNavigator();
 const screenOptions = {
@@ -49,10 +51,25 @@ export const GameStack = () => {
   );
 };
 
+
 export const AppTab = () => {
+  
+  const [user,setUser] =useState(null);
+
+  useEffect(() =>{
+    const unSubscribe = onAuthStateChanged(auth,(user)=>{
+      setUser(user)
+    })
+    return ()=> unSubscribe
+  },[])
+
+
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen
+      {
+        user ?(
+          <>
+          <Tab.Screen
         name="Game Search"
         component={GameStack}
         options={{
@@ -147,6 +164,107 @@ export const AppTab = () => {
           },
         }}
       />
+          </>
+        ):(
+          <>
+          <Tab.Screen
+        name="Game Search"
+        component={GameStack}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "#0f52ba",
+                  width: Platform.OS == "ios" ? 45 : 50,
+                  height: Platform.OS == "ios" ? 40 : 50,
+                  top: Platform.OS == "ios" ? -10 : -20,
+                  borderRadius: Platform.OS == "ios" ? 25 : 30,
+                }}
+              >
+                <Ionicons
+                  name={focused ? "game-controller" : "game-controller-outline"}
+                  size={25}
+                  color={focused ? "#000000" : "#000000"}
+                />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="App News"
+        component={GameNews}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <Ionicons
+                  name={focused ? "newspaper" : "newspaper-outline"}
+                  size={25}
+                  color={focused ? "#000000" : "#000000"}
+                />
+              </View>
+            );
+          },
+        }}
+      />
+      {/* <Tab.Screen
+        name="Add Game"
+        component={AddGame}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <Octicons
+                  name="diff-added"
+                  size={25}
+                  color={focused ? "#000000" : "#000000"}
+                />
+              </View>
+            );
+          },
+        }}
+      /> */}
+      <Tab.Screen
+        name="Favorite Game"
+        component={FavoriteGame}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <MaterialIcons
+                  name={focused ? "favorite" : "favorite-outline"}
+                  size={25}
+                  color={focused ? "#E0115F" : "#000000"}
+                />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Account"
+        component={AccountInfo}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <MaterialCommunityIcons
+                  name={focused ? "account-details" : "account-details-outline"}
+                  size={25}
+                  color={focused ? "#4FC978" : "#000000"}
+                />
+              </View>
+            );
+          },
+        }}
+      />
+          </>
+        )
+      }
     </Tab.Navigator>
   );
 };
