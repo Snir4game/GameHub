@@ -41,6 +41,7 @@ const login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [FontLoaded, setFontLoaded] = useState(false);
   const [isLoadingReg, setIsLoadingReg] = useState(false);
+  const [emailVerified,setEmailVerified] = useState(false);
 
   // Reset Password with Email
   const ChangePassword = () => {
@@ -78,8 +79,9 @@ const login = () => {
         LastName: lName,
         Email: email,
         Picture:avatar,
+        emailVerified:emailVerified
       });
-      const verification = sendEmailVerification(auth,email,actionCodeSetting)
+      const verification = sendEmailVerification(auth,email);
       setIsLoadingReg(true);
     } catch (error) {
       setErrMessage(error.message);
@@ -101,7 +103,6 @@ const login = () => {
         "Opps something is Worng Check again your Email or Password"
       );
       setIsLoading(false);
-      setEmail("");
       setPassword("");
     }
   };
@@ -137,7 +138,6 @@ const login = () => {
         "#000000",
       ]}
     >
-      <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.main}>
           <View style={styles.gamehubView}>
             <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
@@ -250,14 +250,21 @@ const login = () => {
               <TextInput
                 label="Password"
                 keyboardType="default"
-                secureTextEntry={true}
+                secureTextEntry={!passwordVisible}
                 style={styles.txtInput}
                 value={password}
                 onChangeText={(text) => setPassword(text)}
                 right={
-                  <TextInput.Icon icon={passwordVisible ? "eye" : "eye-off"} />
+                  <TextInput.Icon icon={passwordVisible ? "eye" : "eye-off"} 
+                  onPress={togglePasswordVisibility}
+                  />
                 }
-              />
+                onTouchEnd={() => {
+                  if (passwordVisible) {
+                    togglePasswordVisibility();
+                  }
+                }}
+                  />
               <View style={styles.main3}>
                 <View style={styles.btnView}>
                   <Button
@@ -292,7 +299,6 @@ const login = () => {
             </View>
           )}
         </View>
-      </SafeAreaView>
     </LinearGradient>
   );
 };

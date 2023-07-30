@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Account =(props) =>{
   
   const [errMessage,setErrMessage]=useState(null);
-  const [avatar,setAvatar] = useState(null);
+  const [avatar,setAvatar] = useState("");
 
   //Log Out Button 
   const LogOutBtn = async() => {
@@ -30,17 +30,19 @@ const Account =(props) =>{
   
   //Avatar Selecte
   const selectNewAvatar = async() =>{
-  const updatePicById = doc(database,"UserInfo",props.Picture.id);
-  const result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes:ImagePicker.MediaTypeOptions.Images,
-    allowsEditing:true,
-  });
-  if(!result.canceled){
-    try {
-      await updateDoc(updatePicById,{Picture:result.assets[0].uri})
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes:ImagePicker.MediaTypeOptions.Images,
+      allowsEditing:true,
+      aspect:[4,3],
+      quality:1
+    });
+    if(!result.canceled){
+      try {
+        const updatePicById = doc(database,"UserInfo",props.Picture.id);
+        await updateDoc(updatePicById,{Picture:result.assets[0].uri})
       setAvatar(result.assets[0].uri);
     } catch (error) {
-      Alert.alert("Avatar has not update");
+      Alert.alert("Avatar has not update " + error.message);
     }
   }
 }

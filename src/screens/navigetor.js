@@ -211,23 +211,6 @@ export const AppTab = () => {
           },
         }}
       />
-      {/* <Tab.Screen
-        name="Add Game"
-        component={AddGame}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <Octicons
-                  name="diff-added"
-                  size={25}
-                  color={focused ? "#000000" : "#000000"}
-                />
-              </View>
-            );
-          },
-        }}
-      /> */}
       <Tab.Screen
         name="Favorite Game"
         component={FavoriteGame}

@@ -17,7 +17,7 @@ import { IconButton} from 'react-native-paper';
   const DeleteGame = async()=>{
     try {
       await deleteDoc(doc(database,"GameSearch",props.GameName.id));
-      Alert.alert("Game has Deleted")
+      Alert.alert("Game has been Delete")
       props.reload();
     } catch (error) {
       Alert.alert(error.message)

@@ -58,7 +58,7 @@ const GameList = (props) => {
   }, []);
 
   return (
-    <View>
+    <View style={styles.main}>
       <Searchbar
         placeholder="Search"
         onChangeText={onChangeSearch}
@@ -93,6 +93,11 @@ const GameList = (props) => {
 };
 const styles = StyleSheet.create({
   list: { width: "100%", height: "90%" },
+  main:{
+    flex:1,
+    width:"100%",
+    height:"100%"
+  }
 });
 
 export default GameList;
