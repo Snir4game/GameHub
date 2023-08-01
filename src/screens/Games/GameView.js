@@ -1,17 +1,11 @@
 import { View, Text,StyleSheet,Image,TouchableOpacity,Alert } from 'react-native';
-import {  database,
-    doc,
-    deleteDoc,updateDoc} from '../../utilis/Firebase-Config';
+import {  database,doc,deleteDoc,updateDoc} from '../../utilis/Firebase-Config';
 import React,{useState,useEffect} from 'react';
 import { IconButton} from 'react-native-paper';
     
-    const GameView =(props)=> {
+const GameView =(props)=> {
       
       const [favoriteGame,setFavoriteGame]= useState(false);
-
-
-
-
   //Delete Game
 
   const DeleteGame = async()=>{
@@ -92,6 +86,7 @@ const styles=StyleSheet.create({
       width:40,
       height:40,
       right:-330,
+      top:-10
     },
     gameImage:{
       height:150,

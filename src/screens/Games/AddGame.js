@@ -13,7 +13,7 @@ import {
 import GameView from './GameView';
 import * as ImagePicker from 'expo-image-picker';
 
-const AddGame = () => {
+const AddGame = (props) => {
 
   const [game,setGame] = useState('');
   const [releaseDate,setReleaseDate] = useState('');
@@ -69,6 +69,31 @@ const AddGame = () => {
       setGameImage(result.assets[0].uri);
     }
   }
+  // const selectGameImage = async() =>{
+  //   const result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes:ImagePicker.MediaTypeOptions.Images,
+  //     allowsEditing:true,
+  //     aspect:[4,3],
+  //     quality:1,
+      
+  //   });
+  //   const source = {uri:result.uri};
+  //     setGameImage(source);
+  //   }
+
+  // const uploadGameImage = async ()=>{
+  //   setUploadImage(true);
+  //   const response = await fetch(gameImage.uri);
+  //   const blob = await response.blob();
+  //   const filename = gameImage.uri.substring(gameImage.uri.lastIndexOf('/')+1);
+  //   var ref = getStorage().ref().child(filename).put(blob);
+  //try{
+  //await ref;
+  //} catch(error){
+  // Alert.alert(error.message);
+  // }
+  //setUpload
+  //}
 
   return (
     <ScrollView >

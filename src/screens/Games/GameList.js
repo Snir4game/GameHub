@@ -4,9 +4,6 @@ import {
   StyleSheet,
   FlatList,
   Alert,
-  RefreshControl,
-  SafeAreaView,
-  ScrollView,
 } from "react-native";
 import React, { useState, useEffect, useCallback } from "react";
 import { Searchbar } from "react-native-paper";
