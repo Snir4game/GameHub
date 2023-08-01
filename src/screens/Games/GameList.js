@@ -25,14 +25,14 @@ const GameList = (props) => {
   const onChangeSearch = (query) => {
     setSearchQuery(query);
 
-    const filterdData = gameList.filter((item) => {
+    const filteredData = gameList.filter((item) => {
       const GameName = item.GameName.toLowerCase().includes(query.toLowerCase());
-      const Ganre = item.Genre.toLowerCase().includes(query.toLowerCase());
+      const Genre = item.Genre.toLowerCase().includes(query.toLowerCase());
       const Console = item.Console.toLowerCase().includes(query.toLowerCase());
       const Developer = item.Developer.toLowerCase().includes(query.toLowerCase());
-      return GameName || Ganre || Console || Developer;
+      return GameName || Genre || Console || Developer;
     });
-    setFilteredGameList(filterdData);
+    setFilteredGameList(filteredData);
   };
 
   //Read all Data from FireBase

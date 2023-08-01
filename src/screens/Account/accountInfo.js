@@ -28,7 +28,7 @@ const Account =(props) =>{
     Alert.alert(errMessage);
   },[errMessage])
   
-  //Avatar Selecte
+  //Avatar Select
   const selectNewAvatar = async() =>{
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes:ImagePicker.MediaTypeOptions.Images,
