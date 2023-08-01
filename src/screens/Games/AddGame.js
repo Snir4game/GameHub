@@ -55,7 +55,7 @@ const AddGame = (props) => {
       setGameImage("");
       setPrice("");
     } catch (error) {
-      Alert.alert("The Game was not Saved"+error.message);
+      Alert.alert("The Game was not Saved "+error.message);
     }
   }
 
