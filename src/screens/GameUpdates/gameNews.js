@@ -1,10 +1,14 @@
-import { View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export default function GameNews() {
+const GameNews = () => {
   return (
     <View>
-      <Text>App News</Text>
+      <Text>GameNews</Text>
     </View>
   )
 }
+
+export default GameNews
+
+const styles = StyleSheet.create({})

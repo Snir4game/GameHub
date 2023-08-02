@@ -33,7 +33,7 @@ const login = () => {
   const [fName, setFname] = useState("");
   const [lName, setLname] = useState("");
   const [email, setEmail] = useState("sniramsalem1995@gmail.com");
-  const [avatar,setAvater] = useState("../../../Pics/istockphoto-1290933921-612x612.jpg")
+  const [avatar,setAvatar] = useState("../../../Pics/istockphoto-1290933921-612x612.jpg")
   const [password, setPassword] = useState("Asd123asd");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errMessage, setErrMessage] = useState();
@@ -89,7 +89,7 @@ const login = () => {
     }
   };
 
-  //SignIn mathod
+  //SignIn method
   const signIn = async () => {
     setErrMessage(null);
     setIsLoading(true);
@@ -100,7 +100,7 @@ const login = () => {
       setIsLoading(true);
     } catch (error) {
       setErrMessage(
-        "Opps something is Worng Check again your Email or Password"
+        "something is Wrong Check again your Email or Password"
       );
       setIsLoading(false);
       setPassword("");

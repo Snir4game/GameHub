@@ -48,7 +48,6 @@ const Account =(props) =>{
 }
 
 
-
   return(
 <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff","#B0B0B0",'#DEDEDE','#C7C7C7','#C7C7C7']}>
   <View style={styles.container}

@@ -20,7 +20,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { auth } from "../utilis/Firebase-Config";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-// Botton Navigator Tabs
+// Bottom Navigator Tabs
 const Tab = createBottomTabNavigator();
 const screenOptions = {
   tabBarStyle: {
@@ -37,7 +37,7 @@ const screenOptions = {
 };
 
 const GameStackNavigator = createNativeStackNavigator();
-export const GameStack = () => {
+export const GameStack = (props) => {
   return (
     <GameStackNavigator.Navigator>
       <GameStackNavigator.Screen
@@ -46,6 +46,7 @@ export const GameStack = () => {
         options={{ title: ""}}
         
       />
+      <GameStackNavigator.Screen name='Favorite Game' component={FavoriteGame} />
       <GameStackNavigator.Screen name="Game Info" component={GameInfo} />
     </GameStackNavigator.Navigator>
   );

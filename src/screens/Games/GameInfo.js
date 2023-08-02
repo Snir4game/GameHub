@@ -2,7 +2,7 @@ import {ScrollView, StyleSheet, View } from 'react-native'
 import * as React from 'react';
 import {Button, Card,Text } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
-// game informetion page
+// game information page
 const GameInfo =(props) =>{
   const game = props.route.params.game;
 
