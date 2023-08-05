@@ -26,6 +26,8 @@ const AddGame = (props) => {
   const [price,setPrice] = useState('');
   const [favoriteGame,setFavoriteGame]= useState(false);
   const [isSaved,setIsSaved] = useState(false);
+  const [rate,setRate]=useState(0);
+
   // const [gameImage,setGameImage] = useState(null)
 //Create new Game
   const saveGame = async() => {
@@ -40,7 +42,8 @@ const AddGame = (props) => {
         Summary:Summary,
         GameImage:gameImage,
         favoriteGame:favoriteGame,
-        price:price
+        price:price,
+        Rate:rate
       });
       await setIsSaved(true);
       Alert.alert('Saved');

@@ -2,7 +2,7 @@ import { View, Text,StyleSheet,TouchableOpacity,Alert } from 'react-native';
 import {  database,doc,deleteDoc,updateDoc} from '../../utilis/Firebase-Config';
 import React,{useState,useEffect} from 'react';
 import { IconButton} from 'react-native-paper';
-    
+import { Rating } from '@rneui/themed';
 const GameView =(props)=> {
       
       const [favoriteGame,setFavoriteGame]= useState(false);
@@ -47,8 +47,10 @@ const GameView =(props)=> {
       <Text style={styles.littletxt}>Release Date: {props.GameName.GameRelease} </Text>
       <Text style={styles.littletxt}>Price: {props.GameName.price}</Text>
       <Text style={styles.littletxt}>Genre: {props.GameName.Genre}</Text>
+      <View style={styles.buttons}>
       <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite(!favoriteGame)}} iconColor={favoriteGame?"#E0115F":"#000000"}/>
       <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>
+      </View>
       </View>
     </View>
   )
@@ -59,7 +61,7 @@ const styles=StyleSheet.create({
         flexDirection:'row',
         padding:10,
         width:'100%',
-        height:160,
+        height:180,
         backgroundColor:"#fff",
         marginBottom:12,
         borderRadius:12,
@@ -70,7 +72,7 @@ const styles=StyleSheet.create({
         elevation:5
     },
     GameInfo:{
-        fontSize:30,
+        fontSize:25,
         fontWeight:500
 
     },
@@ -85,8 +87,7 @@ const styles=StyleSheet.create({
     FavBtn:{
       width:40,
       height:40,
-      right:-330,
-      top:-10
+      top:-280,
     },
     gameImage:{
       height:150,
@@ -95,8 +96,16 @@ const styles=StyleSheet.create({
     deleteBtn:{
       width:40,
       height:40,
-      top:-160,
-      right:-330,
+      top:-20
+    },
+    rate:{
+      height:100,
+      width:100,
+    },
+    buttons:{
+      flexDirection:'column',
+      flexWrap:'wrap-reverse',
+      left:15
     }
 })
 export default GameView;

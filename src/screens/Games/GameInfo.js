@@ -17,7 +17,7 @@ const GameInfo =(props) =>{
     <Text style={styles.subText}>Release date : <Text style={styles.txt}>{game.GameRelease}</Text></Text>
     <Text style={styles.subText}>Developer: <Text style={styles.txt}>{game.Developer}</Text></Text>
     <Text style={styles.subText}>Genre: <Text style={styles.txt}>{game.Genre}</Text></Text>
-    <Text style={styles.subText}>Players <Text style={styles.txt}>{game.Players}</Text>:</Text>
+    <Text style={styles.subText}>Players <Text style={styles.txt}>{game.Players}</Text></Text>
     <Text style={styles.subText}>Summary: <Text style={styles.txt}>{game.Summary}</Text></Text>
     </Card.Content>
     </ScrollView>

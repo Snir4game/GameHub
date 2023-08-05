@@ -13,6 +13,7 @@ const getFavoriteGameList = async() => {
     const query = await getDocs(collection(database,'GameSearch'))
     const queryRes = query.docs.map((doc) =>({
       ...doc.data(),
+      id:doc.id,
       favoriteGame:doc.true,
     }));
     setFavoriteGame(queryRes);
@@ -20,6 +21,10 @@ const getFavoriteGameList = async() => {
     Alert.alert(error.message);
   }
 }
+
+useEffect(() =>{
+  getFavoriteGameList()
+},[])
 
     return (
         <View style={style.container}>

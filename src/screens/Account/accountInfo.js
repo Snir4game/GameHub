@@ -6,12 +6,36 @@ import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {getStorage , ref } from 'firebase/storage';
 
 const Account =(props) =>{
   
   const [errMessage,setErrMessage]=useState(null);
   const [avatar,setAvatar] = useState("");
+  const [image,setImage] = useState = (null);
+  const [uploading,setUploading] = useState(false);
+
+  //pick Image for new Avatar
+  const pickImage = async() =>{
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing:true,
+      aspect:[4,3],
+      quality:1,
+    });
+
+    const source = {uri: result.uri};
+    console.log(source);
+    setImage(source);
+  };
+
+  const uploadImage = async() =>{
+    setUploading(true);
+    const response = await fetch(image.uri);
+    const blob = await response.blob();
+    const filename = image.uri.substring(image.uri.lastIndexOf('/')+1);
+    var ref = getStorage()
+  }
 
   //Log Out Button 
   const LogOutBtn = async() => {
@@ -29,23 +53,23 @@ const Account =(props) =>{
   },[errMessage])
   
   //Avatar Select
-  const selectNewAvatar = async() =>{
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes:ImagePicker.MediaTypeOptions.Images,
-      allowsEditing:true,
-      aspect:[4,3],
-      quality:1
-    });
-    if(!result.canceled){
-      try {
-        const updatePicById = doc(database,"UserInfo",props.Picture.id);
-        await updateDoc(updatePicById,{Picture:result.assets[0].uri})
-      setAvatar(result.assets[0].uri);
-    } catch (error) {
-      Alert.alert("Avatar has not update " + error.message);
-    }
-  }
-}
+//   const selectNewAvatar = async() =>{
+//     const result = await ImagePicker.launchImageLibraryAsync({
+//       mediaTypes:ImagePicker.MediaTypeOptions.Images,
+//       allowsEditing:true,
+//       aspect:[4,3],
+//       quality:1
+//     });
+//     if(!result.canceled){
+//       try {
+//         const updatePicById = doc(database,"UserInfo",props.Picture.id);
+//         await updateDoc(updatePicById,{Picture:result.assets[0].uri})
+//       setAvatar(result.assets[0].uri);
+//     } catch (error) {
+//       Alert.alert("Avatar has not update " + error.message);
+//     }
+//   }
+// }
 
 
   return(
