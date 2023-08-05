@@ -6,7 +6,7 @@ import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getStorage , ref } from 'firebase/storage';
+import {getStorage, ref, uploadBytes,} from 'firebase/storage';
 
 const Account =(props) =>{
   
@@ -34,7 +34,9 @@ const Account =(props) =>{
     const response = await fetch(image.uri);
     const blob = await response.blob();
     const filename = image.uri.substring(image.uri.lastIndexOf('/')+1);
-    var ref = getStorage()
+    const StorageRef = ref(getStorage(),'Account Images/',filename);
+    const uploadTask= uploadBytes(StorageRef,blob)
+
   }
 
   //Log Out Button 

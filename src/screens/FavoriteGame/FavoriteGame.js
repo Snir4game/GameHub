@@ -14,7 +14,7 @@ const getFavoriteGameList = async() => {
     const queryRes = query.docs.map((doc) =>({
       ...doc.data(),
       id:doc.id,
-      favoriteGame:doc.true,
+      favoriteGame:doc.data().favoriteGame,
     }));
     setFavoriteGame(queryRes);
   } catch (error) {
@@ -27,7 +27,7 @@ useEffect(() =>{
 },[])
 
     return (
-        <View style={style.container}>
+        <View style={styles.container}>
           { favoriteGame.length > 0 ? (
             <FlatList 
             data={favoriteGame}
@@ -35,7 +35,7 @@ useEffect(() =>{
             renderItem={({item}) => (
               <FavoriteGameList 
                 onPress = {() => {
-                  props.navigation,navigate("Favorite Game",{favGame : item})
+                  props.navigation.navigate("Favorite Game",{favGame : item})
                 }}
                 favoriteGame={item}
                 reload = {getFavoriteGameList}
@@ -43,7 +43,7 @@ useEffect(() =>{
             )}
             />
           ) : (
-            <View style={style.container}>
+            <View style={styles.container}>
               <Text>Add Some of your Favorite Games </Text>
             </View>
           )
@@ -52,7 +52,7 @@ useEffect(() =>{
     )
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container:{
     flex:1,
     height:"90%",

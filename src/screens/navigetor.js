@@ -6,6 +6,7 @@ import {
   GameNews,
   FavoriteGame,
   GameInfo,
+  FavoriteGameList
 } from "../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
@@ -46,6 +47,7 @@ export const GameStack = (props) => {
         options={{ title: ""}}
         
       />
+      <GameStackNavigator.Screen name='Your Favorite Games' component={FavoriteGameList} />
       <GameStackNavigator.Screen name='Favorite Game' component={FavoriteGame} />
       <GameStackNavigator.Screen name="Game Info" component={GameInfo} />
     </GameStackNavigator.Navigator>

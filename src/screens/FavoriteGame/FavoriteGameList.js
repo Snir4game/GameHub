@@ -3,13 +3,13 @@ import { StyleSheet,TouchableOpacity } from 'react-native';
 import { Card,Text } from 'react-native-paper';
 const FavoriteGameList = (props) => {
 
-const favGame = props.route.params.favoriteGame
-
+const fGame = props.route.params.favGame;
+console.log(fGame);
   return (
   <Card style={style.Col}>
-    <Card.Cover source={{uri:favGame.GameImage}} />
+    <Card.Cover source={{uri:fGame.GameImage}} />
     <TouchableOpacity>
-    <Text style={style.subText}>{favGame.GameName}</Text>
+    <Text style={style.subText}>{fGame.GameName}</Text>
     </TouchableOpacity>
   </Card>
   )

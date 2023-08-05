@@ -1,7 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getAuth,signOut,GoogleAuthProvider,sendPasswordResetEmail,onAuthStateChanged,ActionCodeSettings} from 'firebase/auth';
-import {getFirestore,
+import {
+  getFirestore,
   collection,
   addDoc,
   updateDoc,
@@ -9,7 +10,7 @@ import {getFirestore,
   deleteDoc,
   getDocs,
 } from 'firebase/firestore';
-import {getStorage,ref} from 'firebase/storage'
+import {getStorage,ref,getDownloadURL,uploadBytes} from 'firebase/storage'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -41,4 +42,10 @@ export {
   doc,
   getDocs,
   deleteDoc,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  signOut,
+  sendPasswordResetEmail,
+
 }
