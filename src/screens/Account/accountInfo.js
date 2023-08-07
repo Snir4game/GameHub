@@ -6,45 +6,37 @@ import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {getStorage, ref, uploadBytes,} from 'firebase/storage';
+import {getDownloadURL, getStorage, ref, uploadBytes,} from 'firebase/storage';
+import { setDoc } from 'firebase/firestore';
 
 const Account =(props) =>{
   
   const [errMessage,setErrMessage]=useState(null);
   const [avatar,setAvatar] = useState("");
-  const [image,setImage] = useState = (null);
+  const [image,setImage] = useState (null);
   const [uploading,setUploading] = useState(false);
+  const [uid,setUid] = useState("")
+  // //pick Image for new Avatar
+  // const pickImage = async() =>{
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing:true,
+  //     aspect:[4,3],
+  //     quality:1,
+  //   });
 
-  //pick Image for new Avatar
-  const pickImage = async() =>{
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing:true,
-      aspect:[4,3],
-      quality:1,
-    });
+  //   const source = {uri: result.uri};
+  //   console.log(source);
+  //   setImage(source);
+  // };
 
-    const source = {uri: result.uri};
-    console.log(source);
-    setImage(source);
-  };
-
-  const uploadImage = async() =>{
-    setUploading(true);
-    const response = await fetch(image.uri);
-    const blob = await response.blob();
-    const filename = image.uri.substring(image.uri.lastIndexOf('/')+1);
-    const StorageRef = ref(getStorage(),'Account Images/',filename);
-    const uploadTask= uploadBytes(StorageRef,blob)
-
-  }
 
   //Log Out Button 
   const LogOutBtn = async() => {
     try {
       const user= getAuth();
       user.signOut(user);
-      AsyncStorage.removeItem("User");
+      await AsyncStorage.removeItem("User");
     } catch (error) {
       setErrMessage(error.message);
     }
@@ -53,25 +45,50 @@ const Account =(props) =>{
     if(errMessage!=null)
     Alert.alert(errMessage);
   },[errMessage])
+
+  useEffect(() => {
+    const getUid = async () => {
+      const id = await AsyncStorage.getItem("user");
+      if(id)
+        setUid(id);
+    }
+    getUid();
+  },[])
   
   //Avatar Select
-//   const selectNewAvatar = async() =>{
-//     const result = await ImagePicker.launchImageLibraryAsync({
-//       mediaTypes:ImagePicker.MediaTypeOptions.Images,
-//       allowsEditing:true,
-//       aspect:[4,3],
-//       quality:1
-//     });
-//     if(!result.canceled){
-//       try {
-//         const updatePicById = doc(database,"UserInfo",props.Picture.id);
-//         await updateDoc(updatePicById,{Picture:result.assets[0].uri})
-//       setAvatar(result.assets[0].uri);
-//     } catch (error) {
-//       Alert.alert("Avatar has not update " + error.message);
-//     }
-//   }
-// }
+  const selectNewAvatar = async() =>{
+    
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes:ImagePicker.MediaTypeOptions.Images,
+      allowsEditing:true,
+      aspect:[4,3],
+      quality:1
+    });
+    
+    if(!result.canceled){
+
+      try {
+        
+        const url = await uploadImage(result.assets[0]);
+        const updatePicById = doc(database,`UserInfo/${uid}`);
+        await updateDoc(updatePicById,{Picture:url})
+      setAvatar(url);
+    } catch (error) {
+      Alert.alert("Avatar has not update " + error.message);
+    }
+  }
+}
+
+const uploadImage = async(image) =>{
+  setUploading(true);
+  const response = await fetch(image.uri);
+  const blob = await response.blob();
+  const StorageRef = ref(getStorage(),'Account Images/'+uid);
+  const uploadTask=await uploadBytes(StorageRef,blob, {contentType: blob.type})
+  const url = await getDownloadURL(uploadTask.ref);
+  return url;
+
+}
 
 
   return(
@@ -82,7 +99,7 @@ const Account =(props) =>{
   >
 <View style={styles.container}>
     <View style={{flex:1 ,alignItems:'center'}}>
-    <Avatar.Image size={100} source={require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
+    <Avatar.Image size={100} source={avatar ? {uri: avatar} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
     <TouchableOpacity>
         <IconButton icon='camera' size={25} style={{
           opacity:1,

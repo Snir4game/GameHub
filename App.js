@@ -7,6 +7,7 @@ import {onAuthStateChanged} from 'firebase/auth'
 import {auth} from './src/utilis/Firebase-Config'
 import {AppTab} from './src/screens/navigetor';
 import { NavigationContainer } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function App() {
 
@@ -14,9 +15,11 @@ export default function App() {
   const [UserAdmin,setUserAdmin] =useState(false);
   
   useEffect(() => {
-    const subscribe = onAuthStateChanged(auth, (user) => {
+    const subscribe = onAuthStateChanged(auth, async (user) => {
       if(user){
         setUser(user)
+        await AsyncStorage.setItem("user", user.uid);
+
       } else {
         setUser(null)
       }

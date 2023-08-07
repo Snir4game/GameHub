@@ -34,9 +34,8 @@ useEffect(() =>{
             keyExtractor={(item) => item.id}
             renderItem={({item}) => (
               <FavoriteGameList 
-                onPress = {() => {
-                  props.navigation.navigate("Favorite Game",{favGame : item})
-                }}
+                navigator={props.navigation.navigate}
+                
                 favoriteGame={item}
                 reload = {getFavoriteGameList}
               />

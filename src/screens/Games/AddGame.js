@@ -9,9 +9,14 @@ import {
   doc,
   getDocs,
   deleteDoc,
-  getStorage} from '../../utilis/Firebase-Config';
+  
+  ref,
+  getDownloadURL,
+  uploadBytes,
+  Storage} from '../../utilis/Firebase-Config';
 import GameView from './GameView';
 import * as ImagePicker from 'expo-image-picker';
+import { setDoc } from 'firebase/firestore';
 
 const AddGame = (props) => {
 
@@ -27,11 +32,14 @@ const AddGame = (props) => {
   const [favoriteGame,setFavoriteGame]= useState(false);
   const [isSaved,setIsSaved] = useState(false);
   const [rate,setRate]=useState(0);
+  const [uploading,setUploading] = useState(false);
+
 
   // const [gameImage,setGameImage] = useState(null)
 //Create new Game
   const saveGame = async() => {
     try {
+      setIsSaved(true);
       const gameListRef = await addDoc(collection(database,"GameSearch"),{
         GameName:game,
         GameRelease:releaseDate,
@@ -45,9 +53,9 @@ const AddGame = (props) => {
         price:price,
         Rate:rate
       });
-      await setIsSaved(true);
+      setIsSaved(false);
       Alert.alert('Saved');
-      await setIsSaved(false);
+      
       setGame("");
       setReleaseDate("");
       setGenre("");
@@ -63,40 +71,36 @@ const AddGame = (props) => {
   }
 
   const selectGameImage = async() =>{
-
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes:ImagePicker.MediaTypeOptions.Images,
-      
+      allowsEditing:true,
+      aspect:[21,10],
+      quality:1
     });
+    
     if(!result.canceled){
-      setGameImage(result.assets[0].uri);
+      try { 
+        const imageName = Date.now();
+        console.log(result.assets[0]);
+        console.log("x");
+        const url = await uploadImage(result.assets[0],imageName);
+        setGameImage(url)
+    } catch (error) {
+      Alert.alert("Game image wasn't updated " + error.message);
     }
   }
-  // const selectGameImage = async() =>{
-  //   const result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes:ImagePicker.MediaTypeOptions.Images,
-  //     allowsEditing:true,
-  //     aspect:[4,3],
-  //     quality:1,
-      
-  //   });
-  //   const source = {uri:result.uri};
-  //     setGameImage(source);
-  //   }
+  }
 
-  // const uploadGameImage = async ()=>{
-  //   setUploadImage(true);
-  //   const response = await fetch(gameImage.uri);
-  //   const blob = await response.blob();
-  //   const filename = gameImage.uri.substring(gameImage.uri.lastIndexOf('/')+1);
-  //   var ref = getStorage().ref().child(filename).put(blob);
-  //try{
-  //await ref;
-  //} catch(error){
-  // Alert.alert(error.message);
-  // }
-  //setUpload
-  //}
+  const uploadImage = async(image,name) =>{
+    setUploading(true);
+    const response = await fetch(image.uri);
+    const blob = await response.blob();
+    const StorageRef = ref(Storage,'Game Images/'+name);
+    const uploadTask=await uploadBytes(StorageRef,blob, {contentType: blob.type})
+    const url = await getDownloadURL(uploadTask.ref);
+    return url;
+  
+  }
 
   return (
     <ScrollView >

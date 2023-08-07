@@ -14,11 +14,21 @@ import {
   collection,
 } from "../../utilis/Firebase-Config";
 import GameView from "./GameView";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getDoc } from "firebase/firestore";
 
 const GameList = (props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [gameList, setGameList] = useState([]);
-
+  const [uid,setUid] = useState("")
+  const [userDoc,setUserDoc] = useState({})
+  const fetchUserDetails = async () => {
+    const uid = await AsyncStorage.getItem("user")
+    setUid(uid);
+    const userDoc = doc(database,"UserInfo", uid);
+    const userData = (await getDoc(userDoc))?.data();
+    setUserDoc(userData)
+  }
   const [filteredGameList, setFilteredGameList] = useState([]);
 
   //search function
@@ -52,6 +62,7 @@ const GameList = (props) => {
 
   useEffect(() => {
     getGameList();
+    fetchUserDetails();
   }, []);
 
   return (
@@ -73,6 +84,8 @@ const GameList = (props) => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <GameView
+              uid={uid}
+              userDetails={userDoc}
                 onPress={() => {
                   props.navigation.navigate("Game Info", { game: item });
                 }}

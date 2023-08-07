@@ -26,6 +26,7 @@ import * as Font from "expo-font";
 
 import AppLoading from "expo-app-loading";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { doc, setDoc } from "firebase/firestore";
 
 
 //admin@gamehub.com
@@ -73,15 +74,17 @@ const login = () => {
     setIsLoadingReg(true);
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
-      const UserInfo = await addDoc(collection(database, "UserInfo"), {
+      const UserInfo = await setDoc(doc(database, "UserInfo",user.user.uid), {
         id: user.user.uid,
         FirstName: fName,
         LastName: lName,
         Email: email,
         Picture:avatar,
-        emailVerified:emailVerified
+        emailVerified:emailVerified,
+        isAdmin:false,
+        FavoriteGames:[]
       });
-      const verification = sendEmailVerification(auth,email);
+      const verification = await sendEmailVerification(auth,email);
       setIsLoadingReg(true);
     } catch (error) {
       setErrMessage(error.message);

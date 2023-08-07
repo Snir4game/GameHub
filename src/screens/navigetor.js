@@ -21,6 +21,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { auth } from "../utilis/Firebase-Config";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
+import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { database } from "../utilis/Firebase-Config";
+
 // Bottom Navigator Tabs
 const Tab = createBottomTabNavigator();
 const screenOptions = {
@@ -41,12 +44,7 @@ const GameStackNavigator = createNativeStackNavigator();
 export const GameStack = (props) => {
   return (
     <GameStackNavigator.Navigator>
-      <GameStackNavigator.Screen
-        name="Game List"
-        component={GameList}
-        options={{ title: ""}}
-        
-      />
+      <GameStackNavigator.Screen name="Game List" component={GameList} options={{ title: ""}}/>
       <GameStackNavigator.Screen name='Your Favorite Games' component={FavoriteGameList} />
       <GameStackNavigator.Screen name='Favorite Game' component={FavoriteGame} />
       <GameStackNavigator.Screen name="Game Info" component={GameInfo} />
@@ -58,20 +56,34 @@ export const GameStack = (props) => {
 export const AppTab = () => {
   
   const [user,setUser] =useState(null);
+  const [isAdmin,setIsAdmin] = useState(false)
+  //1. As soon as user logs in, grab the user's doc id.
+  //2. Test his admin status.
+  //3. Populate the admin state accordingly.
+
+  const adminTest = async () => {
+    //check his admin status
+    //1. As soon as user logs in, grab the user's doc id.
+    //2. Test his admin status.
+    //3. Populate the admin state accordingly.
+    
+    const userRef = collection(database, "UserInfo");
+    const q = query(userRef, where("id", "==", auth.currentUser.uid));
+    const user = await getDocs(q)
+    const userDoc = user.docs.map((x) => x.data());
+    console.log(userDoc);
+    setIsAdmin(userDoc[0].isAdmin)
+
+  }
 
   useEffect(() =>{
-    const unSubscribe = onAuthStateChanged(auth,(user)=>{
-      setUser(user)
-    })
-    return ()=> unSubscribe
+    adminTest();
   },[])
 
 
   return (
     <Tab.Navigator screenOptions={screenOptions}>
-      {
-        user ?(
-          <>
+      
           <Tab.Screen
         name="Game Search"
         component={GameStack}
@@ -116,7 +128,9 @@ export const AppTab = () => {
           },
         }}
       />
-      <Tab.Screen
+      {
+        isAdmin &&
+        <Tab.Screen
         name="Add Game"
         component={AddGame}
         options={{
@@ -133,124 +147,42 @@ export const AppTab = () => {
           },
         }}
       />
-      <Tab.Screen
-        name="Favorite Game"
-        component={FavoriteGame}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <MaterialIcons
-                  name={focused ? "favorite" : "favorite-outline"}
-                  size={25}
-                  color={focused ? "#E0115F" : "#000000"}
-                />
-              </View>
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Account"
-        component={AccountInfo}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <MaterialCommunityIcons
-                  name={focused ? "account-details" : "account-details-outline"}
-                  size={25}
-                  color={focused ? "#4FC978" : "#000000"}
-                />
-              </View>
-            );
-          },
-        }}
-      />
-          </>
-        ):(
-          <>
-          <Tab.Screen
-        name="Game Search"
-        component={GameStack}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View
-                style={{
-                  alignItems: "center",
-                  justifyContent: "center",
-                  backgroundColor: "#0f52ba",
-                  width: Platform.OS == "ios" ? 45 : 50,
-                  height: Platform.OS == "ios" ? 40 : 50,
-                  top: Platform.OS == "ios" ? -10 : -20,
-                  borderRadius: Platform.OS == "ios" ? 25 : 30,
-                }}
-              >
-                <Ionicons
-                  name={focused ? "game-controller" : "game-controller-outline"}
-                  size={25}
-                  color={focused ? "#000000" : "#000000"}
-                />
-              </View>
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="App News"
-        component={GameNews}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <Ionicons
-                  name={focused ? "newspaper" : "newspaper-outline"}
-                  size={25}
-                  color={focused ? "#000000" : "#000000"}
-                />
-              </View>
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Favorite Game"
-        component={FavoriteGame}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <MaterialIcons
-                  name={focused ? "favorite" : "favorite-outline"}
-                  size={25}
-                  color={focused ? "#E0115F" : "#000000"}
-                />
-              </View>
-            );
-          },
-        }}
-      />
-      <Tab.Screen
-        name="Account"
-        component={AccountInfo}
-        options={{
-          tabBarIcon: ({ focused }) => {
-            return (
-              <View style={{ alignItems: "center", justifyContent: "center" }}>
-                <MaterialCommunityIcons
-                  name={focused ? "account-details" : "account-details-outline"}
-                  size={25}
-                  color={focused ? "#4FC978" : "#000000"}
-                />
-              </View>
-            );
-          },
-        }}
-      />
-          </>
-        )
       }
+      
+      <Tab.Screen
+        name="Favorite Game"
+        component={FavoriteGame}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <MaterialIcons
+                  name={focused ? "favorite" : "favorite-outline"}
+                  size={25}
+                  color={focused ? "#E0115F" : "#000000"}
+                />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Account"
+        component={AccountInfo}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View style={{ alignItems: "center", justifyContent: "center" }}>
+                <MaterialCommunityIcons
+                  name={focused ? "account-details" : "account-details-outline"}
+                  size={25}
+                  color={focused ? "#4FC978" : "#000000"}
+                />
+              </View>
+            );
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 };
