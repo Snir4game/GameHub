@@ -85,6 +85,7 @@ const GameList = (props) => {
             renderItem={({ item }) => (
               <GameView
               uid={uid}
+              setUserDetails={setUserDoc}
               userDetails={userDoc}
                 onPress={() => {
                   props.navigation.navigate("Game Info", { game: item });
