@@ -71,10 +71,11 @@ const GameView =(props)=> {
 
 const styles=StyleSheet.create({
     Row:{
+      flex:1,
         flexDirection:'row',
         padding:10,
         width:'100%',
-        height:180,
+        height:150,
         backgroundColor:"#fff",
         marginBottom:12,
         borderRadius:12,
@@ -82,7 +83,7 @@ const styles=StyleSheet.create({
         shadowOffset:{width:0,height:2},
         shadowOpacity:0.3,
         shadowRadius:4,
-        elevation:5
+        elevation:5,
     },
     GameInfo:{
         fontSize:25,
@@ -95,32 +96,21 @@ const styles=StyleSheet.create({
     ColGameInfo:{
       flexDirection:'column',
       height:'100%',
-      width:'100%'
+      width:'80%'
     },
     FavBtn:{
       width:40,
       height:40,
       left:330,
-      bottom:100
-    },
-    gameImage:{
-      height:150,
-      width:100
+      bottom:100,
+      margin:10
     },
     deleteBtn:{
       width:40,
       height:40,
-      top:-20,
-      left:330
+      top:-40,
+      left:330,
+      margin:10
     },
-    rate:{
-      height:100,
-      width:100,
-    },
-    buttons:{
-      flexDirection:'column',
-      flexWrap:'wrap-reverse',
-      left:15
-    }
 })
 export default GameView;

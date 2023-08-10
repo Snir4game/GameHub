@@ -27,7 +27,7 @@ import AppLoading from "expo-app-loading";
 import { doc, setDoc } from "firebase/firestore";
 
 
-//admin@gamehub.com
+
 const login = () => {
   const [fName, setFname] = useState("");
   const [lName, setLname] = useState("");

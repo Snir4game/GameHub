@@ -20,7 +20,6 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { auth } from "../utilis/Firebase-Config";
 import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
 import { database } from "../utilis/Firebase-Config";
 
@@ -40,14 +39,15 @@ const screenOptions = {
   },
 };
 
+// Stack tab in navigator
 const GameStackNavigator = createNativeStackNavigator();
 export const GameStack = (props) => {
   return (
     <GameStackNavigator.Navigator>
-      <GameStackNavigator.Screen name="Game List" component={GameList} options={{ title: ""}}/>
-      <GameStackNavigator.Screen name='Your Favorite Games' component={FavoriteGameList} />
-      <GameStackNavigator.Screen name='Favorite Game' component={FavoriteGame} />
-      <GameStackNavigator.Screen name="Game Info" component={GameInfo} />
+      <GameStackNavigator.Screen name="Game List" component={GameList} options={{ headerShown:false}} />
+      <GameStackNavigator.Screen name='Your Favorite Games' component={FavoriteGameList} options={{ headerShown:false}} />
+      <GameStackNavigator.Screen name='Favorite Game' component={FavoriteGame} options={{ headerShown:false}}/>
+      <GameStackNavigator.Screen name="Game Info" component={GameInfo} options={{ headerShown:false}}/>
     </GameStackNavigator.Navigator>
   );
 };
@@ -59,11 +59,11 @@ export const AppTab = () => {
   const [isAdmin,setIsAdmin] = useState(false)
 
 
+  //check his admin status
+  //1. As soon as user logs in, grab the user's doc id.
+  //2. Test his admin status.
+  //3. Populate the admin state accordingly.
   const adminTest = async () => {
-    //check his admin status
-    //1. As soon as user logs in, grab the user's doc id.
-    //2. Test his admin status.
-    //3. Populate the admin state accordingly.
     
     const userRef = collection(database, "UserInfo");
     const q = query(userRef, where("id", "==", auth.currentUser.uid));

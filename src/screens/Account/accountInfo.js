@@ -87,7 +87,6 @@ const uploadImage = async(image) =>{
 <View style={styles.container}>
     <View style={{flex:1 ,alignItems:'center'}}>
     <Avatar.Image size={100} source={avatar ? {uri: avatar} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
-    <TouchableOpacity>
         <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',
@@ -100,7 +99,6 @@ const uploadImage = async(image) =>{
         }}
         onPress={selectNewAvatar}
         />
-      </TouchableOpacity>
       <View style={styles.TextInfo}>
     <Text style={{fontSize:17}}>User Name: {auth.currentUser.email} </Text>
   <Button style={styles.logOutBtn} textColor='#000000' onPress={LogOutBtn}>Sign Out</Button>

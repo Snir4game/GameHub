@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth,signOut,sendPasswordResetEmail,onAuthStateChanged,ActionCodeSettings} from 'firebase/auth';
+import {getAuth,signOut,sendPasswordResetEmail} from 'firebase/auth';
 import {
   getFirestore,
   collection,
@@ -46,5 +46,4 @@ export {
   getDownloadURL,
   signOut,
   sendPasswordResetEmail,
-
 }
