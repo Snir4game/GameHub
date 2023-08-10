@@ -96,7 +96,7 @@ const styles=StyleSheet.create({
     ColGameInfo:{
       flexDirection:'column',
       height:'100%',
-      width:'80%'
+      width:'75%'
     },
     FavBtn:{
       width:40,

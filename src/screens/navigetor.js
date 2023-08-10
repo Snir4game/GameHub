@@ -1,4 +1,4 @@
-import { Text, Platform, View } from "react-native";
+import { Text, Platform, View ,StyleSheet} from "react-native";
 import {
   GameList,
   AccountInfo,
@@ -44,10 +44,10 @@ const GameStackNavigator = createNativeStackNavigator();
 export const GameStack = (props) => {
   return (
     <GameStackNavigator.Navigator>
-      <GameStackNavigator.Screen name="Game List" component={GameList} options={{ headerShown:false}} />
+      <GameStackNavigator.Screen name="Game List" component={GameList} />
       <GameStackNavigator.Screen name='Your Favorite Games' component={FavoriteGameList} options={{ headerShown:false}} />
       <GameStackNavigator.Screen name='Favorite Game' component={FavoriteGame} options={{ headerShown:false}}/>
-      <GameStackNavigator.Screen name="Game Info" component={GameInfo} options={{ headerShown:false}}/>
+      <GameStackNavigator.Screen name="Game Info" component={GameInfo}/>
     </GameStackNavigator.Navigator>
   );
 };
@@ -69,7 +69,7 @@ export const AppTab = () => {
     const q = query(userRef, where("id", "==", auth.currentUser.uid));
     const user = await getDocs(q)
     const userDoc = user.docs.map((x) => x.data());
-    console.log(userDoc);
+    //console.log(userDoc);
     setIsAdmin(userDoc[0].isAdmin)
 
   }
@@ -85,7 +85,7 @@ export const AppTab = () => {
           <Tab.Screen
         name="Game Search"
         component={GameStack}
-        options={{
+        options={{headerShown:false,
           tabBarIcon: ({ focused }) => {
             return (
               <View

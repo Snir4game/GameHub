@@ -124,10 +124,10 @@ const login = () => {
     return (
       <AppLoading
         startAsync={fetchFont}
+        onError={(err) => console.log(err)}
         onFinish={() => {
           setFontLoaded(true);
         }}
-        onError={(err) => console.log(err)}
       />
     );
   }

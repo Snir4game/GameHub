@@ -103,11 +103,11 @@ const GameList = (props) => {
   );
 };
 const styles = StyleSheet.create({
-  list: { width: "100%", height: "90%" },
+  list: { width: "100%", height: "83%" },
   main:{
-    flex:1,
     width:"100%",
-    height:"100%"
+    height:"100%",
+    margin:2,
   }
 });
 
