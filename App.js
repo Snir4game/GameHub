@@ -12,8 +12,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function App() {
 
   const [user, setUser] = useState(null);
-  const [UserAdmin,setUserAdmin] =useState(false);
-  
+  //  הפונקציה מיועדת להשגחה של שינויים במצב האימות של המשתמש ולניהול נתוני המשתמש באסיינטק סטורג 
+  // בסביבה בא נכתב האפליקציה (גאווא סקריטפ)
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, async (user) => {
       if(user){
@@ -37,11 +37,3 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

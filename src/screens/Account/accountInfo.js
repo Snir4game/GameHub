@@ -16,20 +16,7 @@ const Account =(props) =>{
   const [image,setImage] = useState (null);
   const [uploading,setUploading] = useState(false);
   const [uid,setUid] = useState("")
-  // //pick Image for new Avatar
-  // const pickImage = async() =>{
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing:true,
-  //     aspect:[4,3],
-  //     quality:1,
-  //   });
-
-  //   const source = {uri: result.uri};
-  //   console.log(source);
-  //   setImage(source);
-  // };
-
+ 
 
   //Log Out Button 
   const LogOutBtn = async() => {
@@ -129,8 +116,6 @@ const styles = StyleSheet.create({
     flex:1,
     padding:20,
     flexDirection:'column',
-    // alignItems:'center',
-    // justifyContent:'center',
   },
 
   TextInfo:{

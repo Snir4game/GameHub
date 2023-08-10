@@ -8,12 +8,10 @@ const GameView =(props)=> {
   const [favoriteGame,setFavoriteGame]= useState(false);
   const userDetails = props.userDetails;
   const uid = props.uid
+
+  
   //Delete Game
-  useEffect(() => {
-    console.log(props.userDetails);
-    if(props.userDetails && props.userDetails.FavoriteGames && props.userDetails.FavoriteGames.includes(props.GameName.id))
-      setFavoriteGame(true)
-  },[])
+  // מחיקת משחק מהרשימה מיועד לאדמין בלבד 
   const DeleteGame = async()=>{
     try {
       await deleteDoc(doc(database,"GameSearch",props.GameName.id));
@@ -25,9 +23,8 @@ const GameView =(props)=> {
       }
     
 // favorite game function 
+// הוספה של משחק לדף המועדפים שיש בנביגיטור שנבנה לאפליקציה 
       const AddToFavorite = async()=>{
-        //1. Have the relative user's account doc id
-        //2. Insert the game doc's id into the user's favorite game array
         const UpdateRef =doc(database,"UserInfo",uid);
         let arrayGames = []
         if(userDetails.FavoriteGames.includes(props.GameName.id))
@@ -46,7 +43,11 @@ const GameView =(props)=> {
         }); 
       }
 
-  
+      useEffect(() => {
+        console.log(props.userDetails);
+        if(props.userDetails && props.userDetails.FavoriteGames && props.userDetails.FavoriteGames.includes(props.GameName.id))
+          setFavoriteGame(true)
+      },[])
 
   return (
     <View style={styles.Row}>
@@ -59,7 +60,10 @@ const GameView =(props)=> {
       <Text style={styles.littletxt}>Genre: {props.GameName.Genre}</Text>
 
       <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite()}}  iconColor={favoriteGame ?"#E0115F":"#000000"}/>
-      <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>
+      {
+        userDetails.isAdmin &&
+        <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>
+      }
       </View>
     </View>
   )
@@ -96,8 +100,8 @@ const styles=StyleSheet.create({
     FavBtn:{
       width:40,
       height:40,
-      top:-280,
-      left:330
+      left:330,
+      bottom:100
     },
     gameImage:{
       height:150,

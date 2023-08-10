@@ -57,9 +57,7 @@ export const AppTab = () => {
   
   const [user,setUser] =useState(null);
   const [isAdmin,setIsAdmin] = useState(false)
-  //1. As soon as user logs in, grab the user's doc id.
-  //2. Test his admin status.
-  //3. Populate the admin state accordingly.
+
 
   const adminTest = async () => {
     //check his admin status

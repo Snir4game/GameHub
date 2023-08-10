@@ -5,19 +5,13 @@ import {
   database,
   collection,
   addDoc,
-  updateDoc,
-  doc,
-  getDocs,
-  deleteDoc,
-  
   ref,
   getDownloadURL,
   uploadBytes,
   Storage} from '../../utilis/Firebase-Config';
-import GameView from './GameView';
 import * as ImagePicker from 'expo-image-picker';
-import { setDoc } from 'firebase/firestore';
 
+// עמוד שמוגדר נטו לאדמין רק לאדמין יכול לראות את העמוד הזה באפליקציה 
 const AddGame = (props) => {
 
   const [game,setGame] = useState('');
@@ -35,8 +29,8 @@ const AddGame = (props) => {
   const [uploading,setUploading] = useState(false);
 
 
-  // const [gameImage,setGameImage] = useState(null)
 //Create new Game
+// Added game to the list of games in firebase database with a function AddDoc
   const saveGame = async() => {
     try {
       setIsSaved(true);
@@ -54,8 +48,7 @@ const AddGame = (props) => {
         Rate:rate
       });
       setIsSaved(false);
-      Alert.alert('Saved');
-      
+      Alert.alert('Saved');  
       setGame("");
       setReleaseDate("");
       setGenre("");
@@ -70,27 +63,41 @@ const AddGame = (props) => {
     }
   }
 
+
+  // selectGameImage function:
+  // This function uses the ImagePicker module from Expo to launch the image library on the device.
+  //The selected media type is set to images.
+  // The user is allowed to edit the selected image.
+  // The image quality is set to 1 (highest quality).
+  // If the user doesn't cancel the image selection, the function proceeds to upload the selected image.
   const selectGameImage = async() =>{
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes:ImagePicker.MediaTypeOptions.Images,
       allowsEditing:true,
-      aspect:[21,10],
+      aspect:[22,22],
       quality:1
     });
     
     if(!result.canceled){
       try { 
         const imageName = Date.now();
-        console.log(result.assets[0]);
-        console.log("x");
         const url = await uploadImage(result.assets[0],imageName);
         setGameImage(url)
     } catch (error) {
       Alert.alert("Game image wasn't updated " + error.message);
+      }
     }
   }
-  }
-
+  //uploadImage function:
+  // This function takes an image and a name as parameters.
+  // It sets up the uploading process by setting the uploading state to true.
+  // It fetches the image data using the image's URI (Uniform Resource Identifier).
+  // It converts the image data into a blob.
+  // It creates a reference to the Firebase Storage location where the image will be stored, using the specified name.
+  // It uploads the blob to the specified Storage reference using the uploadBytes function.
+  // Once the upload is complete, it retrieves the download URL of the uploaded image using the getDownloadURL function and returns it.
+  // פונקציה המשמשת להעלת תמונה של משחק שיוכנס לתוך המחסן של פיירביס  
+  
   const uploadImage = async(image,name) =>{
     setUploading(true);
     const response = await fetch(image.uri);

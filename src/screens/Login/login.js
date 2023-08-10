@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, Alert, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Alert} from "react-native";
 import {
   Button,
   TextInput,
   ActivityIndicator,
   MD2Colors,
-  shadow,
 } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { auth } from "../../utilis/Firebase-Config";
@@ -25,7 +24,6 @@ import { database, collection, addDoc } from "../../utilis/Firebase-Config";
 import * as Font from "expo-font";
 
 import AppLoading from "expo-app-loading";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { doc, setDoc } from "firebase/firestore";
 
 
@@ -45,6 +43,7 @@ const login = () => {
   const [emailVerified,setEmailVerified] = useState(false);
 
   // Reset Password with Email
+  // פונקציה זו שולחת הודעת מייל למשתמש שרשום בטקסט של המייל ושולח לו מייל שנותן לו אפשרות לשנות סיסמה 
   const ChangePassword = () => {
     try {
       sendPasswordResetEmail(auth, email);
@@ -54,6 +53,7 @@ const login = () => {
     }
   };
   // password Visibility 
+  // תצוגה של הסיסמה האם היא ניתנת לראות אותה או לא 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -69,6 +69,7 @@ const login = () => {
   }, []);
 
   //Register
+  // הרשמה לאפליקציה 
   const register = async () => {
     setErrMessage(null);
     setIsLoadingReg(true);
@@ -93,6 +94,7 @@ const login = () => {
   };
 
   //SignIn method
+  // התחברות עם משתמש 
   const signIn = async () => {
     setErrMessage(null);
     setIsLoading(true);
@@ -111,6 +113,7 @@ const login = () => {
   };
 
   //Custom Fonts
+  // הוספת פונט לאפליקציה 
   const fetchFont = () => {
     return Font.loadAsync({
       "Orbitron-Regular": require("../../../assets/Fonts/Orbitron-Regular.ttf"),
