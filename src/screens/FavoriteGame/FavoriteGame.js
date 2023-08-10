@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
     flex:1,
     height:"90%",
     width:'100%',
-    justifyContent:"center",
-    alignItems:'center'
+
   }
 })
 export default FavoriteGame;
