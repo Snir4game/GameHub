@@ -10,11 +10,11 @@ const FavoriteGame =(props)=> {
 //Get the games that you like from the list and add it to the tab Favorite Game
 const getFavoriteGameList = async() => {
   try {
-    const query = await getDocs(collection(database,'GameSearch'))
+    const query = await getDocs(collection(database,'UserInfo'))
     const queryRes = query.docs.map((doc) =>({
       ...doc.data(),
       id:doc.id,
-      favoriteGame:doc.data().favoriteGame,
+      FavoriteGame:doc.data().FavoriteGame,
     }));
     setFavoriteGame(queryRes);
   } catch (error) {

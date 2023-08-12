@@ -44,7 +44,7 @@ const GameView =(props)=> {
       }
 
       useEffect(() => {
-        console.log(props.userDetails);
+        //console.log(props.userDetails);
         if(props.userDetails && props.userDetails.FavoriteGames && props.userDetails.FavoriteGames.includes(props.GameName.id))
           setFavoriteGame(true)
       },[])

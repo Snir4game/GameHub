@@ -18,6 +18,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getDoc } from "firebase/firestore";
 
 const GameList = (props) => {
+
+  
   const [searchQuery, setSearchQuery] = useState("");
   const [gameList, setGameList] = useState([]);
   const [uid,setUid] = useState("")
