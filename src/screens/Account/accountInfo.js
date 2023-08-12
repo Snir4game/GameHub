@@ -7,13 +7,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getDownloadURL, getStorage, ref, uploadBytes,} from 'firebase/storage';
-import { setDoc } from 'firebase/firestore';
 
 const Account =(props) =>{
   
   const [errMessage,setErrMessage]=useState(null);
   const [avatar,setAvatar] = useState("");
-  const [image,setImage] = useState (null);
   const [uploading,setUploading] = useState(false);
   const [uid,setUid] = useState("")
  

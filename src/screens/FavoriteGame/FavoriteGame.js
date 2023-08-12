@@ -35,7 +35,6 @@ useEffect(() =>{
             renderItem={({item}) => (
               <FavoriteGameList 
                 navigator={props.navigation.navigate}
-                
                 favoriteGame={item}
                 reload = {getFavoriteGameList}
               />
@@ -54,7 +53,7 @@ useEffect(() =>{
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    height:"90%",
+    height:"100%",
     width:'100%',
 
   }

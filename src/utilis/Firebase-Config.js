@@ -9,6 +9,7 @@ import {
   doc,
   deleteDoc,
   getDocs,
+  where,query
 } from 'firebase/firestore';
 import {getStorage,ref,getDownloadURL,uploadBytes} from 'firebase/storage'
 // TODO: Add SDKs for Firebase products that you want to use
@@ -46,4 +47,6 @@ export {
   getDownloadURL,
   signOut,
   sendPasswordResetEmail,
+  where,
+  query
 }

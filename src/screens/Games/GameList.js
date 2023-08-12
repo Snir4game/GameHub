@@ -80,6 +80,7 @@ const GameList = (props) => {
       <View style={styles.list}>
         {gameList.length > 0 ? (
           <FlatList
+          style={styles.main}
             data={filteredGameList}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (

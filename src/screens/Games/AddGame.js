@@ -74,7 +74,7 @@ const AddGame = (props) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes:ImagePicker.MediaTypeOptions.Images,
       allowsEditing:true,
-      aspect:[22,22],
+      aspect:[30,20],
       quality:1
     });
     
