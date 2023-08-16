@@ -41,6 +41,7 @@ const GameView =(props)=> {
         await updateDoc(UpdateRef,{
           FavoriteGames:arrayGames
         }); 
+        props.getGameList()
       }
 
       useEffect(() => {
@@ -49,21 +50,43 @@ const GameView =(props)=> {
           setFavoriteGame(true)
       },[])
 
+console.log(props.GameName.id)
+props.favgames.forEach(y => {console.log('FAV: ' + y)})
+
+      let color = '#ffcc00';
+      const isExist = props.favgames.filter(x => x == props.GameName.id);
+
+      if(isExist.length > 0){
+        color = '#ffcc00'
+      } else {
+        color = '#000000'
+      }
+
   return (
     <View style={styles.Row}>
-      <View style={styles.ColGameInfo}>
-        <TouchableOpacity onPress={props.onPress}>
-      <Text style={styles.GameInfo}>{props.GameName.GameName}</Text>
-      </TouchableOpacity>
-      <Text style={styles.littletxt}>Release Date: {props.GameName.GameRelease} </Text>
-      <Text style={styles.littletxt}>Price: {props.GameName.price}</Text>
-      <Text style={styles.littletxt}>Genre: {props.GameName.Genre}</Text>
 
-      <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite()}}  iconColor={favoriteGame ?"#E0115F":"#000000"}/>
+      <View style={styles.ColGameInfo}>
+
+        <View style={{width:'80%'}}>
+          <TouchableOpacity onPress={props.onPress}>
+            <Text style={styles.GameInfo}>{props.GameName.GameName}</Text>
+          </TouchableOpacity>
+
+          <Text style={styles.littletxt}>Release Date: {props.GameName.GameRelease} </Text>
+          <Text style={styles.littletxt}>Price: {props.GameName.price}</Text>
+          <Text style={styles.littletxt}>Genre: {props.GameName.Genre}</Text>
+        </View>
+
+
+      <View style={{width:'20%'}}>
+      <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite()}}  iconColor={color}/>
       {
         userDetails.isAdmin &&
         <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>
       }
+      </View>
+
+      
       </View>
     </View>
   )
@@ -86,29 +109,25 @@ const styles=StyleSheet.create({
         elevation:5,
     },
     GameInfo:{
-        fontSize:25,
-        fontWeight:500
+        fontSize:23,
+        fontWeight:600
 
     },
     littletxt:{
       fontSize:14,
     },
     ColGameInfo:{
-      flexDirection:'column',
+      justifyContent:'space-between',
       height:'100%',
-      width:'75%'
+      flexDirection:'row'
     },
     FavBtn:{
       width:40,
       height:40,
-      left:333,
-      top: Platform.OS =="android" ? -120:-100,
     },
     deleteBtn:{
       width:40,
       height:40,
-      top:Platform.OS == "android" ? -60:-40,
-      left:330,
     },
 })
 export default GameView;

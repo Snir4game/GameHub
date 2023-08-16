@@ -1,7 +1,7 @@
 import { View, Text,StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { Avatar, Button,IconButton} from 'react-native-paper';
 import React, { useState,useEffect } from 'react'
-import {database, auth,doc,updateDoc } from '../../utilis/Firebase-Config';
+import {database, auth,doc,updateDoc, collection, query, where, getDocs } from '../../utilis/Firebase-Config';
 import { getAuth } from 'firebase/auth';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as ImagePicker from 'expo-image-picker';
@@ -14,7 +14,22 @@ const Account =(props) =>{
   const [avatar,setAvatar] = useState("");
   const [uploading,setUploading] = useState(false);
   const [uid,setUid] = useState("")
+  const [myAccount, setMyAccount] = useState(null);
  
+  const getMyAccount = async () => {
+    try {
+      const accountsRef = collection(database, "UserInfo");
+      const q = query(accountsRef, where("id", "==", auth.currentUser.uid));
+      const qsnapshot = await getDocs(q);
+      let arr = qsnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }))
+      setMyAccount(arr[0]);
+    } catch (error) {
+      Alert.alert("Something is wrong ")
+    }
+  }
 
   //Log Out Button 
   const LogOutBtn = async() => {
@@ -32,6 +47,7 @@ const Account =(props) =>{
   },[errMessage])
 
   useEffect(() => {
+    getMyAccount();
     const getUid = async () => {
       const id = await AsyncStorage.getItem("user");
       if(id)
@@ -75,7 +91,6 @@ const uploadImage = async(image) =>{
 
 }
 
-
   return(
 <LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff","#B0B0B0",'#DEDEDE','#C7C7C7','#C7C7C7']}>
   <View style={styles.container}
@@ -84,7 +99,7 @@ const uploadImage = async(image) =>{
   >
 <View style={styles.container}>
     <View style={{flex:1 ,alignItems:'center'}}>
-    <Avatar.Image size={100} source={avatar ? {uri: avatar} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
+    <Avatar.Image size={100} source={myAccount?.Picture ? {uri: myAccount.Picture} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
         <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',
@@ -98,6 +113,8 @@ const uploadImage = async(image) =>{
         onPress={selectNewAvatar}
         />
       <View style={styles.TextInfo}>
+        <Text>Name:</Text>
+        <Text>Last Name :</Text>
     <Text style={{fontSize:17}}>User Name: {auth.currentUser.email} </Text>
   <Button style={styles.logOutBtn} textColor='#000000' onPress={LogOutBtn}>Sign Out</Button>
     </View>

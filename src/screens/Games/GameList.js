@@ -9,8 +9,9 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Searchbar } from "react-native-paper";
 import {
   database,
-  doc,
+  doc,auth,
   getDocs,
+  query,where,
   collection,
 } from "../../utilis/Firebase-Config";
 import GameView from "./GameView";
@@ -19,11 +20,13 @@ import { getDoc } from "firebase/firestore";
 
 const GameList = (props) => {
 
-  
+  const [myAccount, setMyAccount] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [gameList, setGameList] = useState([]);
   const [uid,setUid] = useState("")
   const [userDoc,setUserDoc] = useState({})
+
+
   const fetchUserDetails = async () => {
     const uid = await AsyncStorage.getItem("user")
     setUid(uid);
@@ -32,6 +35,25 @@ const GameList = (props) => {
     setUserDoc(userData)
   }
   const [filteredGameList, setFilteredGameList] = useState([]);
+
+
+
+
+
+  const getMyAccount = async () => {
+    try {
+      const accountsRef = collection(database, "UserInfo");
+      const q = query(accountsRef, where("id", "==", auth.currentUser.uid));
+      const qsnapshot = await getDocs(q);
+      let arr = qsnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }))
+      setMyAccount(arr[0]);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   //search function
   const onChangeSearch = (query) => {
@@ -48,7 +70,8 @@ const GameList = (props) => {
   };
 
   //Read all Data from FireBase
-  const getGameList = async (query) => {
+  const getGameList = async () => {
+    console.log('GET GAME LIST CALLED')
     try {
       const query = await getDocs(collection(database, "GameSearch"));
       const queryRes = query.docs.map((doc) => ({
@@ -63,9 +86,12 @@ const GameList = (props) => {
   };
 
   useEffect(() => {
+    getMyAccount()
     getGameList();
     fetchUserDetails();
   }, []);
+
+
 
   return (
     <View style={styles.main}>
@@ -87,14 +113,15 @@ const GameList = (props) => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <GameView
-              uid={uid}
-              setUserDetails={setUserDoc}
-              userDetails={userDoc}
+                uid={uid}
+                setUserDetails={setUserDoc}
+                favgames={myAccount?.FavoriteGames}
+                userDetails={userDoc}
                 onPress={() => {
                   props.navigation.navigate("Game Info", { game: item });
                 }}
                 GameName={item}
-                reload={getGameList}
+                getGameList={getGameList}
               />
             )}
           />

@@ -7,10 +7,26 @@ const FavoriteGame =(props)=> {
 
   const [favoriteGame,setFavoriteGame] = useState([]);
 
+  const getMyAccount = async () => {
+    try {
+      const accountsRef = collection(database, "UserInfo");
+      const q = query(accountsRef, where("id", "==", auth.currentUser.uid));
+      const qsnapshot = await getDocs(q);
+      let arr = qsnapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id
+      }))
+      setMyAccount(arr[0]);
+    } catch (error) {
+      Alert.alert("Something is wrong ")
+    }
+  }
+
+
 //Get the games that you like from the list and add it to the tab Favorite Game
 const getFavoriteGameList = async() => {
   try {
-    const query = await getDocs(collection(database,'UserInfo'))
+    const query = await getDocs(collection(database,'GameInfo'))
     const queryRes = query.docs.map((doc) =>({
       ...doc.data(),
       id:doc.id,
