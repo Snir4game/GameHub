@@ -31,6 +31,7 @@ const Account =(props) =>{
     }
   }
 
+
   //Log Out Button 
   const LogOutBtn = async() => {
     try {
@@ -113,9 +114,9 @@ const uploadImage = async(image) =>{
         onPress={selectNewAvatar}
         />
       <View style={styles.TextInfo}>
-        <Text>Name:</Text>
-        <Text>Last Name :</Text>
-    <Text style={{fontSize:17}}>User Name: {auth.currentUser.email} </Text>
+        <Text style={{fontSize:17}}>User Name: {auth.currentUser.email} </Text>
+        <Text style={{fontSize:17}}>Name:</Text>
+        <Text style={{fontSize:17}}>Last Name :</Text>
   <Button style={styles.logOutBtn} textColor='#000000' onPress={LogOutBtn}>Sign Out</Button>
     </View>
         </View> 
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
 
   TextInfo:{
     width:'100%',
-    height:'50%',
+    height:'60%',
     borderColor:'#000000',
     borderRadius:2,
     borderWidth:2,
