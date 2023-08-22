@@ -95,6 +95,7 @@ const GameList = (props) => {
 
   return (
     <View style={styles.main}>
+      <View style={styles.list}>
       <Searchbar
         placeholder="Search"
         onChangeText={onChangeSearch}
@@ -102,10 +103,11 @@ const GameList = (props) => {
         style={{
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
+          borderBottomRightRadius:0,
+          borderBottomLeftRadius:0,
           backgroundColor: "#ffffff",
         }}
       />
-      <View style={styles.list}>
         {gameList.length > 0 ? (
           <FlatList
           style={styles.main}
@@ -133,11 +135,12 @@ const GameList = (props) => {
   );
 };
 const styles = StyleSheet.create({
-  list: { width: "100%", height: "83%" },
+  list: { width: "100%", height: "100%" },
   main:{
     width:"100%",
     height:"100%",
-    margin:2,
+    backgroundColor:'#69B578'
+    
   }
 });
 

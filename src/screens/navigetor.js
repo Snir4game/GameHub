@@ -16,6 +16,7 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { auth } from "../utilis/Firebase-Config";
@@ -27,15 +28,12 @@ import { database } from "../utilis/Firebase-Config";
 const Tab = createBottomTabNavigator();
 const screenOptions = {
   tabBarStyle: {
-    tabBarShowLabel: false,
-    headerShown: false,
-    position: "absolute",
     bottom: 0,
     right: 0,
     left: 0,
     elevation: 0,
-    height: 80,
-    background: "#000000",
+    height: 71,
+    backgroundColor: "#69B578",
   },
 };
 
@@ -44,10 +42,10 @@ const GameStackNavigator = createNativeStackNavigator();
 export const GameStack = (props) => {
   return (
     <GameStackNavigator.Navigator>
-      <GameStackNavigator.Screen name="Game List" component={GameList} />
+      <GameStackNavigator.Screen name="Game List" component={GameList} options={{headerStyle:{backgroundColor:'#D0DB97'}}}/>
       <GameStackNavigator.Screen name='Your Favorite Games' component={FavoriteGameList} options={{ headerShown:false}} />
       <GameStackNavigator.Screen name='Favorite Game' component={FavoriteGame} options={{ headerShown:false}}/>
-      <GameStackNavigator.Screen name="Game Info" component={GameInfo}/>
+      <GameStackNavigator.Screen name="Game Info" component={GameInfo} options={{headerStyle:{backgroundColor:'#D0DB97'}}}/>
     </GameStackNavigator.Navigator>
   );
 };
@@ -55,7 +53,6 @@ export const GameStack = (props) => {
 
 export const AppTab = () => {
   
-  const [user,setUser] =useState(null);
   const [isAdmin,setIsAdmin] = useState(false)
 
 
@@ -69,7 +66,6 @@ export const AppTab = () => {
     const q = query(userRef, where("id", "==", auth.currentUser.uid));
     const user = await getDocs(q)
     const userDoc = user.docs.map((x) => x.data());
-    //console.log(userDoc);
     setIsAdmin(userDoc[0].isAdmin)
 
   }
@@ -85,14 +81,14 @@ export const AppTab = () => {
           <Tab.Screen
         name="Game Search"
         component={GameStack}
-        options={{headerShown:false,
+        options={{headerShown:false,tabBarActiveTintColor:'#19647E',tabBarInactiveTintColor:'#000000',        tabBarLabelStyle:{fontWeight:'bold'},
           tabBarIcon: ({ focused }) => {
             return (
               <View
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  backgroundColor: "#0f52ba",
+                  backgroundColor: "#3A7D44",
                   width: Platform.OS == "ios" ? 45 : 50,
                   height: Platform.OS == "ios" ? 40 : 50,
                   top: Platform.OS == "ios" ? -10 : -20,
@@ -101,7 +97,7 @@ export const AppTab = () => {
               >
                 <Ionicons
                   name={focused ? "game-controller" : "game-controller-outline"}
-                  size={25}
+                  size={35}
                   color={focused ? "#000000" : "#000000"}
                 />
               </View>
@@ -112,13 +108,16 @@ export const AppTab = () => {
       <Tab.Screen
         name="App News"
         component={GameNews}
-        options={{
+        options={{headerStyle:{backgroundColor:'#D0DB97'}
+        ,tabBarActiveTintColor:'#19647E',
+        tabBarInactiveTintColor:'#000000',
+        tabBarLabelStyle:{fontWeight:'bold'},
           tabBarIcon: ({ focused }) => {
             return (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <Ionicons
                   name={focused ? "newspaper" : "newspaper-outline"}
-                  size={25}
+                  size={30}
                   color={focused ? "#000000" : "#000000"}
                 />
               </View>
@@ -131,13 +130,16 @@ export const AppTab = () => {
         <Tab.Screen
         name="Add Game"
         component={AddGame}
-        options={{
+        options={{headerStyle:{backgroundColor:'#D0DB97'},
+        tabBarActiveTintColor:'#19647E',
+        tabBarInactiveTintColor:'#000000',
+        tabBarLabelStyle:{fontWeight:'bold'},
           tabBarIcon: ({ focused }) => {
             return (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <Octicons
                   name="diff-added"
-                  size={25}
+                  size={30}
                   color={focused ? "#000000" : "#000000"}
                 />
               </View>
@@ -150,13 +152,16 @@ export const AppTab = () => {
       <Tab.Screen
         name="Favorite Game"
         component={FavoriteGame}
-        options={{
+        options={{headerStyle:{backgroundColor:'#D0DB97'},
+        tabBarActiveTintColor:'#19647E',
+        tabBarInactiveTintColor:'#000000',
+        tabBarLabelStyle:{fontWeight:'bold'},
           tabBarIcon: ({ focused }) => {
             return (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <MaterialIcons
                   name={focused ? "favorite" : "favorite-outline"}
-                  size={25}
+                  size={30}
                   color={focused ? "#E0115F" : "#000000"}
                 />
               </View>
@@ -167,14 +172,17 @@ export const AppTab = () => {
       <Tab.Screen
         name="Account"
         component={AccountInfo}
-        options={{
+        options={{ headerStyle:{backgroundColor:'#D0DB97'},
+        tabBarActiveTintColor:'#19647E',
+        tabBarInactiveTintColor:'#000000',
+        tabBarLabelStyle:{fontWeight:'bold'},
           tabBarIcon: ({ focused }) => {
             return (
               <View style={{ alignItems: "center", justifyContent: "center" }}>
                 <MaterialCommunityIcons
                   name={focused ? "account-details" : "account-details-outline"}
-                  size={25}
-                  color={focused ? "#4FC978" : "#000000"}
+                  size={30}
+                  color={focused ? "#181D27" : "#000000"}
                 />
               </View>
             );

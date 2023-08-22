@@ -2,6 +2,7 @@ import { Text, View ,StyleSheet,Alert, FlatList} from 'react-native'
 import React, { useState,useEffect } from 'react'
 import {collection,database,getDocs,doc} from '../../utilis/Firebase-Config';
 import FavoriteGameList from './FavoriteGameList';
+import { LinearGradient } from 'expo-linear-gradient'
 const FavoriteGame =(props)=> {
 
 
@@ -43,6 +44,7 @@ useEffect(() =>{
 },[])
 
     return (
+      <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
         <View style={styles.container}>
           { favoriteGame.length > 0 ? (
             <FlatList 
@@ -63,6 +65,7 @@ useEffect(() =>{
           )
           }
         </View>
+        </LinearGradient>
     )
 }
 

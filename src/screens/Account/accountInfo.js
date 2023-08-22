@@ -93,14 +93,14 @@ const uploadImage = async(image) =>{
 }
 
   return(
-<LinearGradient style={{width:'100%',height:'100%'}} colors={["#ffffff","#B0B0B0",'#DEDEDE','#C7C7C7','#C7C7C7']}>
+<LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
   <View style={styles.container}
   contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
   showsVerticalScrollIndicator={false}
   >
 <View style={styles.container}>
     <View style={{flex:1 ,alignItems:'center'}}>
-    <Avatar.Image size={100} source={myAccount?.Picture ? {uri: myAccount.Picture} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
+    <Avatar.Image style={{borderRadius:45,borderColor:'#000000',borderWidth:4,justifyContent:'center',alignItems:'center'}} size={100} source={myAccount?.Picture ? {uri: myAccount.Picture} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
         <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',
@@ -114,9 +114,12 @@ const uploadImage = async(image) =>{
         onPress={selectNewAvatar}
         />
       <View style={styles.TextInfo}>
-        <Text style={{fontSize:17}}>User Name: {auth.currentUser.email} </Text>
-        <Text style={{fontSize:17}}>Name:</Text>
-        <Text style={{fontSize:17}}>Last Name :</Text>
+        <Text style={{fontSize:20,}}>User Name : <Text style={{fontSize:17}}>{auth.currentUser.email}</Text> </Text>
+        <Text style={{fontSize:17}}>Name :<Text style={{fontSize:17}}></Text></Text>
+        <Text style={{fontSize:17}}>Last Name : <Text style={{fontSize:17}}></Text></Text>
+        <Text></Text>
+        <Text></Text>
+        <Text></Text>
   <Button style={styles.logOutBtn} textColor='#000000' onPress={LogOutBtn}>Sign Out</Button>
     </View>
         </View> 
@@ -128,7 +131,7 @@ const uploadImage = async(image) =>{
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    padding:20,
+    padding:10,
     flexDirection:'column',
   },
 
@@ -139,6 +142,7 @@ const styles = StyleSheet.create({
     borderRadius:2,
     borderWidth:2,
     flexDirection:'column',
+    justifyContent:'space-between'
   },
   logOutBtn:{
     width:100,

@@ -23,7 +23,6 @@ import { database, collection, addDoc } from "../../utilis/Firebase-Config";
 //fonts
 import * as Font from "expo-font";
 
-import AppLoading from "expo-app-loading";
 import { doc, setDoc } from "firebase/firestore";
 
 
@@ -111,37 +110,12 @@ const login = () => {
       setPassword("");
     }
   };
-
-  //Custom Fonts
-  // הוספת פונט לאפליקציה 
-  const fetchFont = () => {
-    return Font.loadAsync({
-      "Orbitron-Regular": require("../../../assets/Fonts/Orbitron-Regular.ttf"),
-      "Orbitron-Medium": require("../../../assets/Fonts/Orbitron-Medium.ttf"),
-    });
-  };
-  if (!FontLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFont}
-        onError={(err) => console.log(err)}
-        onFinish={() => {
-          setFontLoaded(true);
-        }}
-      />
-    );
-  }
-
+  
   return (
     <LinearGradient
       style={{ width: "100%", height: "100%" }}
       colors={[
-        "#000000",
-        "#ffffff",
-        "#a2aebb",
-        "#a2aebb",
-        "#000000",
-        "#000000",
+        "#D0DB97","#69B578","#3A7D44","#69B578","#254D32"
       ]}
     >
         <View style={styles.main}>
@@ -149,7 +123,7 @@ const login = () => {
             <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
             <LottieView
               ref={animation}
-              style={{ width: 200, height: 200, bottom: 35 }}
+              style={{ width: 250, height: 250, bottom: 40 }}
               source={require("../../../Pics/121990-game.json")}
               loop={false}
               duration={5000}
@@ -322,10 +296,10 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 24,
     borderTopRightRadius: 24,
     flex: 1,
-    width: "90%",
-    height: "60%",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    width: "80%",
+    height: "80%",
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 2,
     bottom: 120,
   },
@@ -334,7 +308,7 @@ const styles = StyleSheet.create({
   },
   txtInput: {
     backgroundColor: "#ffffff",
-    width: "80%",
+    width: "90%",
     height: 40,
     margin: 12,
     borderWidth: 1,
@@ -342,7 +316,6 @@ const styles = StyleSheet.create({
   gameHubTxt: {
     fontSize: 32,
     fontWeight: "bold",
-    fontFamily: "Orbitron-Medium",
     bottom: 40,
   },
   gamehubView: {
@@ -359,7 +332,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     margin: 10,
     fontWeight: "bold",
-    fontFamily: "Orbitron-Regular",
+    justifyContent:'flex-start',
   },
   btnView: {
     flexDirection: "row",

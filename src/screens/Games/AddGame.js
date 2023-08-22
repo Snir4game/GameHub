@@ -10,6 +10,8 @@ import {
   uploadBytes,
   Storage} from '../../utilis/Firebase-Config';
 import * as ImagePicker from 'expo-image-picker';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 // עמוד שמוגדר נטו לאדמין רק לאדמין יכול לראות את העמוד הזה באפליקציה 
 const AddGame = (props) => {
@@ -110,7 +112,7 @@ const AddGame = (props) => {
   }
 
   return (
-    <ScrollView >
+<LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
     <View style={styles.container}>
             <View style={styles.input}>
 
@@ -162,7 +164,6 @@ const AddGame = (props) => {
     onChangeText={(text) => setSummary(text)}
     value={Summary}
 />
-<Image  style={{width:66,height:66,borderRadius:1,borderColor:'#000000'}}/>
 <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',
@@ -187,7 +188,7 @@ const AddGame = (props) => {
 
       </View>
     </View>
-  </ScrollView>
+    </LinearGradient>
   )
 }
 
@@ -196,19 +197,17 @@ export default AddGame;
 const styles = StyleSheet.create({
   container:{
     flex:1,
-    backgroundColor:'#ebebeb',
-    paddingBottom:70,
+    width:'100%',
+    height:'100%'
 
   },
 
-  list:{width:'100%', height:'20%',
-},
-  input:{width:'100%', height:'100%',backgroundColor:'#ebebeb',padding:10,flexDirection:'column',
+  input:{width:'100%', height:'100%',padding:10,flexDirection:'column',
   justifyContent:'center',
-  alignItems:'center'},
-  inputText:{width:"100%",height:55,backgroundColor:'#ffffff',fontSize:22,paddingHorizontal:1,margin:1},
+  alignItems:'center',},
+  inputText:{width:"100%",height:55,backgroundColor:'#ffffff',fontSize:22,paddingHorizontal:1,margin:2},
   SaveBtn:{
-    height:40,width:120,backgroundColor:'#88ff88'
+    height:40,width:120,backgroundColor:'#57B265'
   }
 
 })

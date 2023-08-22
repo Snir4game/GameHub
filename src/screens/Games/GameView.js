@@ -57,7 +57,7 @@ props.favgames.forEach(y => {console.log('FAV: ' + y)})
       const isExist = props.favgames.filter(x => x == props.GameName.id);
 
       if(isExist.length > 0){
-        color = '#ffcc00'
+        color = '#69B578'
       } else {
         color = '#000000'
       }
@@ -78,7 +78,7 @@ props.favgames.forEach(y => {console.log('FAV: ' + y)})
         </View>
 
 
-      <View style={{width:'20%'}}>
+      <View style={{width:'30%',justifyContent:'space-between'}}>
       <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite()}}  iconColor={color}/>
       {
         userDetails.isAdmin &&
@@ -98,8 +98,8 @@ const styles=StyleSheet.create({
         flexDirection:'row',
         padding:12,
         width:'100%',
-        height:150,
-        backgroundColor:"#fff",
+        height:160,
+        backgroundColor:"#F8E16C",
         marginBottom:12,
         borderRadius:12,
         shadowColor:"#000000",
