@@ -95,12 +95,10 @@ const uploadImage = async(image) =>{
   return(
 <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
   <View style={styles.container}
-  contentContainerStyle={{justifyContent:'center',alignItems:'center'}}
-  showsVerticalScrollIndicator={false}
   >
 <View style={styles.container}>
-    <View style={{flex:1 ,alignItems:'center'}}>
-    <Avatar.Image style={{borderRadius:45,borderColor:'#000000',borderWidth:4,justifyContent:'center',alignItems:'center'}} size={100} source={myAccount?.Picture ? {uri: myAccount.Picture} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
+    <View style={{alignItems:'center'}}>
+    <Avatar.Image style={{borderColor:'#000000',borderWidth:4,justifyContent:'center',alignItems:'center'}} size={120} source={myAccount?.Picture ? {uri: myAccount.Picture} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
         <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',
@@ -114,12 +112,12 @@ const uploadImage = async(image) =>{
         onPress={selectNewAvatar}
         />
       <View style={styles.TextInfo}>
-        <Text style={{fontSize:20,}}>User Name : <Text style={{fontSize:17}}>{auth.currentUser.email}</Text> </Text>
-        <Text style={{fontSize:17}}>Name :<Text style={{fontSize:17}}></Text></Text>
-        <Text style={{fontSize:17}}>Last Name : <Text style={{fontSize:17}}></Text></Text>
-        <Text></Text>
-        <Text></Text>
-        <Text></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>User Name: <Text style={{fontSize:17}}>{auth.currentUser.email}</Text> </Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Name :<Text style={{fontSize:17}}></Text></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Last Name : <Text style={{fontSize:17}}></Text></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Age :</Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}></Text>
   <Button style={styles.logOutBtn} textColor='#000000' onPress={LogOutBtn}>Sign Out</Button>
     </View>
         </View> 

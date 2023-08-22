@@ -40,6 +40,7 @@ const login = () => {
   const [FontLoaded, setFontLoaded] = useState(false);
   const [isLoadingReg, setIsLoadingReg] = useState(false);
   const [emailVerified,setEmailVerified] = useState(false);
+  const [age,setAge]=useState("");
 
   // Reset Password with Email
   // פונקציה זו שולחת הודעת מייל למשתמש שרשום בטקסט של המייל ושולח לו מייל שנותן לו אפשרות לשנות סיסמה 
@@ -82,7 +83,8 @@ const login = () => {
         Picture:avatar,
         emailVerified:emailVerified,
         isAdmin:false,
-        FavoriteGames:[]
+        FavoriteGames:[],
+        Age:age
       });
       const verification = await sendEmailVerification(auth,email);
       setIsLoadingReg(true);
@@ -130,7 +132,7 @@ const login = () => {
             />
           </View>
           {loginView ? (
-            <View style={styles.main2}>
+            <View style={styles.sighInView}>
               <Text style={styles.subTitle}>Sign In</Text>
               <TextInput
                 keyboardType="email-address"
@@ -201,7 +203,7 @@ const login = () => {
               </View>
             </View>
           ) : (
-            <View style={styles.main2}>
+            <View style={styles.registerView}>
               <Text style={styles.subTitle}>Register</Text>
               <TextInput
                 keyboardType="default"
@@ -218,6 +220,14 @@ const login = () => {
                 value={lName}
                 onChangeText={(text) => setLname(text)}
                 placeholder="Last Name"
+              />
+              <TextInput
+                keyboardType='number-pad'
+                autoCapitalize="none"
+                style={styles.txtInput}
+                value={age}
+                onChangeText={(text) => setAge(text)}
+                placeholder="Age"
               />
               <TextInput
                 keyboardType="email-address"
@@ -284,24 +294,34 @@ const login = () => {
 };
 const styles = StyleSheet.create({
   main: {
-    flex: 1,
+    flex:1,
     width: "100%",
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
   },
-  main2: {
+  sighInView: {
     borderColor: "#000000",
     borderBottomStartRadius: 24,
     borderTopRightRadius: 24,
-    flex: 1,
     width: "80%",
-    height: "80%",
+    height: "60%",
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
     bottom: 120,
+  },
+  registerView:{
+    borderColor:'#000000',
+    width:'85%',
+    height:'60%',
+    borderWidth:2,
+    borderBottomStartRadius: 24,
+    borderTopRightRadius: 24,
+    justifyContent:'center',
+    alignItems:'center',
+    bottom:70,
   },
   main3: {
     margin: 10,
