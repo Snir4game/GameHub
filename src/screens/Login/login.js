@@ -125,7 +125,7 @@ const login = () => {
             <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
             <LottieView
               ref={animation}
-              style={{ width: 250, height: 250, bottom: 40 }}
+              style={{ width: 200, height: 250,bottom:40 }}
               source={require("../../../Pics/121990-game.json")}
               loop={false}
               duration={5000}
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 24,
     borderTopRightRadius: 24,
     width: "80%",
-    height: "60%",
+    height: "50%",
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
   gameHubTxt: {
     fontSize: 32,
     fontWeight: "bold",
-    bottom: 40,
+    bottom: 20,
   },
   gamehubView: {
     marginTop: 100,
