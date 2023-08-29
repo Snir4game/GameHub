@@ -71,7 +71,6 @@ const GameList = (props) => {
 
   //Read all Data from FireBase
   const getGameList = async () => {
-    console.log('GET GAME LIST CALLED')
     try {
       const query = await getDocs(collection(database, "GameSearch"));
       const queryRes = query.docs.map((doc) => ({

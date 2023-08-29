@@ -31,7 +31,6 @@ const Account =(props) =>{
     }
   }
 
-
   //Log Out Button 
   const LogOutBtn = async() => {
     try {
@@ -59,18 +58,14 @@ const Account =(props) =>{
   
   //Avatar Select
   const selectNewAvatar = async() =>{
-    
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes:ImagePicker.MediaTypeOptions.Images,
       allowsEditing:true,
       aspect:[4,3],
       quality:1
     });
-    
     if(!result.canceled){
-
       try {
-        
         const url = await uploadImage(result.assets[0]);
         const updatePicById = doc(database,`UserInfo/${uid}`);
         await updateDoc(updatePicById,{Picture:url})
@@ -113,8 +108,8 @@ const uploadImage = async(image) =>{
         <Text style={{fontWeight:'bold',fontSize:20}}>User Name :<Text style={{fontSize:17}}>{auth.currentUser.email}</Text> </Text>
         <Text style={{fontWeight:'bold',fontSize:20}}>Name : <Text style={{fontSize:17}}></Text></Text>
         <Text style={{fontWeight:'bold',fontSize:20}}>Last Name : <Text style={{fontSize:17}}></Text></Text>
-        <Text style={{fontWeight:'bold',fontSize:20}}>Age : </Text>
-        <Text style={{fontWeight:'bold',fontSize:20}}>Phone : </Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Age : <Text style={{fontSize:17}}></Text></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Phone : <Text style={{fontSize:17}}></Text></Text>
         <Text style={{fontWeight:'bold',fontSize:20}}></Text>
             <View style={styles.btnView}>
               <Button style={styles.logOutBtn} textColor='#000000' onPress={LogOutBtn}>Sign Out</Button>
