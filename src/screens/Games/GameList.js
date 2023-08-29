@@ -103,8 +103,6 @@ const GameList = (props) => {
         style={{
           borderTopLeftRadius: 0,
           borderTopRightRadius: 0,
-          borderBottomRightRadius:0,
-          borderBottomLeftRadius:0,
           backgroundColor: "#ffffff",
         }}
       />

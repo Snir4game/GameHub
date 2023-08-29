@@ -21,7 +21,6 @@ import { LinearGradient } from "expo-linear-gradient";
 //Data for account
 import { database, collection, addDoc } from "../../utilis/Firebase-Config";
 //fonts
-import * as Font from "expo-font";
 
 import { doc, setDoc } from "firebase/firestore";
 
@@ -37,10 +36,10 @@ const login = () => {
   const [errMessage, setErrMessage] = useState();
   const [loginView, setLoginView] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [FontLoaded, setFontLoaded] = useState(false);
   const [isLoadingReg, setIsLoadingReg] = useState(false);
   const [emailVerified,setEmailVerified] = useState(false);
   const [age,setAge]=useState("");
+  const [phone,setPhone]= useState("");
 
   // Reset Password with Email
   // פונקציה זו שולחת הודעת מייל למשתמש שרשום בטקסט של המייל ושולח לו מייל שנותן לו אפשרות לשנות סיסמה 
@@ -84,7 +83,8 @@ const login = () => {
         emailVerified:emailVerified,
         isAdmin:false,
         FavoriteGames:[],
-        Age:age
+        Age:age,
+        Phone:phone
       });
       const verification = await sendEmailVerification(auth,email);
       setIsLoadingReg(true);
@@ -125,7 +125,7 @@ const login = () => {
             <Text style={styles.gameHubTxt}>Welcome to GameHub</Text>
             <LottieView
               ref={animation}
-              style={{ width: 200, height: 250,bottom:40 }}
+              style={{ width: 200, height: 250 ,bottom:25}}
               source={require("../../../Pics/121990-game.json")}
               loop={false}
               duration={5000}
@@ -230,6 +230,14 @@ const login = () => {
                 placeholder="Age"
               />
               <TextInput
+                keyboardType='name-phone-pad'
+                autoCapitalize="none"
+                style={styles.txtInput}
+                value={phone}
+                onChangeText={(text) => setPhone(text)}
+                placeholder="Phone"
+              />
+              <TextInput
                 keyboardType="email-address"
                 autoCapitalize="none"
                 style={styles.txtInput}
@@ -310,18 +318,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    bottom: 120,
+    bottom: 110,
   },
   registerView:{
     borderColor:'#000000',
     width:'85%',
-    height:'60%',
+    height:'70%',
     borderWidth:2,
     borderBottomStartRadius: 24,
     borderTopRightRadius: 24,
     justifyContent:'center',
     alignItems:'center',
-    bottom:70,
+    bottom:90,
   },
   main3: {
     margin: 10,
@@ -336,7 +344,7 @@ const styles = StyleSheet.create({
   gameHubTxt: {
     fontSize: 32,
     fontWeight: "bold",
-    bottom: 20,
+    bottom: 1,
   },
   gamehubView: {
     marginTop: 100,

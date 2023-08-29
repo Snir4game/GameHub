@@ -199,15 +199,27 @@ const styles = StyleSheet.create({
     flex:1,
     width:'100%',
     height:'100%'
-
   },
-
-  input:{width:'100%', height:'100%',padding:10,flexDirection:'column',
+  input:{width:'100%',
+   height:'100%',
+   padding:10,
+   flexDirection:'column',
   justifyContent:'center',
-  alignItems:'center',},
-  inputText:{width:"100%",height:55,backgroundColor:'#ffffff',fontSize:22,paddingHorizontal:1,margin:2},
+  alignItems:'center'
+},
+  inputText:{width:"100%",
+  height:55,
+  backgroundColor:'#ffffff',
+  fontSize:22,
+  paddingHorizontal:1,
+  margin:2,
+  borderRadius:25,
+  borderTopRightRadius:0
+},
   SaveBtn:{
-    height:40,width:120,backgroundColor:'#57B265'
+    height:40,
+    width:120,
+    backgroundColor:'#57B265'
   }
 
 })
