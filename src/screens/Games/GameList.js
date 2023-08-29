@@ -12,11 +12,10 @@ import {
   doc,auth,
   getDocs,
   query,where,
-  collection,
+  collection,getDoc
 } from "../../utilis/Firebase-Config";
 import GameView from "./GameView";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getDoc } from "firebase/firestore";
 
 const GameList = (props) => {
 
@@ -25,6 +24,7 @@ const GameList = (props) => {
   const [gameList, setGameList] = useState([]);
   const [uid,setUid] = useState("")
   const [userDoc,setUserDoc] = useState({})
+  const [filteredGameList, setFilteredGameList] = useState([]);
 
 
   const fetchUserDetails = async () => {
@@ -34,7 +34,6 @@ const GameList = (props) => {
     const userData = (await getDoc(userDoc))?.data();
     setUserDoc(userData)
   }
-  const [filteredGameList, setFilteredGameList] = useState([]);
 
 
 
@@ -85,7 +84,7 @@ const GameList = (props) => {
   };
 
   useEffect(() => {
-    getMyAccount()
+    getMyAccount();
     getGameList();
     fetchUserDetails();
   }, []);

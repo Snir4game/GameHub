@@ -30,7 +30,7 @@ const Account =(props) =>{
       Alert.alert("Something is wrong ")
     }
   }
-
+console.log(myAccount);
   //Log Out Button 
   const LogOutBtn = async() => {
     try {
@@ -106,11 +106,10 @@ const uploadImage = async(image) =>{
         />
           <View style={styles.TextInfo}>
         <Text style={{fontWeight:'bold',fontSize:20}}>User Name :<Text style={{fontSize:17}}>{auth.currentUser.email}</Text> </Text>
-        <Text style={{fontWeight:'bold',fontSize:20}}>Name : <Text style={{fontSize:17}}></Text></Text>
-        <Text style={{fontWeight:'bold',fontSize:20}}>Last Name : <Text style={{fontSize:17}}></Text></Text>
-        <Text style={{fontWeight:'bold',fontSize:20}}>Age : <Text style={{fontSize:17}}></Text></Text>
-        <Text style={{fontWeight:'bold',fontSize:20}}>Phone : <Text style={{fontSize:17}}></Text></Text>
-        <Text style={{fontWeight:'bold',fontSize:20}}></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Name : <Text style={{fontSize:17}}>{myAccount?.FirstName}</Text></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Last Name : <Text style={{fontSize:17}}>{myAccount?.LastName}</Text></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Age : <Text style={{fontSize:17}}>{myAccount?.Age}</Text></Text>
+        <Text style={{fontWeight:'bold',fontSize:20}}>Phone : <Text style={{fontSize:17}}>{myAccount?.Phone}</Text></Text>
             <View style={styles.btnView}>
               <Button style={styles.logOutBtn} textColor='#000000' onPress={LogOutBtn}>Sign Out</Button>
             </View>
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
 
   TextInfo:{
     width:'100%',
-    height:'70%',
+    height:'65%',
     borderColor:'#000000',
     borderRadius:2,
     borderWidth:2,

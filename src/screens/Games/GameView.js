@@ -2,12 +2,11 @@ import { View, Text,StyleSheet,TouchableOpacity,Alert,Platform } from 'react-nat
 import {  database,doc,deleteDoc,updateDoc} from '../../utilis/Firebase-Config';
 import React,{useState,useEffect} from 'react';
 import { IconButton} from 'react-native-paper';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 const GameView =(props)=> {
       
   const [favoriteGame,setFavoriteGame]= useState(false);
   const userDetails = props.userDetails;
-  const uid = props.uid
+  const uid = props.uid;
 
   
   //Delete Game
@@ -50,8 +49,7 @@ const GameView =(props)=> {
           setFavoriteGame(true)
       },[])
 
-console.log(props.GameName.id)
-props.favgames.forEach(y => {console.log('FAV: ' + y)})
+// props.favgames.forEach(y => {console.log('FAV: ' + y)})
 
       let color = '#ffcc00';
       const isExist = props.favgames.filter(x => x == props.GameName.id);
