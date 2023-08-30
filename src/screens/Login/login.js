@@ -86,10 +86,15 @@ const login = () => {
         Age:age,
         Phone:phone
       });
-      const verification = await sendEmailVerification(auth,email);
+      Alert.alert("Welcome to GameHub "+fName);
       setIsLoadingReg(true);
     } catch (error) {
-      Alert.alert("Email already Registered try other one")
+      if(email==''||password==''){
+        Alert.alert("Please fill an Email or password");
+      }
+      else{
+        Alert.alert("Email already Registered try other one "+email);
+      }
       setIsLoadingReg(false);
     }
   };
@@ -101,13 +106,16 @@ const login = () => {
     setIsLoading(true);
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      Alert.alert("Welcome to GameHub");
+      Alert.alert("Welcome to GameHub "+fName);
       AsyncStorage.getItem("User");
       setIsLoading(true);
     } catch (error) {
-      setErrMessage(
-        "something is Wrong Check again your Email or Password"
-      );
+      if(email==''||password==''){
+        Alert.alert('please fill the email input or the password input')
+      }
+      else{
+      Alert.alert("something is Wrong Check again your Email or Password");
+      }
       setIsLoading(false);
       setPassword("");
     }
