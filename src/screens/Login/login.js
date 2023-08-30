@@ -89,7 +89,7 @@ const login = () => {
       const verification = await sendEmailVerification(auth,email);
       setIsLoadingReg(true);
     } catch (error) {
-      setErrMessage(error.message);
+      Alert.alert("Email already Registered try other one")
       setIsLoadingReg(false);
     }
   };

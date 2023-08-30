@@ -27,7 +27,6 @@ const FavoriteGame =(props)=> {
       }
     } catch (error) {
       console.error("Error fetching favorite games:", error);
-      Alert.alert("Something went wrong");
     }
   };
 
@@ -39,13 +38,16 @@ getMyFavoriteGames();
     return (
       <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
         <View style={styles.container}>
-          { favoriteGame.length > 0 ? (
+          { 
+          favoriteGame.length > 0 ? (
             <FlatList 
             style={styles.FgameList}
             data={favoriteGame}
             keyExtractor={(item) => item.id}
+            key={(item)=> item.id}
             renderItem={({item}) => (
               <FavoriteGameList 
+                id={item.id}
                 navigator={props.navigation.navigate}
                 favoriteGame={item}
                 reload = {getMyFavoriteGames}

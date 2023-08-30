@@ -107,6 +107,7 @@ const GameList = (props) => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
               <GameView
+              
                 uid={uid}
                 setUserDetails={setUserDoc}
                 favgames={myAccount?.FavoriteGames}
@@ -114,6 +115,7 @@ const GameList = (props) => {
                 onPress={() => {
                   props.navigation.navigate("Game Info", { game: item });
                 }}
+                id={item.id}
                 GameName={item}
                 getGameList={getGameList}
               />

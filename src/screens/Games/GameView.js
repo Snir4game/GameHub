@@ -13,11 +13,11 @@ const GameView =(props)=> {
   // מחיקת משחק מהרשימה מיועד לאדמין בלבד 
   const DeleteGame = async()=>{
     try {
-      await deleteDoc(doc(database,"GameSearch",props.GameName.id));
-      Alert.alert("Game has been Delete")
-      props.reload();
+      await deleteDoc(doc(database,"GameSearch",props.id));
+      props.getGameList();
+      Alert.alert("Game has been Delete");
     } catch (error) {
-      Alert.alert(error.message)
+      Alert.alert(error.message);
     }
       }
     

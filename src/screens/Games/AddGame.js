@@ -14,7 +14,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 // עמוד שמוגדר נטו לאדמין רק לאדמין יכול לראות את העמוד הזה באפליקציה 
-const AddGame = (props) => {
+const AddGame = () => {
 
   const [game,setGame] = useState('');
   const [releaseDate,setReleaseDate] = useState('');
@@ -46,8 +46,8 @@ const AddGame = (props) => {
         favoriteGame:favoriteGame,
         price:price,
       });
-      setIsSaved(false);
       Alert.alert('Saved');  
+      setIsSaved(false);
       setGame("");
       setReleaseDate("");
       setGenre("");

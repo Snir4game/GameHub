@@ -11,7 +11,7 @@ const AppNews = (props) =>{
 
     const DeleteNews = async() =>{
         try {
-            await deleteDoc(doc(database,'App News',props.Update.id))
+            await deleteDoc(doc(database,'App News',props.id))
             Alert.alert("News has been Deleted!");
             props.getAppNewsList()
         } catch (error) {

@@ -56,8 +56,8 @@ const GameNews = () => {
   }
 
   useEffect(() =>{
-    adminTest();
     getAppNewsList();
+    adminTest();
   },[])
 
   return (
@@ -84,6 +84,7 @@ const GameNews = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
                   <AppNews 
+                  id={item.id}
                   Update={item.Update}
                   getAppNewsList ={getAppNewsList}
                   />
