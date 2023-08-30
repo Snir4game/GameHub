@@ -44,21 +44,10 @@ const GameView =(props)=> {
       }
 
       useEffect(() => {
-        //console.log(props.userDetails);
         if(props.userDetails && props.userDetails.FavoriteGames && props.userDetails.FavoriteGames.includes(props.GameName.id))
           setFavoriteGame(true)
       },[])
 
-// props.favgames.forEach(y => {console.log('FAV: ' + y)})
-
-      let color = '#ffcc00';
-      const isExist = props.favgames.filter(x => x == props.GameName.id);
-
-      if(isExist.length > 0){
-        color = '#69B578'
-      } else {
-        color = '#000000'
-      }
 
   return (
     <View style={styles.Row}>
@@ -77,7 +66,7 @@ const GameView =(props)=> {
 
 
       <View style={{width:'30%',justifyContent:'space-between'}}>
-      <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite()}}  iconColor={color}/>
+      <IconButton style={styles.FavBtn} icon={"heart"} onPress={() =>{AddToFavorite()}}  iconColor={favoriteGame?'#69B578':'#000000'}/>
       {
         userDetails.isAdmin &&
         <IconButton style={styles.deleteBtn} icon={"archive-cancel-outline"} onPress={DeleteGame} iconColor='#000000'/>

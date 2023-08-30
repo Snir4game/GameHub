@@ -35,10 +35,6 @@ const GameList = (props) => {
     setUserDoc(userData)
   }
 
-
-
-
-
   const getMyAccount = async () => {
     try {
       const accountsRef = collection(database, "UserInfo");

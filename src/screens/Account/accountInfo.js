@@ -30,7 +30,6 @@ const Account =(props) =>{
       Alert.alert("Something is wrong ")
     }
   }
-console.log(myAccount);
   //Log Out Button 
   const LogOutBtn = async() => {
     try {

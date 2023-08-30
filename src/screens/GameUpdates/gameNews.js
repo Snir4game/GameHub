@@ -13,7 +13,7 @@ const GameNews = () => {
   const [newsList,setNewsList] = useState([]);
 
 
-  console.log(newsList);
+
 
   const SaveNews = async() =>{
   try {
@@ -36,7 +36,6 @@ const GameNews = () => {
         ...doc.data(),
         id:doc.id,
       }));
-      console.log("news:"+queryRes);
       setNewsList(queryRes);
     } catch (error) {
       Alert.alert(error.message);
@@ -78,15 +77,15 @@ const GameNews = () => {
           <Button style={styles.pushBtn} onPress={SaveNews}>Push to Update news</Button>
             <View style={styles.Newslist}>
               {
-                newsList > 0 ? (
+                newsList.length > 0 ? (
                 <FlatList 
                 style={styles.NewsFlatList}
                 data={newsList}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => (
                   <AppNews 
-                  Update={item.Update.Update}
-                  reload ={getAppNewsList}
+                  Update={item.Update}
+                  getAppNewsList ={getAppNewsList}
                   />
                 )}
                 />
@@ -99,14 +98,14 @@ const GameNews = () => {
         ):(
           <View style={styles.Newslist}>
           {
-            newsList > 0 ? (
+            newsList.length > 0 ? (
             <FlatList 
             style={styles.NewsFlatList}
             data={newsList}
             keyExtractor={(item) => item.id}
             renderItem={({item}) => (
               <AppNews 
-              Update={item.Update.Update}
+              Update={item.Update}
               reload ={getAppNewsList}
               />
             )}
@@ -142,6 +141,7 @@ const styles = StyleSheet.create({
   txtInputView:{
     width:'100%',
     justifyContent:'flex-start',
+    alignItems:'center'
   },
   pushBtn:{
     borderWidth:1,
@@ -154,8 +154,12 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     justifyContent:'center',
     alignItems:'center',
-    margin:12,
+    margin:25,
+    width:'90%',
+    height:'100%'
+  },
+  NewsFlatList:{
     width:'100%',
-    height:'40%'
+    height:'100%'
   }
 })

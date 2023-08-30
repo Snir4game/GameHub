@@ -16,8 +16,6 @@ import {
   MaterialCommunityIcons,
   MaterialIcons,
 } from "@expo/vector-icons";
-import { LinearGradient } from 'expo-linear-gradient';
-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { auth } from "../utilis/Firebase-Config";
 import { useEffect, useState } from "react";

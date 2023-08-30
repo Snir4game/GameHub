@@ -1,6 +1,6 @@
 import { Text, View ,StyleSheet,Alert, FlatList} from 'react-native'
 import React, { useState,useEffect } from 'react'
-import {collection,database,getDocs,doc,auth} from '../../utilis/Firebase-Config';
+import {collection,database,getDocs,doc,auth, query, where,getDoc} from '../../utilis/Firebase-Config';
 import FavoriteGameList from './FavoriteGameList';
 import { LinearGradient } from 'expo-linear-gradient'
 const FavoriteGame =(props)=> {
@@ -8,39 +8,32 @@ const FavoriteGame =(props)=> {
 
   const [favoriteGame,setFavoriteGame] = useState([]);
 
-  const getMyAccount = async () => {
+  const getMyFavoriteGames = async () => {
     try {
-      const accountsRef = collection(database, "UserInfo");
-      const q = query(accountsRef, where("id", "==", auth.currentUser.uid));
-      const qsnapshot = await getDocs(q);
-      let arr = qsnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id
-      }))
-      setMyAccount(arr[0]);
+      const userRef = doc(database, 'UserInfo', auth.currentUser.uid);
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        const favoriteGameIds = userDoc.data().FavoriteGames || [];
+        const favoriteGameDocs = [];
+        for (const gameId of favoriteGameIds) {
+          const gameRef = doc(database, 'GameSearch', gameId);
+          const gameDoc = await getDoc(gameRef);
+          if (gameDoc.exists()) {
+            favoriteGameDocs.push(gameDoc.data());
+          }
+        }
+        setFavoriteGame(favoriteGameDocs);
+      }
     } catch (error) {
-      Alert.alert("Something is wrong ")
+      console.error("Error fetching favorite games:", error);
+      Alert.alert("Something went wrong");
     }
-  }
+  };
 
-
-//Get the games that you like from the list and add it to the tab Favorite Game
-const getFavoriteGameList = async() => {
-  try {
-    const query = await getDocs(collection(database,'GameInfo'))
-    const queryRes = query.docs.map((doc) =>({
-      ...doc.data(),
-      id:doc.id,
-      FavoriteGame:doc.data().FavoriteGame,
-    }));
-    setFavoriteGame(queryRes);
-  } catch (error) {
-    Alert.alert(error.message);
-  }
-}
 
 useEffect(() =>{
-  getFavoriteGameList()
+getMyFavoriteGames();
 },[])
 
     return (
@@ -48,13 +41,14 @@ useEffect(() =>{
         <View style={styles.container}>
           { favoriteGame.length > 0 ? (
             <FlatList 
+            style={styles.FgameList}
             data={favoriteGame}
             keyExtractor={(item) => item.id}
             renderItem={({item}) => (
               <FavoriteGameList 
                 navigator={props.navigation.navigate}
                 favoriteGame={item}
-                reload = {getFavoriteGameList}
+                reload = {getMyFavoriteGames}
               />
             )}
             />
@@ -76,6 +70,9 @@ const styles = StyleSheet.create({
     width:'100%',
 justifyContent:'center',
 alignItems:'center'
+  },
+  FgameList:{
+    width:'90%'
   }
 })
 export default FavoriteGame;

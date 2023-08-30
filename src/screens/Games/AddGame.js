@@ -27,9 +27,7 @@ const AddGame = (props) => {
   const [price,setPrice] = useState('');
   const [favoriteGame,setFavoriteGame]= useState(false);
   const [isSaved,setIsSaved] = useState(false);
-  const [rate,setRate]=useState(0);
   const [uploading,setUploading] = useState(false);
-
 
 //Create new Game
 // Added game to the list of games in firebase database with a function AddDoc
@@ -47,7 +45,6 @@ const AddGame = (props) => {
         GameImage:gameImage,
         favoriteGame:favoriteGame,
         price:price,
-        Rate:rate
       });
       setIsSaved(false);
       Alert.alert('Saved');  
@@ -110,7 +107,6 @@ const AddGame = (props) => {
     return url;
   
   }
-
   return (
 <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
     <View style={styles.container}>

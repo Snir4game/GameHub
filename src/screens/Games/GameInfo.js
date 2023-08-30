@@ -8,9 +8,11 @@ const GameInfo =(props) =>{
   const game = props.route.params.game;
 
     return (
+        <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
       <ScrollView alwaysBounceHorizontal={false} > 
       <Card style={styles.GameinfoPage}>
-        <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
+      <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
+
     <Card.Cover source={{uri:game.GameImage}} />
     <Text style={styles.GameTextSize}>{game.GameName}</Text>
     <Card.Content>
@@ -25,6 +27,7 @@ const GameInfo =(props) =>{
     </LinearGradient>
     </Card>
     </ScrollView>
+    </LinearGradient>
     )
   }
 

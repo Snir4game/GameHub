@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet} from 'react-native';
 import { Card,Text } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
+
 const FavoriteGameList = (props) => {
 
 const fGame = props.favoriteGame
@@ -19,7 +21,8 @@ const style =StyleSheet.create({
   subText:{
     fontSize:23,fontWeight:"600"
   },
-  Col:{margin:10,
+  Col:{
+    margin:10,
 padding:10,
   }
 })
