@@ -31,7 +31,7 @@ const AddGame = () => {
 
 //Create new Game
 // Added game to the list of games in firebase database with a function AddDoc
-  const saveGame = async() => {
+  const saveGame = async(props) => {
     try {
       setIsSaved(true);
       const gameListRef = await addDoc(collection(database,"GameSearch"),{
@@ -46,7 +46,7 @@ const AddGame = () => {
         favoriteGame:favoriteGame,
         price:price,
       });
-      Alert.alert('Saved');  
+      Alert.alert('Saved');
       setIsSaved(false);
       setGame("");
       setReleaseDate("");

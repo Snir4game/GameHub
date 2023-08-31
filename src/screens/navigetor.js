@@ -40,10 +40,18 @@ const GameStackNavigator = createNativeStackNavigator();
 export const GameStack = (props) => {
   return (
     <GameStackNavigator.Navigator>
-      <GameStackNavigator.Screen name="Game List" component={GameList} options={{headerStyle:{backgroundColor:'#D0DB97'}}}/>
-      <GameStackNavigator.Screen name='Your Favorite Games' component={FavoriteGameList} options={{ headerShown:false}} />
-      <GameStackNavigator.Screen name='Favorite Game' component={FavoriteGame} options={{ headerShown:false}}/>
-      <GameStackNavigator.Screen name="Game Info" component={GameInfo} options={{headerStyle:{backgroundColor:'#D0DB97'}}}/>
+      <GameStackNavigator.Screen name="Game List" 
+        component={GameList} 
+        options={{headerStyle:{backgroundColor:'#D0DB97'}}}/>
+      <GameStackNavigator.Screen name='Your Favorite Games'
+        component={FavoriteGameList} 
+        options={{ headerShown:false}} />
+      <GameStackNavigator.Screen name='Favorite Game' 
+        component={FavoriteGame} 
+        options={{ headerShown:false}}/>
+      <GameStackNavigator.Screen name="Game Info" 
+        component={GameInfo} 
+        options={{headerStyle:{backgroundColor:'#D0DB97'}}}/>
     </GameStackNavigator.Navigator>
   );
 };
@@ -79,7 +87,10 @@ export const AppTab = () => {
           <Tab.Screen
         name="Game Search"
         component={GameStack}
-        options={{headerShown:false,tabBarActiveTintColor:'#19647E',tabBarInactiveTintColor:'#000000',        tabBarLabelStyle:{fontWeight:'bold'},
+        options={{headerShown:false,
+        tabBarActiveTintColor:'#19647E',
+        tabBarInactiveTintColor:'#000000',
+        tabBarLabelStyle:{fontWeight:'bold'},
           tabBarIcon: ({ focused }) => {
             return (
               <View
