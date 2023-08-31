@@ -96,7 +96,7 @@ export const AppTab = () => {
                 <Ionicons
                   name={focused ? "game-controller" : "game-controller-outline"}
                   size={35}
-                  color={focused ? "#000000" : "#000000"}
+                  color={focused ? "#ecd444" : "#ffffff"}
                 />
               </View>
             );
@@ -116,7 +116,7 @@ export const AppTab = () => {
                 <Ionicons
                   name={focused ? "newspaper" : "newspaper-outline"}
                   size={30}
-                  color={focused ? "#000000" : "#000000"}
+                  color={focused ? "#ecd444" : "#ffffff"}
                 />
               </View>
             );
@@ -138,7 +138,7 @@ export const AppTab = () => {
                 <Octicons
                   name="diff-added"
                   size={30}
-                  color={focused ? "#000000" : "#000000"}
+                  color={focused ? "#ecd444" : "#ffffff"}
                 />
               </View>
             );
@@ -160,7 +160,7 @@ export const AppTab = () => {
                 <MaterialIcons
                   name={focused ? "favorite" : "favorite-outline"}
                   size={30}
-                  color={focused ? "#E0115F" : "#000000"}
+                  color={focused ? "#ecd444" : "#ffffff"}
                 />
               </View>
             );
@@ -180,7 +180,7 @@ export const AppTab = () => {
                 <MaterialCommunityIcons
                   name={focused ? "account-details" : "account-details-outline"}
                   size={30}
-                  color={focused ? "#181D27" : "#000000"}
+                  color={focused ? "#ecd444" : "#ffffff"}
                 />
               </View>
             );

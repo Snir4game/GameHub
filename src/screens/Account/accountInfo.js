@@ -15,7 +15,8 @@ const Account =(props) =>{
   const [uploading,setUploading] = useState(false);
   const [uid,setUid] = useState("")
   const [myAccount, setMyAccount] = useState(null);
- 
+  
+ // פונציה זו מראה את הנתונים של המשתמש 
   const getMyAccount = async () => {
     try {
       const accountsRef = collection(database, "UserInfo");
@@ -74,7 +75,7 @@ const Account =(props) =>{
     }
   }
 }
-
+// פונקצית המשך להעלת התמונה שתשמר בתוך המבנה נתונים 
 const uploadImage = async(image) =>{
   setUploading(true);
   const response = await fetch(image.uri);
@@ -87,10 +88,14 @@ const uploadImage = async(image) =>{
 }
 
   return(
-<LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
+<LinearGradient style={{width:'100%',height:'100%'}} 
+colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
 <View style={styles.container}>
     <View style={{alignItems:'center'}}>
-      <Avatar.Image style={{borderColor:'#000000',borderWidth:4,justifyContent:'center',alignItems:'center'}} size={120} source={myAccount?.Picture ? {uri: myAccount.Picture} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
+      <Avatar.Image 
+      style={{borderColor:'#000000',borderWidth:4,justifyContent:'center',alignItems:'center'}} 
+      size={120} 
+      source={myAccount?.Picture ? {uri: myAccount.Picture} : require('../../../Pics/istockphoto-1290933921-612x612.jpg')} />
         <IconButton icon='camera' size={25} style={{
           opacity:1,
           alignItems:'center',

@@ -7,12 +7,13 @@ const FavoriteGame =(props)=> {
 
 
   const [favoriteGame,setFavoriteGame] = useState([]);
-
+// הפונקציה מחפשת על פי בסיס הנתונים של אותו משתמש איזה משחקים הוא שם כמועדף
+//הפונצקיה מוסיפה את המשחק אל המסך של המועדפים 
+//ומציגה אותו 
   const getMyFavoriteGames = async () => {
     try {
       const userRef = doc(database, 'UserInfo', auth.currentUser.uid);
       const userDoc = await getDoc(userRef);
-
       if (userDoc.exists()) {
         const favoriteGameIds = userDoc.data().FavoriteGames || [];
         const favoriteGameDocs = [];

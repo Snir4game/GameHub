@@ -8,7 +8,7 @@ const AppNews = (props) =>{
     const update=props.Update;
     const [isAdmin,setIsAdmin] = useState(false)
 
-
+// פונקציה המוחקת את ההודעה 
     const DeleteNews = async() =>{
         try {
             await deleteDoc(doc(database,'App News',props.id))
@@ -18,7 +18,7 @@ const AppNews = (props) =>{
             Alert.alert("News wasn't Deleted!");
         }
     }
-
+// בדיקה האם המשתמש הוא אדמין
     const adminTest = async () => {
         const userRef = collection(database, "UserInfo");
         const q = query(userRef, where("id", "==", auth.currentUser.uid));

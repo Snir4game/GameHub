@@ -14,13 +14,14 @@ const GameNews = () => {
 
 
 
-
+// פונקציה ששומרת את ההודעה ומכניסה אותה למבנה נתונים 
   const SaveNews = async() =>{
   try {
     const appNews = await addDoc(collection(database,"App News"),{
       Update:UpdateText,
     });
     setPushSaved(true);
+    getAppNewsList()
     Alert.alert("News was push successfully")
     setPushSaved(false);
     setUpdateText("")
@@ -28,7 +29,7 @@ const GameNews = () => {
       Alert.alert("The update of the news wasn't push "+error.message);
     }
   }
-
+// הצגה של המודעות שנרשמו ונמצאות בתוך המבנה נתונים
   const getAppNewsList = async() =>{
     try {
       const query = await getDocs(collection(database,'App News'))
@@ -41,6 +42,7 @@ const GameNews = () => {
       Alert.alert(error.message);
     }
   }
+  
   //check his admin status
   //1. As soon as user logs in, grab the user's doc id.
   //2. Test his admin status.

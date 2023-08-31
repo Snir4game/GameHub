@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
   main:{
     width:"100%",
     height:"100%",
-    backgroundColor:'#69B578'
+    backgroundColor:'#69B578',
+    padding:6
     
   }
 });
