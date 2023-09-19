@@ -38,11 +38,6 @@ const FavoriteGame =(props)=> {
 
 useEffect(() =>{
 getMyFavoriteGames();
-
-// ריענון כל 3 שניות של הרשימה 
-const refreshInterval = setInterval(() => {
-  getMyFavoriteGames();
-}, 3000);
 },[])
 
     return (
