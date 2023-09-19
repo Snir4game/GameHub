@@ -24,7 +24,8 @@ const GameView =(props)=> {
 // favorite game function 
 // הוספה של משחק לדף המועדפים שיש בנביגיטור שנבנה לאפליקציה 
       const AddToFavorite = async()=>{
-        const UpdateRef =doc(database,"UserInfo",uid);
+        try {
+          const UpdateRef =doc(database,"UserInfo",uid);
         let arrayGames = []
         if(userDetails.FavoriteGames.includes(props.GameName.id))
         {
@@ -41,6 +42,10 @@ const GameView =(props)=> {
           FavoriteGames:arrayGames
         }); 
         props.getGameList()
+        } catch (error) {
+          console.error("Error updating favorite games:", error);
+        }
+        
       }
 
       useEffect(() => {
