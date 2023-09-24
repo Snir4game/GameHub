@@ -7,6 +7,8 @@ const FavoriteGame =(props)=> {
 
 
   const [favoriteGame,setFavoriteGame] = useState([]);
+  const [currentUserUid, setCurrentUserUid] = useState(null);
+
 // הפונקציה מחפשת על פי בסיס הנתונים של אותו משתמש איזה משחקים הוא שם כמועדף
 //הפונצקיה מוסיפה את המשחק אל המסך של המועדפים 
 //ומציגה אותו 
@@ -32,9 +34,17 @@ const FavoriteGame =(props)=> {
   };
 
 
-useEffect(() =>{
-getMyFavoriteGames();
-},[])
+// useEffect(() =>{
+// getMyFavoriteGames();
+// },[])
+
+useEffect(() => {
+  if (auth.currentUser) {
+    const uid = auth.currentUser.uid;
+    setCurrentUserUid(uid);
+    getMyFavoriteGames(uid);
+  }
+}, [auth.currentUser,getMyFavoriteGames]);
 
     return (
       <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
