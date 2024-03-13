@@ -104,10 +104,9 @@ const GameList = (props) => {
           <FlatList
           style={styles.main}
             data={filteredGameList}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item , index) => item.id || index.toString()}
             renderItem={({ item }) => (
               <GameView
-              
                 uid={uid}
                 setUserDetails={setUserDoc}
                 favgames={myAccount?.FavoriteGames}
