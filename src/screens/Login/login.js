@@ -29,9 +29,9 @@ import { doc, setDoc } from "firebase/firestore";
 const login = () => {
   const [fName, setFname] = useState("");
   const [lName, setLname] = useState("");
-  const [email, setEmail] = useState("sniramsalem1995@gmail.com");
+  const [email, setEmail] = useState("");
   const [avatar,setAvatar] = useState("../../../Pics/istockphoto-1290933921-612x612.jpg")
-  const [password, setPassword] = useState("Asd123asd");
+  const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errMessage, setErrMessage] = useState();
   const [loginView, setLoginView] = useState(true);
