@@ -1,12 +1,14 @@
 import {ScrollView, StyleSheet,} from 'react-native'
 import * as React from 'react';
-import {Card,Text } from 'react-native-paper';
+import {Card,Text,TextInput,Button } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useState } from 'react';
 
 // game information page
 const GameInfo =(props) =>{
   const game = props.route.params.game;
 
+  const [Comment,setComment] = useState('');
     return (
         <LinearGradient style={{width:'100%',height:'100%'}} colors={["#D0DB97","#69B578","#3A7D44","#69B578"]}>
       <ScrollView alwaysBounceHorizontal={false} > 
@@ -24,6 +26,14 @@ const GameInfo =(props) =>{
     <Text style={styles.subTextwhite}>Players: <Text style={styles.txt}>{game.Players}</Text></Text>
     <Text style={styles.subTextwhite}>Summary: <Text style={styles.txt}>{game.Summary}</Text></Text>
     </Card.Content>
+    <TextInput 
+    style={styles.InputText}
+    placeholder='Add a Comment about the game'
+    keyboardType='default'
+    onChangeText={(text) => setComment(text)}
+    value={Comment}
+    ></TextInput>
+    <Button style={styles.addComment}>Add Comment</Button>
     </LinearGradient>
     </Card>
     </ScrollView>
@@ -51,6 +61,22 @@ const styles = StyleSheet.create({
   GameinfoPage:{
     width:'100%',
     height:'100%',
+  },
+  InputText:{
+    backgroundColor: "#ffffff",
+    width: "99%",
+    height: 50,
+    padding:3,
+    borderBottomRightRadius: 24,
+    justifyContent:'flex-start',
+    margin:2
+  },
+  addComment:{
+    borderWidth:1,
+    borderColor:'#000000',
+    width:180,
+    backgroundColor:'#F8E16C',
+    margin:2,
   }
 })
 

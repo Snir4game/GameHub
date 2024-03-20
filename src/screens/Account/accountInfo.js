@@ -1,4 +1,4 @@
-import { View, Text,StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import { View, Text,StyleSheet, Alert } from 'react-native';
 import { Avatar, Button,IconButton} from 'react-native-paper';
 import React, { useState,useEffect } from 'react'
 import {database, auth,doc,updateDoc, collection, query, where, getDocs } from '../../utilis/Firebase-Config';

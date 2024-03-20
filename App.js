@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { collection, addDoc } from 'firebase/firestore';
+import {LogBox,I18nManager } from 'react-native';
 import Login from './src/screens/Login/login';
 import React,{useState,useEffect} from 'react';
-import GameListView from './src/screens/Games/GameList'
 import {onAuthStateChanged} from 'firebase/auth'
 import {auth} from './src/utilis/Firebase-Config'
 import {AppTab} from './src/screens/navigetor';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+I18nManager.forceRTL(false);
+I18nManager.allowRTL(false);
+LogBox.ignoreAllLogs();
 export default function App() {
 
   const [user, setUser] = useState(null);

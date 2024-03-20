@@ -1,6 +1,6 @@
-import { Text, View ,StyleSheet,Alert, FlatList} from 'react-native'
+import { Text, View ,StyleSheet, FlatList} from 'react-native'
 import React, { useState,useEffect } from 'react'
-import {collection,database,getDocs,doc,auth, query, where,getDoc} from '../../utilis/Firebase-Config';
+import {database,doc,auth,getDoc} from '../../utilis/Firebase-Config';
 import FavoriteGameList from './FavoriteGameList';
 import { LinearGradient } from 'expo-linear-gradient'
 const FavoriteGame =(props)=> {

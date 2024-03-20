@@ -1,6 +1,6 @@
-import { StyleSheet, View,Alert,TextInput,FlatList,Image, ScrollView } from 'react-native'
-import React,{useEffect,useState} from 'react'
-import {Title,Text, Button,ActivityIndicator,MD2Colors,IconButton } from 'react-native-paper';
+import { StyleSheet, View,Alert,TextInput} from 'react-native'
+import React,{useState} from 'react'
+import {Button,ActivityIndicator,MD2Colors,IconButton } from 'react-native-paper';
 import {  
   database,
   collection,

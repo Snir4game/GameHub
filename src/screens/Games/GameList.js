@@ -5,7 +5,7 @@ import {
   FlatList,
   Alert,
 } from "react-native";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Searchbar } from "react-native-paper";
 import {
   database,

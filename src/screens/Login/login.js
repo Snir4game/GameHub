@@ -12,7 +12,6 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
-  sendEmailVerification,
 } from "firebase/auth";
 //import lottie
 import LottieView from "lottie-react-native";

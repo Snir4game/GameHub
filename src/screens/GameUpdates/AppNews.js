@@ -1,7 +1,7 @@
-import { View,StyleSheet,FlatList,Alert,Text, ScrollView } from "react-native";
+import { View,StyleSheet,Alert,Text, ScrollView } from "react-native";
 import React,{useState,useEffect} from "react";
 import {collection,database,getDocs,auth,query,where, doc,deleteDoc} from '../../utilis/Firebase-Config';
-import { Button, IconButton } from "react-native-paper";
+import {IconButton } from "react-native-paper";
 
 const AppNews = (props) =>{
 

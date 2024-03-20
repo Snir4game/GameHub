@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet} from 'react-native';
 import { Card,Text } from 'react-native-paper';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const FavoriteGameList = (props) => {
 
