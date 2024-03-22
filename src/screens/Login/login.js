@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { StyleSheet, Text, View, Alert} from "react-native";
+import { StyleSheet, Text, View, Alert,ScrollView} from "react-native";
 import {
   Button,
   TextInput,
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     borderBottomStartRadius: 24,
     borderTopRightRadius: 24,
     width: "80%",
-    height: "50%",
+    height: "60%",
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
@@ -330,13 +330,13 @@ const styles = StyleSheet.create({
   registerView:{
     borderColor:'#000000',
     width:'85%',
-    height:'70%',
+    height:'75%',
     borderWidth:2,
     borderBottomStartRadius: 24,
     borderTopRightRadius: 24,
-    justifyContent:'center',
+    justifyContent:'flex-start',
     alignItems:'center',
-    bottom:90,
+    bottom:95,
   },
   main3: {
     margin: 10,
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
   txtInput: {
     backgroundColor: "#ffffff",
     width: "90%",
-    height: 40,
+    height: 45,
     margin: 12,
     borderWidth: 1,
   },
