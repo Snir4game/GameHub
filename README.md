@@ -19,3 +19,4 @@ A brief guide to help you understand how to get the app to work:
 6.After everything has been updated and downloaded by the software, open Android Studio and download the appropriate phone emulator for your computer. I use an Android phone emulator named Pixel 4 API 27.
 
 And all that's left to do is simply type the following two words in the Visual Studio terminal: npm start.
+ 
